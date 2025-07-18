@@ -39,10 +39,10 @@ public ref struct LoggerContextBuilder()
         var targetPairsCount = _targetPairs.Count;
 
         var targets = new LoggerTarget[targetPairsCount];
-        scoped var targetsSpan = targets.AsSpan();
+        scoped ref var targetsReference = ref MemoryMarshal.GetArrayDataReference(targets);
 
         var renderers = new LogContextRendererSpan[targetPairsCount];
-        scoped var renderersSpan = renderers.AsSpan();
+        scoped ref var renderersReference = ref MemoryMarshal.GetArrayDataReference(renderers);
 
         var targetGroupStartIndex = 0;
         var targetGroupRendererIndex = 0;
@@ -55,7 +55,7 @@ public ref struct LoggerContextBuilder()
 
             var targetGroupInsertIndex = targetGroupStartIndex + 1;
 
-            targetsSpan[targetGroupStartIndex] = targetPair.Value;
+            Unsafe.Add(ref targetsReference, targetGroupStartIndex) = targetPair.Value;
 
             for (var targetPairIndex = targetGroupInsertIndex; targetPairIndex < targetPairsCount; targetPairIndex++)
             {
@@ -72,13 +72,13 @@ public ref struct LoggerContextBuilder()
                     targetPairsSpan[targetGroupInsertIndex] = targetPair;
                 }
 
-                targetsSpan[targetGroupInsertIndex] = targetPairTarget;
+                Unsafe.Add(ref targetsReference, targetGroupInsertIndex) = targetPairTarget;
 
                 ++targetGroupInsertIndex;
                 ++targetGroupRenderersCount;
             }
 
-            renderersSpan[targetGroupRendererIndex++] = new LogContextRendererSpan
+            Unsafe.Add(ref renderersReference, targetGroupRendererIndex++) = new LogContextRendererSpan
             (
                 renderer: targetGroupRenderer,
                 count: targetGroupRenderersCount

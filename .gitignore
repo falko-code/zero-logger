@@ -1,6 +1,5 @@
 # IDE
 .idea/
-!/.idea/.idea.Falko.Talkie/.idea/discord.xml
 .vs/
 .vscode/
 
@@ -9,6 +8,9 @@
 [Pp]ackages/
 [Bb]in/
 [Oo]bj/
+
+# BENCHMARK
+*[Aa]rtifacts/
 
 # SYSTEM
 .DS_Store
