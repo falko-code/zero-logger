@@ -35,6 +35,31 @@ public readonly struct LoggerFactory(LoggerRuntime loggerRuntime)
         return new Logger(loggerRuntime, name);
     }
 
+    public Logger CreateLoggerOfClass<T>() where T : class
+    {
+        var name = typeof(T).Name;
+
+        ArgumentNullException.ThrowIfNull(name);
+
+        return new Logger(loggerRuntime, name);
+    }
+
+    public Logger CreateLoggerOfClass(Type type)
+    {
+        ArgumentNullException.ThrowIfNull(type);
+
+        if (!type.IsClass)
+        {
+            throw new ArgumentException($"Type '{type.FullName}' is not a class.", nameof(type));
+        }
+
+        var name = type.Name;
+
+        ArgumentNullException.ThrowIfNull(name);
+
+        return new Logger(loggerRuntime, name);
+    }
+
     public Logger CreateLoggerOfObject()
     {
         throw new NotImplementedException();
