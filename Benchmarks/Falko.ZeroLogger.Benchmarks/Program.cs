@@ -1,59 +1,11 @@
-﻿using System.Logging.Utils;
-using BenchmarkDotNet.Attributes;
+﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
 
-BenchmarkRunner.Run<DateTimeOffsetBenchmark>();
 BenchmarkRunner.Run<LogIgnoringBenchmark>();
 BenchmarkRunner.Run<LogWritingBenchmark>();
 BenchmarkRunner.Run<LogRenderingBenchmark>();
-
-[MemoryDiagnoser]
-[SimpleJob(RunStrategy.Throughput, RuntimeMoniker.Net90)]
-[SimpleJob(RunStrategy.Throughput, RuntimeMoniker.NativeAot90)]
-[SimpleJob(RunStrategy.Throughput, RuntimeMoniker.Net80)]
-[SimpleJob(RunStrategy.Throughput, RuntimeMoniker.NativeAot80)]
-[MinColumn, MeanColumn, MaxColumn]
-public class DateTimeOffsetBenchmark
-{
-    private readonly DateTimeOffsetProvider _dateTimeOffsetProvider = DateTimeOffsetProvider.Instance;
-
-    private const int Iterations = 100;
-
-    [GlobalSetup]
-    public void Setup()
-    {
-        RenderingLoggerConfigurer.Configure();
-    }
-
-    [Benchmark(Baseline = true)]
-    public void ProvidedTIme()
-    {
-        for (var iteration = 0; iteration < Iterations; iteration++)
-        {
-            _ = _dateTimeOffsetProvider.Now;
-        }
-    }
-
-    [Benchmark]
-    public void CreatedUtcDateTime()
-    {
-        for (var iteration = 0; iteration < Iterations; iteration++)
-        {
-            _ = DateTime.UtcNow;
-        }
-    }
-
-    [Benchmark]
-    public void CreatedTime()
-    {
-        for (var iteration = 0; iteration < Iterations; iteration++)
-        {
-            _ = DateTimeOffset.Now;
-        }
-    }
-}
 
 [MemoryDiagnoser]
 [SimpleJob(RunStrategy.Throughput, RuntimeMoniker.Net90)]

@@ -16,7 +16,7 @@ namespace System.Logging.Loggers;
 [method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 public readonly partial struct Logger(LoggerRuntime loggerRuntime, string loggerSource)
 {
-    private readonly DateTimeOffsetProvider _timeProvider = DateTimeOffsetProvider.Instance;
+    private readonly IDateTimeOffsetProvider _timeProvider = DateTimeOffsetProvider.Current;
 
     #region Log()
 
