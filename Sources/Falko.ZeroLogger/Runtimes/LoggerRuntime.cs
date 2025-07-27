@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace System.Logging.Runtimes;
 
-public sealed partial class LoggerRuntime
+public sealed partial class LoggerRuntime : IDisposable
 {
     public static readonly LoggerRuntime Global = new();
 
