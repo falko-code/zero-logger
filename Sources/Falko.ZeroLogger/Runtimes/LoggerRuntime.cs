@@ -23,11 +23,13 @@ public sealed partial class LoggerRuntime : IDisposable
 
     public readonly LoggerFactory LoggerFactory;
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public LoggerRuntime()
     {
         LoggerFactory = new LoggerFactory(this);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public void Initialize(LoggerContextBuilder loggerBuilder, CancellationToken cancellationToken)
     {
         lock (_locker)
@@ -59,6 +61,7 @@ public sealed partial class LoggerRuntime : IDisposable
         }
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public void Dispose(CancellationToken cancellationToken)
     {
         lock (_locker)

@@ -1,4 +1,5 @@
 using System.Logging.Builders;
+using System.Runtime.CompilerServices;
 
 namespace System.Logging.Runtimes;
 
@@ -8,11 +9,13 @@ public sealed partial class LoggerRuntime
 
     #region Initialize
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Initialize(LoggerContextBuilder loggerBuilder)
     {
         Initialize(loggerBuilder, CancellationToken.None);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Initialize(LoggerContextBuilder loggerBuilder, TimeSpan timeout)
     {
         using var source = CreateTimeoutCancellationSource(timeout);
@@ -24,6 +27,7 @@ public sealed partial class LoggerRuntime
 
     #region Dispose
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Dispose()
     {
         using var source = CreateTimeoutCancellationSource();
@@ -31,6 +35,7 @@ public sealed partial class LoggerRuntime
         Dispose(source.Token);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Dispose(TimeSpan timeout)
     {
         using var source = CreateTimeoutCancellationSource(timeout);
@@ -40,11 +45,13 @@ public sealed partial class LoggerRuntime
 
     #endregion
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static CancellationTokenSource CreateTimeoutCancellationSource()
     {
         return CreateTimeoutCancellationSource(DefaultTimeout);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static CancellationTokenSource CreateTimeoutCancellationSource(TimeSpan timeout)
     {
         var source = new CancellationTokenSource();
