@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 namespace System.Logging.Builders;
 
 [method: MethodImpl(MethodImplOptions.AggressiveInlining)]
-public ref struct LoggerContextBuilder()
+public sealed class LoggerContextBuilder()
 {
     private readonly List<KeyValuePair<ILogContextRenderer, LoggerTarget>> _targetPairs = [];
 
