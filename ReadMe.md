@@ -10,9 +10,9 @@ using var loggerRuntime = LoggerRuntime.Global;
 loggerRuntime.Initialize(new LoggerContextBuilder()
     .SetLevel(LogLevels.InfoAndAbove)
     .AddTarget(SimpleLogContextRenderer.Instance, LoggerConsoleTarget.Instance)
-    .AddTarget(SimpleLogContextRenderer.Instance, new LoggerFileTarget("program", "./Logs")));
+    .AddTarget(SimpleLogContextRenderer.Instance, new LoggerFileTarget("app_name", "./Logs")));
 
-var logger = loggerRuntime.LoggerFactory.CreateLoggerOfType<Program>();
+var logger = typeof(Program).CreateLogger();
 
 logger.Info(static () => "PI is {PI}", static () => Math.PI.ToString("F"));
 ```
