@@ -4,20 +4,22 @@ using System.Logging.Logs;
 using System.Logging.Renderers;
 using System.Logging.Runtimes;
 using System.Logging.Targets;
+using Falko.Examples;
 
-var builder = new LoggerContextBuilder();
+var builder = new LoggerContextBuilder()
+    .SetLevel(LogLevels.DebugAndAbove)
+    .AddTarget(SimpleLogContextRenderer.Instance, LoggerConsoleTarget.Instance)
+    .AddTarget(SimpleLogContextRenderer.Instance, new LoggerFileTarget("program", "./Logs"));
 
-builder.SetLevel(LogLevels.InfoAndAbove);
+using var runtime = LoggerRuntime.Global;
 
-builder.AddTarget(SimpleLogContextRenderer.Instance, LoggerConsoleTarget.Instance);
-builder.AddTarget(SimpleLogContextRenderer.Instance, new LoggerFileTarget("program", "./Logs"));
+runtime.Initialize(builder);
 
-LoggerRuntime.Global.Initialize(builder);
+LoggableStaticClass.Init();
+new LoggableInstanceClass().Init();
 
-var logger = LoggerFactory.Global.CreateLoggerOfType<Program>();
+var logger = typeof(Program).CreateLogger();
 
-logger.Info(static () => "App started");
+logger.Trace(static () => "App started");
 logger.Error(new Exception(), static () => "Error occurred");
-logger.Debug(static () => "CurrentTime: {CurrentTime}", static () => DateTime.Now);
-
-LoggerRuntime.Global.Dispose();
+logger.Info(static () => "CurrentTime: {CurrentTime}", static () => DateTime.Now.TimeOfDay.ToString());
