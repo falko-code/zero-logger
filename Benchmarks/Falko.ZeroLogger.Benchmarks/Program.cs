@@ -1,4 +1,5 @@
-﻿using BenchmarkDotNet.Attributes;
+﻿using System.Logging.Factories;
+using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
@@ -15,8 +16,8 @@ BenchmarkRunner.Run<LogRenderingBenchmark>();
 [MinColumn, MeanColumn, MaxColumn]
 public class LogIgnoringBenchmark
 {
-    private static readonly System.Logging.Loggers.Logger ZeroLogger = System.Logging.Runtimes.LoggerRuntime.Global.LoggerFactory
-        .CreateLoggerOfType<LogIgnoringBenchmark>();
+    private static readonly System.Logging.Loggers.Logger ZeroLogger = typeof(LogIgnoringBenchmark)
+        .CreateLogger();
 
     private static readonly NLog.Logger NLogLogger = NLog.LogManager
         .GetCurrentClassLogger();
@@ -74,8 +75,8 @@ public class LogIgnoringBenchmark
 [MinColumn, MeanColumn, MaxColumn]
 public class LogRenderingBenchmark
 {
-    private static readonly System.Logging.Loggers.Logger ZeroLogger = System.Logging.Runtimes.LoggerRuntime.Global.LoggerFactory
-        .CreateLoggerOfType<LogRenderingBenchmark>();
+    private static readonly System.Logging.Loggers.Logger ZeroLogger = typeof(LogRenderingBenchmark)
+        .CreateLogger();
 
     private static readonly NLog.Logger NLogLogger = NLog.LogManager
         .GetCurrentClassLogger();
@@ -133,8 +134,8 @@ public class LogRenderingBenchmark
 [MinColumn, MeanColumn, MaxColumn]
 public class LogWritingBenchmark
 {
-    private static readonly System.Logging.Loggers.Logger ZeroLogger = System.Logging.Runtimes.LoggerRuntime.Global.LoggerFactory
-        .CreateLoggerOfType<LogWritingBenchmark>();
+    private static readonly System.Logging.Loggers.Logger ZeroLogger = typeof(LogWritingBenchmark)
+        .CreateLogger();
 
     private static readonly NLog.Logger NLogLogger = NLog.LogManager
         .GetCurrentClassLogger();
