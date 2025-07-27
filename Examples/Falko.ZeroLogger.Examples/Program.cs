@@ -1,19 +1,14 @@
-﻿using System.Logging.Builders;
-using System.Logging.Factories;
+﻿using System.Logging.Factories;
 using System.Logging.Logs;
 using System.Logging.Renderers;
 using System.Logging.Runtimes;
 using System.Logging.Targets;
 using Falko.Examples;
 
-var builder = new LoggerContextBuilder()
+using var loggerRuntime = LoggerRuntime.Global.Initialize(builder => builder
     .SetLevel(LogLevels.DebugAndAbove)
     .AddTarget(SimpleLogContextRenderer.Instance, LoggerConsoleTarget.Instance)
-    .AddTarget(SimpleLogContextRenderer.Instance, new LoggerFileTarget("program", "./Logs"));
-
-using var runtime = LoggerRuntime.Global;
-
-runtime.Initialize(builder);
+    .AddTarget(SimpleLogContextRenderer.Instance, new LoggerFileTarget("program", "./Logs")));
 
 LoggableStaticClass.Init();
 new LoggableInstanceClass().Init();
