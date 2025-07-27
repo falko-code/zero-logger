@@ -5,14 +5,12 @@
 High-Performance Static Structured Logger with Minimal Allocations.
 
 ```C#
-using var loggerRuntime = LoggerRuntime.Global;
-
-loggerRuntime.Initialize(new LoggerContextBuilder()
+using var loggerRuntime = new LoggerRuntime().Initialize(builder => builder
     .SetLevel(LogLevels.InfoAndAbove)
     .AddTarget(SimpleLogContextRenderer.Instance, LoggerConsoleTarget.Instance)
     .AddTarget(SimpleLogContextRenderer.Instance, new LoggerFileTarget("app_name", "./Logs")));
 
-var logger = typeof(Program).CreateLogger();
+var logger = typeof(Program).CreateLogger(loggerRuntime);
 
 logger.Info(static () => "PI is {PI}", static () => Math.PI.ToString("F"));
 ```
