@@ -35,8 +35,11 @@ public sealed class LoggerContextBuilder()
     [MethodImpl(MethodImplOptions.NoInlining)]
     internal LoggerContext Build(CancellationToken cancellationToken)
     {
-        scoped var targetPairsSpan = CollectionsMarshal.AsSpan(_targetPairs);
         var targetPairsCount = _targetPairs.Count;
+
+        if (targetPairsCount is 0) return LoggerContext.Empty;
+
+        scoped var targetPairsSpan = CollectionsMarshal.AsSpan(_targetPairs);
 
         var targets = new LoggerTarget[targetPairsCount];
         scoped ref var targetsReference = ref MemoryMarshal.GetArrayDataReference(targets);
