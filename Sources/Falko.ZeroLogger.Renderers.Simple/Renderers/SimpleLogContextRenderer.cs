@@ -46,6 +46,7 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
 
     private const int BlockMinimumLength = 3;
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private SimpleLogContextRenderer() { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
@@ -180,6 +181,7 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
         messageBuilder.Append(NewLine);
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static string FormatLevel(LogLevel level)
     {
         var index = BitOperations.TrailingZeroCount((int)level);
@@ -187,6 +189,7 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
         return LevelShortNames[index];
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static void AppendTime(scoped ref ValueStringBuilder messageBuilder, DateTimeOffset time)
     {
         messageBuilder.Append(TimeHeaderLength, time.TimeOfDay, static (buffer, time) =>

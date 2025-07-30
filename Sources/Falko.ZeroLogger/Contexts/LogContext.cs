@@ -1,8 +1,10 @@
 using System.Logging.Logs;
 using System.Logging.Renderers;
+using System.Runtime.CompilerServices;
 
 namespace System.Logging.Contexts;
 
+[method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 public readonly struct LogContext(string source, LogLevel level, DateTimeOffset time, ILogMessageRenderer message)
 {
     public string Source => source;
