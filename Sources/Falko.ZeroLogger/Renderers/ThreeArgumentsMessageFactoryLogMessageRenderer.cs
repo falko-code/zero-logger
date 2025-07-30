@@ -15,8 +15,8 @@ internal sealed class ThreeArgumentsMessageFactoryLogMessageRenderer<T1, T2, T3>
     protected override string RenderCore()
     {
         return MessageArgumentsInterpolationUtils.Interpolate(messageFactory(),
-            argument1.Factory(argument1.Value),
-            argument2.Factory(argument2.Value),
-            argument3.Factory(argument3.Value));
+            argument1.ArgumentFactory(argument1.Argument),
+            argument2.ArgumentFactory(argument2.Argument),
+            argument3.ArgumentFactory(argument3.Argument));
     }
 }

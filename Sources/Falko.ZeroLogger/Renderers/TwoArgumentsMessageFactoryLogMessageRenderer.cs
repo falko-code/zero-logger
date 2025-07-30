@@ -14,7 +14,7 @@ internal sealed class TwoArgumentsMessageFactoryLogMessageRenderer<T1, T2>
     protected override string RenderCore()
     {
         return MessageArgumentsInterpolationUtils.Interpolate(messageFactory(),
-            argument1.Factory(argument1.Value),
-            argument2.Factory(argument2.Value));
+            argument1.ArgumentFactory(argument1.Argument),
+            argument2.ArgumentFactory(argument2.Argument));
     }
 }

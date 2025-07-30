@@ -1,10 +1,42 @@
 using System.Logging.Factories;
+using System.Logging.Utils;
+using System.Runtime.CompilerServices;
 
 namespace System.Logging.Logs;
 
-public readonly struct LogMessageArgument<T>(T value, LogMessageArgumentFactory<T> factory)
+public static class LogMessageArgument
 {
-    public readonly T Value = value;
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static LogMessageArgument<T> Create<T>(T argument, LogMessageArgumentFactory<T> argumentFactory)
+    {
+        ArgumentNullException.ThrowIfNull(argumentFactory, nameof(argumentFactory));
 
-    public readonly LogMessageArgumentFactory<T> Factory = factory;
+        return new LogMessageArgument<T>
+        (
+            argument: argument,
+            argumentFactory: argumentFactory
+        );
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static LogMessageArgument<T> Create<T>(T argument)
+    {
+        return new LogMessageArgument<T>
+        (
+            argument: argument,
+            argumentFactory: static argument => StringUtils.ToString(argument)
+        );
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static LogMessageArgument<LogMessageArgumentFactory> Create(LogMessageArgumentFactory argumentFactory)
+    {
+        ArgumentNullException.ThrowIfNull(argumentFactory, nameof(argumentFactory));
+
+        return new LogMessageArgument<LogMessageArgumentFactory>
+        (
+            argument: argumentFactory,
+            argumentFactory: static argumentFactory => argumentFactory()
+        );
+    }
 }
