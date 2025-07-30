@@ -10,6 +10,7 @@ public readonly struct LogMessageArgument<T>(T argument, LogMessageArgumentFacto
 
     public readonly LogMessageArgumentFactory<T> ArgumentFactory = argumentFactory;
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public LogMessageArgumentFactory ToFactory()
     {
         var argument = Argument;
