@@ -36,7 +36,7 @@ public sealed class LoggerFileTargetTester
         var logFileInfo = new FileInfo(logFile!);
         Assert.That(logFileInfo.Length, Is.GreaterThan(0), "Log file should not be empty");
 
-        var logLines = System.IO.File.ReadAllLines(logFile!);
+        var logLines = System.IO.File.ReadLines(logFile!);
         var foundNumbers = ExtractNumbersFromLines(logLines);
 
         AssertAllMessagesPresent(foundNumbers, messageCount);
