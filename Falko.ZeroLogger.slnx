@@ -26,4 +26,7 @@
     <Project Path="Sources\Falko.ZeroLogger.Targets.File\Falko.ZeroLogger.Targets.File.csproj" Type="Classic C#" />
     <Project Path="Sources\Falko.ZeroLogger\Falko.ZeroLogger.csproj" Type="Classic C#" />
   </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests\Falko.ZeroLogger.Targets.File.Tests\Falko.ZeroLogger.Targets.File.Tests.csproj" Type="Classic C#" />
+  </Folder>
 </Solution>
