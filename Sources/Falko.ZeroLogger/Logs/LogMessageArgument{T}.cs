@@ -9,4 +9,7 @@ public readonly struct LogMessageArgument<T>(T argument, LogMessageArgumentFacto
     public readonly T Argument = argument;
 
     public readonly LogMessageArgumentFactory<T> ArgumentFactory = argumentFactory;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public override string? ToString() => ArgumentFactory(Argument);
 }

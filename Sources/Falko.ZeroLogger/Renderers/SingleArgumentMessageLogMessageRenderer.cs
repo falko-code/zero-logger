@@ -12,6 +12,6 @@ internal sealed class SingleArgumentMessageLogMessageRenderer<T>
     protected override string RenderCore()
     {
         return MessageArgumentsInterpolationUtils.Interpolate(message,
-            argument.ArgumentFactory(argument.Argument));
+            argument.ToString());
     }
 }
