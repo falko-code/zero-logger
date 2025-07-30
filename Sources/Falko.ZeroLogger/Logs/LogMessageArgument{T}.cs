@@ -13,10 +13,9 @@ public readonly struct LogMessageArgument<T>(T argument, LogMessageArgumentFacto
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public LogMessageArgumentFactory ToFactory()
     {
-        var argument = Argument;
-        var argumentFactory = ArgumentFactory;
+        var @this = this;
 
-        return () => argumentFactory(argument);
+        return () => @this.ToString();
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
