@@ -12,69 +12,69 @@ public readonly partial struct Logger
     #region Log()
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(DefaultInterpolatedStringHandler messageHandler)
+    public void Emit(LogLevel level, DefaultInterpolatedStringHandler messageHandler)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageHandler.ToStringAndClear());
+            Log(loggerContext, level, messageHandler.ToStringAndClear());
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, DefaultInterpolatedStringHandler messageHandler)
+    public void Emit(LogLevel level, Exception? exception, DefaultInterpolatedStringHandler messageHandler)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageHandler.ToStringAndClear());
+            Log(loggerContext, level, exception, messageHandler.ToStringAndClear());
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message)
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message);
+            Log(loggerContext, level, message);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message)
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message);
+            Log(loggerContext, level, exception, message);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory)
+    public void Emit(LogLevel level, LogMessageFactory messageFactory)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info,
+            Log(loggerContext, level,
                 messageFactory);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory)
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception,
+            Log(loggerContext, level, exception,
                 messageFactory);
         }
     }
@@ -84,53 +84,53 @@ public readonly partial struct Logger
     #region Log(short)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         short argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         short argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         short argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         short argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -140,53 +140,53 @@ public readonly partial struct Logger
     #region Log(ushort)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         ushort argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         ushort argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         ushort argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         ushort argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -196,53 +196,53 @@ public readonly partial struct Logger
     #region Log(int)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         int argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         int argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         int argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         int argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -252,53 +252,53 @@ public readonly partial struct Logger
     #region Log(nint)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         nint argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         nint argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         nint argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         nint argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -308,53 +308,53 @@ public readonly partial struct Logger
     #region Log(uint)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         uint argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         uint argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         uint argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         uint argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -364,53 +364,53 @@ public readonly partial struct Logger
     #region Log(nuint)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         nuint argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         nuint argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         nuint argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         nuint argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -420,53 +420,53 @@ public readonly partial struct Logger
     #region Log(long)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         long argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         long argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         long argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         long argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -476,53 +476,53 @@ public readonly partial struct Logger
     #region Log(ulong)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         ulong argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         ulong argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         ulong argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         ulong argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -532,53 +532,53 @@ public readonly partial struct Logger
     #region Log(BigInteger)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         BigInteger argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         BigInteger argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         BigInteger argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         BigInteger argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -588,53 +588,53 @@ public readonly partial struct Logger
     #region Log(float)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         float argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         float argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         float argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         float argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -644,53 +644,53 @@ public readonly partial struct Logger
     #region Log(double)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         double argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         double argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         double argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         double argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -700,53 +700,53 @@ public readonly partial struct Logger
     #region Log(decimal)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         decimal argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         decimal argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         decimal argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         decimal argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -756,53 +756,53 @@ public readonly partial struct Logger
     #region Log(Guid)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         Guid argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         Guid argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         Guid argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         Guid argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -812,53 +812,53 @@ public readonly partial struct Logger
     #region Log(TimeSpan)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         TimeSpan argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         TimeSpan argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         TimeSpan argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         TimeSpan argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -868,53 +868,53 @@ public readonly partial struct Logger
     #region Log(TimeOnly)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         TimeOnly argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         TimeOnly argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         TimeOnly argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         TimeOnly argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -924,53 +924,53 @@ public readonly partial struct Logger
     #region Log(DateTime)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         DateTime argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         DateTime argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         DateTime argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         DateTime argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -980,53 +980,53 @@ public readonly partial struct Logger
     #region Log(DateTimeOffset)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         DateTimeOffset argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         DateTimeOffset argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         DateTimeOffset argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         DateTimeOffset argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -1036,53 +1036,53 @@ public readonly partial struct Logger
     #region Log(DateOnly)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         DateOnly argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         DateOnly argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         DateOnly argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         DateOnly argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -1092,53 +1092,53 @@ public readonly partial struct Logger
     #region Log(byte)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         byte argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         byte argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         byte argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         byte argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -1148,53 +1148,53 @@ public readonly partial struct Logger
     #region Log(sbyte)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         sbyte argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         sbyte argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         sbyte argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         sbyte argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -1204,53 +1204,53 @@ public readonly partial struct Logger
     #region Log(char)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         char argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         char argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         char argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         char argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -1260,53 +1260,53 @@ public readonly partial struct Logger
     #region Log(string)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         string? argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         string? argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         string? argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         string? argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -1316,60 +1316,60 @@ public readonly partial struct Logger
     #region Log(string, string)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         string? argument1,
         string? argument2)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         string? argument1,
         string? argument2)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory message,
+    public void Emit(LogLevel level, LogMessageFactory message,
         string? argument1,
         string? argument2)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory message,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory message,
         string? argument1,
         string? argument2)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2);
         }
@@ -1380,16 +1380,16 @@ public readonly partial struct Logger
     #region Log(string, string, string)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         string? argument1,
         string? argument2,
         string? argument3)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2,
                 argument3);
@@ -1397,16 +1397,16 @@ public readonly partial struct Logger
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         string? argument1,
         string? argument2,
         string? argument3)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2,
                 argument3);
@@ -1414,16 +1414,16 @@ public readonly partial struct Logger
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory message,
+    public void Emit(LogLevel level, LogMessageFactory message,
         string? argument1,
         string? argument2,
         string? argument3)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2,
                 argument3);
@@ -1431,16 +1431,16 @@ public readonly partial struct Logger
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory message,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory message,
         string? argument1,
         string? argument2,
         string? argument3)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2,
                 argument3);
@@ -1452,7 +1452,7 @@ public readonly partial struct Logger
     #region Log(string, string, string, string)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         string? argument1,
         string? argument2,
         string? argument3,
@@ -1460,9 +1460,9 @@ public readonly partial struct Logger
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2,
                 argument3,
@@ -1471,7 +1471,7 @@ public readonly partial struct Logger
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         string? argument1,
         string? argument2,
         string? argument3,
@@ -1479,9 +1479,9 @@ public readonly partial struct Logger
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2,
                 argument3,
@@ -1490,7 +1490,7 @@ public readonly partial struct Logger
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory message,
+    public void Emit(LogLevel level, LogMessageFactory message,
         string? argument1,
         string? argument2,
         string? argument3,
@@ -1498,9 +1498,9 @@ public readonly partial struct Logger
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2,
                 argument3,
@@ -1509,7 +1509,7 @@ public readonly partial struct Logger
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory message,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory message,
         string? argument1,
         string? argument2,
         string? argument3,
@@ -1517,9 +1517,9 @@ public readonly partial struct Logger
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2,
                 argument3,
@@ -1532,53 +1532,53 @@ public readonly partial struct Logger
     #region Log(string...)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         params string?[] arguments)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 arguments);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         params string?[] arguments)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 arguments);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory message,
+    public void Emit(LogLevel level, LogMessageFactory message,
         params string?[] arguments)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 arguments);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory message,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory message,
         params string?[] arguments)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 arguments);
         }
     }
@@ -1587,50 +1587,50 @@ public readonly partial struct Logger
 
     #region Log(T)
 
-    public void Info<T>([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit<T>(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         T argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
-    public void Info<T>(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit<T>(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         T argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
-    public void Info<T>(LogMessageFactory messageFactory,
+    public void Emit<T>(LogLevel level, LogMessageFactory messageFactory,
         T argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
-    public void Info<T>(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit<T>(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         T argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -1639,57 +1639,57 @@ public readonly partial struct Logger
 
     #region Log(T, T)
 
-    public void Info<T1, T2>([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit<T1, T2>(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         T1 argument1,
         T2 argument2)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2);
         }
     }
 
-    public void Info<T1, T2>(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit<T1, T2>(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         T1 argument1,
         T2 argument2)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2);
         }
     }
 
-    public void Info<T1, T2>(LogMessageFactory message,
+    public void Emit<T1, T2>(LogLevel level, LogMessageFactory message,
         T1 argument1,
         T2 argument2)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2);
         }
     }
 
-    public void Info<T1, T2>(Exception? exception, LogMessageFactory message,
+    public void Emit<T1, T2>(LogLevel level, Exception? exception, LogMessageFactory message,
         T1 argument1,
         T2 argument2)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2);
         }
@@ -1699,64 +1699,64 @@ public readonly partial struct Logger
 
     #region Log(T, T, T)
 
-    public void Info<T1, T2, T3>([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit<T1, T2, T3>(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         T1 argument1,
         T2 argument2,
         T3 argument3)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2,
                 argument3);
         }
     }
 
-    public void Info<T1, T2, T3>(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit<T1, T2, T3>(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         T1 argument1,
         T2 argument2,
         T3 argument3)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2,
                 argument3);
         }
     }
 
-    public void Info<T1, T2, T3>(LogMessageFactory message,
+    public void Emit<T1, T2, T3>(LogLevel level, LogMessageFactory message,
         T1 argument1,
         T2 argument2,
         T3 argument3)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2,
                 argument3);
         }
     }
 
-    public void Info<T1, T2, T3>(Exception? exception, LogMessageFactory message,
+    public void Emit<T1, T2, T3>(LogLevel level, Exception? exception, LogMessageFactory message,
         T1 argument1,
         T2 argument2,
         T3 argument3)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2,
                 argument3);
@@ -1767,7 +1767,7 @@ public readonly partial struct Logger
 
     #region Log(T, T, T, T)
 
-    public void Info<T1, T2, T3, T4>([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit<T1, T2, T3, T4>(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         T1 argument1,
         T2 argument2,
         T3 argument3,
@@ -1775,9 +1775,9 @@ public readonly partial struct Logger
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2,
                 argument3,
@@ -1785,7 +1785,7 @@ public readonly partial struct Logger
         }
     }
 
-    public void Info<T1, T2, T3, T4>(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit<T1, T2, T3, T4>(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         T1 argument1,
         T2 argument2,
         T3 argument3,
@@ -1793,9 +1793,9 @@ public readonly partial struct Logger
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2,
                 argument3,
@@ -1803,7 +1803,7 @@ public readonly partial struct Logger
         }
     }
 
-    public void Info<T1, T2, T3, T4>(LogMessageFactory message,
+    public void Emit<T1, T2, T3, T4>(LogLevel level, LogMessageFactory message,
         T1 argument1,
         T2 argument2,
         T3 argument3,
@@ -1811,9 +1811,9 @@ public readonly partial struct Logger
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2,
                 argument3,
@@ -1821,7 +1821,7 @@ public readonly partial struct Logger
         }
     }
 
-    public void Info<T1, T2, T3, T4>(Exception? exception, LogMessageFactory message,
+    public void Emit<T1, T2, T3, T4>(LogLevel level, Exception? exception, LogMessageFactory message,
         T1 argument1,
         T2 argument2,
         T3 argument3,
@@ -1829,9 +1829,9 @@ public readonly partial struct Logger
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2,
                 argument3,
@@ -1844,53 +1844,53 @@ public readonly partial struct Logger
     #region Log(object...)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         params object?[] arguments)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 arguments);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         params object?[] arguments)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 arguments);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory message,
+    public void Emit(LogLevel level, LogMessageFactory message,
         params object?[] arguments)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 arguments);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory message,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory message,
         params object?[] arguments)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 arguments);
         }
     }
@@ -1899,50 +1899,50 @@ public readonly partial struct Logger
 
     #region Log(LogMessageArgument)
 
-    public void Info<T>([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit<T>(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgument<T> argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument);
         }
     }
 
-    public void Info<T>(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit<T>(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgument<T> argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument);
         }
     }
 
-    public void Info<T>(LogMessageFactory messageFactory,
+    public void Emit<T>(LogLevel level, LogMessageFactory messageFactory,
         LogMessageArgument<T> argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
                 argument);
         }
     }
 
-    public void Info<T>(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit<T>(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         LogMessageArgument<T> argument)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
                 argument);
         }
     }
@@ -1951,57 +1951,57 @@ public readonly partial struct Logger
 
     #region Log(LogMessageArgument, LogMessageArgument)
 
-    public void Info<T1, T2>([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit<T1, T2>(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2);
         }
     }
 
-    public void Info<T1, T2>(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit<T1, T2>(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2);
         }
     }
 
-    public void Info<T1, T2>(LogMessageFactory message,
+    public void Emit<T1, T2>(LogLevel level, LogMessageFactory message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2);
         }
     }
 
-    public void Info<T1, T2>(Exception? exception, LogMessageFactory message,
+    public void Emit<T1, T2>(LogLevel level, Exception? exception, LogMessageFactory message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2);
         }
@@ -2011,64 +2011,64 @@ public readonly partial struct Logger
 
     #region Log(LogMessageArgument, LogMessageArgument, LogMessageArgument)
 
-    public void Info<T1, T2, T3>([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit<T1, T2, T3>(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2,
         LogMessageArgument<T3> argument3)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2,
                 argument3);
         }
     }
 
-    public void Info<T1, T2, T3>(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit<T1, T2, T3>(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2,
         LogMessageArgument<T3> argument3)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2,
                 argument3);
         }
     }
 
-    public void Info<T1, T2, T3>(LogMessageFactory message,
+    public void Emit<T1, T2, T3>(LogLevel level, LogMessageFactory message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2,
         LogMessageArgument<T3> argument3)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2,
                 argument3);
         }
     }
 
-    public void Info<T1, T2, T3>(Exception? exception, LogMessageFactory message,
+    public void Emit<T1, T2, T3>(LogLevel level, Exception? exception, LogMessageFactory message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2,
         LogMessageArgument<T3> argument3)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2,
                 argument3);
@@ -2079,7 +2079,7 @@ public readonly partial struct Logger
 
     #region Log(LogMessageArgument, LogMessageArgument, LogMessageArgument, LogMessageArgument)
 
-    public void Info<T1, T2, T3, T4>([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit<T1, T2, T3, T4>(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2,
         LogMessageArgument<T3> argument3,
@@ -2087,9 +2087,9 @@ public readonly partial struct Logger
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2,
                 argument3,
@@ -2097,7 +2097,7 @@ public readonly partial struct Logger
         }
     }
 
-    public void Info<T1, T2, T3, T4>(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit<T1, T2, T3, T4>(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2,
         LogMessageArgument<T3> argument3,
@@ -2105,9 +2105,9 @@ public readonly partial struct Logger
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2,
                 argument3,
@@ -2115,7 +2115,7 @@ public readonly partial struct Logger
         }
     }
 
-    public void Info<T1, T2, T3, T4>(LogMessageFactory message,
+    public void Emit<T1, T2, T3, T4>(LogLevel level, LogMessageFactory message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2,
         LogMessageArgument<T3> argument3,
@@ -2123,9 +2123,9 @@ public readonly partial struct Logger
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argument1,
                 argument2,
                 argument3,
@@ -2133,7 +2133,7 @@ public readonly partial struct Logger
         }
     }
 
-    public void Info<T1, T2, T3, T4>(Exception? exception, LogMessageFactory message,
+    public void Emit<T1, T2, T3, T4>(LogLevel level, Exception? exception, LogMessageFactory message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2,
         LogMessageArgument<T3> argument3,
@@ -2141,9 +2141,9 @@ public readonly partial struct Logger
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argument1,
                 argument2,
                 argument3,
@@ -2156,53 +2156,53 @@ public readonly partial struct Logger
     #region Log(LogMessageArgumentFactory)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgumentFactory argumentFactory)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
             argumentFactory);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgumentFactory argumentFactory)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
             argumentFactory);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, LogMessageFactory messageFactory,
         LogMessageArgumentFactory argumentFactory)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, messageFactory,
+            Log(loggerContext, level, messageFactory,
             argumentFactory);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory messageFactory,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         LogMessageArgumentFactory argumentFactory)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, messageFactory,
+            Log(loggerContext, level, exception, messageFactory,
             argumentFactory);
         }
     }
@@ -2212,60 +2212,60 @@ public readonly partial struct Logger
     #region Log(LogMessageArgumentFactory, LogMessageArgumentFactory)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgumentFactory argumentFactory1,
         LogMessageArgumentFactory argumentFactory2)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argumentFactory1,
                 argumentFactory2);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgumentFactory argumentFactory1,
         LogMessageArgumentFactory argumentFactory2)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argumentFactory1,
                 argumentFactory2);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory message,
+    public void Emit(LogLevel level, LogMessageFactory message,
         LogMessageArgumentFactory argumentFactory1,
         LogMessageArgumentFactory argumentFactory2)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argumentFactory1,
                 argumentFactory2);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory message,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory message,
         LogMessageArgumentFactory argumentFactory1,
         LogMessageArgumentFactory argumentFactory2)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argumentFactory1,
                 argumentFactory2);
         }
@@ -2276,16 +2276,16 @@ public readonly partial struct Logger
     #region Log(LogMessageArgumentFactory, LogMessageArgumentFactory, LogMessageArgumentFactory)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgumentFactory argumentFactory1,
         LogMessageArgumentFactory argumentFactory2,
         LogMessageArgumentFactory argumentFactory3)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argumentFactory1,
                 argumentFactory2,
                 argumentFactory3);
@@ -2293,16 +2293,16 @@ public readonly partial struct Logger
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgumentFactory argumentFactory1,
         LogMessageArgumentFactory argumentFactory2,
         LogMessageArgumentFactory argumentFactory3)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argumentFactory1,
                 argumentFactory2,
                 argumentFactory3);
@@ -2310,16 +2310,16 @@ public readonly partial struct Logger
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory message,
+    public void Emit(LogLevel level, LogMessageFactory message,
         LogMessageArgumentFactory argumentFactory1,
         LogMessageArgumentFactory argumentFactory2,
         LogMessageArgumentFactory argumentFactory3)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argumentFactory1,
                 argumentFactory2,
                 argumentFactory3);
@@ -2327,16 +2327,16 @@ public readonly partial struct Logger
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory message,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory message,
         LogMessageArgumentFactory argumentFactory1,
         LogMessageArgumentFactory argumentFactory2,
         LogMessageArgumentFactory argumentFactory3)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argumentFactory1,
                 argumentFactory2,
                 argumentFactory3);
@@ -2348,7 +2348,7 @@ public readonly partial struct Logger
     #region Log(LogMessageArgumentFactory, LogMessageArgumentFactory, LogMessageArgumentFactory, LogMessageArgumentFactory)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgumentFactory argumentFactory1,
         LogMessageArgumentFactory argumentFactory2,
         LogMessageArgumentFactory argumentFactory3,
@@ -2356,9 +2356,9 @@ public readonly partial struct Logger
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argumentFactory1,
                 argumentFactory2,
                 argumentFactory3,
@@ -2367,7 +2367,7 @@ public readonly partial struct Logger
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgumentFactory argumentFactory1,
         LogMessageArgumentFactory argumentFactory2,
         LogMessageArgumentFactory argumentFactory3,
@@ -2375,9 +2375,9 @@ public readonly partial struct Logger
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argumentFactory1,
                 argumentFactory2,
                 argumentFactory3,
@@ -2386,7 +2386,7 @@ public readonly partial struct Logger
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory message,
+    public void Emit(LogLevel level, LogMessageFactory message,
         LogMessageArgumentFactory argumentFactory1,
         LogMessageArgumentFactory argumentFactory2,
         LogMessageArgumentFactory argumentFactory3,
@@ -2394,9 +2394,9 @@ public readonly partial struct Logger
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argumentFactory1,
                 argumentFactory2,
                 argumentFactory3,
@@ -2405,7 +2405,7 @@ public readonly partial struct Logger
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory message,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory message,
         LogMessageArgumentFactory argumentFactory1,
         LogMessageArgumentFactory argumentFactory2,
         LogMessageArgumentFactory argumentFactory3,
@@ -2413,9 +2413,9 @@ public readonly partial struct Logger
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argumentFactory1,
                 argumentFactory2,
                 argumentFactory3,
@@ -2428,53 +2428,53 @@ public readonly partial struct Logger
     #region Log(LogMessageArgumentFactory...)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info([Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         params LogMessageArgumentFactory[] argumentFactories)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argumentFactories);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         params LogMessageArgumentFactory[] argumentFactories)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argumentFactories);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(LogMessageFactory message,
+    public void Emit(LogLevel level, LogMessageFactory message,
         params LogMessageArgumentFactory[] argumentFactories)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, message,
+            Log(loggerContext, level, message,
                 argumentFactories);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Info(Exception? exception, LogMessageFactory message,
+    public void Emit(LogLevel level, Exception? exception, LogMessageFactory message,
         params LogMessageArgumentFactory[] argumentFactories)
     {
         var loggerContext = loggerRuntime.LoggerContext;
 
-        if (loggerContext.IsInfoLevelEnabled)
+        if (loggerContext.Level.IsEnabled(level))
         {
-            Log(loggerContext, LogLevel.Info, exception, message,
+            Log(loggerContext, level, exception, message,
                 argumentFactories);
         }
     }
