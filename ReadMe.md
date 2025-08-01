@@ -5,6 +5,9 @@
 
 ![NuGet Version](https://img.shields.io/nuget/v/Falko.ZeroLogger?style=for-the-badge&color=green)
 ![NuGet Version](https://img.shields.io/nuget/vpre/Falko.ZeroLogger?style=for-the-badge&color=red)
+![SDK Version](https://img.shields.io/badge/SDK-.net9%2C_.net8-gray?style=for-the-badge)
+![CSharp Version](https://img.shields.io/badge/LANG-CSharp13-gray?style=for-the-badge)
+![GitHub License](https://img.shields.io/github/license/falko-code/zero-logger?style=for-the-badge&color=gray)
 
 High-performance static structured logger with minimal allocations.
 
