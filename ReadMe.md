@@ -6,7 +6,7 @@
 ![NuGet Version](https://img.shields.io/nuget/v/Falko.ZeroLogger?style=for-the-badge&color=green)
 ![NuGet Version](https://img.shields.io/nuget/vpre/Falko.ZeroLogger?style=for-the-badge&color=red)
 
-**High-performance static structured logger with minimal allocations.**
+High-performance static structured logger with minimal allocations.
 
 ```C#
 using var loggerRuntime = new LoggerRuntime().Initialize(builder => builder
@@ -49,4 +49,4 @@ RunStrategy=Throughput
 
 This project is licensed under the **[GNU General Public License v3.0](License.md)**.
 
-**© 2025, Falko.**
+**© 2025, Falko**
