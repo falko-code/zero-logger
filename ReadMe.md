@@ -1,8 +1,12 @@
-# Zero Logger - Static Logger with Minimal Allocations
+> [!WARNING]
+> This project is under active development. The underlying C# libraries are subject to change.
 
-> The project is under active development. The underlying C# libraries are subject to change.
+# Zero Logger
 
-High-Performance Static Structured Logger with Minimal Allocations.
+![NuGet Version](https://img.shields.io/nuget/v/Falko.ZeroLogger?style=for-the-badge&color=green)
+![NuGet Version](https://img.shields.io/nuget/vpre/Falko.ZeroLogger?style=for-the-badge&color=red)
+
+**High-performance static structured logger with minimal allocations.**
 
 ```C#
 using var loggerRuntime = new LoggerRuntime().Initialize(builder => builder
@@ -17,9 +21,7 @@ logger.Info(static () => "PI is {PI}", static () => Math.PI.ToString("F"));
 
 ## Performance
 
-Compare the performance of the Zero Logger with the NLog library.
-
-### Performance with One Hundred Dynamic Log Message Iterations with Same Static Layout for Three Rendering Only Targets
+Compare the performance of the **Zero Logger** with the **NLog Logger**.
 
 ```bash
 BenchmarkDotNet v0.14.0, Ubuntu 24.04.2 LTS (Noble Numbat)
@@ -43,10 +45,8 @@ RunStrategy=Throughput
 | RenderZeroLoggerStaticLog   | .NET 8.0      | 18.78 us |  0.39 |   25.7 KB |        0.24 |
 | RenderNLogLoggerLog         | .NET 8.0      | 48.20 us |  1.00 | 105.47 KB |        1.00 |
 
-
-
 ## License
 
-This project is licensed under the [GNU General Public License v3.0](License.md).
+This project is licensed under the **[GNU General Public License v3.0](License.md)**.
 
-**© 2025, Falko**
+**© 2025, Falko.**
