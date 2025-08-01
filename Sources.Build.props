@@ -4,6 +4,7 @@
     <PropertyGroup Label="Assembly">
         <IsPackable>true</IsPackable>
         <Optimize Condition="$(Configuration) == 'Release'">true</Optimize>
+        <SkipLocalsInit>true</SkipLocalsInit>
         <DebugType>portable</DebugType>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
