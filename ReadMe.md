@@ -26,12 +26,11 @@ logger.Info(static () => "PI is {PI}", static () => Math.PI.ToString("F"));
 
 Compare the performance of the **Zero Logger** with the **NLog Logger**.
 
-```bash
+```console
 BenchmarkDotNet v0.15.2, Linux Rocky Linux 10.0 (Red Quartz)
 AMD EPYC-Rome Processor, 1 CPU, 1 logical core and 1 physical core
-.NET SDK 9.0.108
-  Job-YMTBHZ : .NET 8.0.18 (8.0.1825.31117), X64 RyuJIT AVX2
-  Job-MGLFMG : .NET 9.0.7 (9.0.725.31616), X64 RyuJIT AVX2
+.NET 8.0.18 (8.0.1825.31117), X64 RyuJIT AVX2
+.NET 9.0.7 (9.0.725.31616), X64 RyuJIT AVX2
 gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-7)
 LLD 19.1.7 (compatible with GNU linkers)
 lld is a generic driver.
@@ -44,17 +43,17 @@ Invoke ld.lld (Unix), ld64.lld (macOS), lld-link (Windows), wasm-ld (WebAssembly
 | RenderZeroLoggerHandlingLog  | .NET 9.0      |   16.82 us |    0.46 |    24.14 KB |          0.48 |
 | RenderZeroLoggerStaticLog    | .NET 9.0      |   16.20 us |    0.44 |     25.7 KB |          0.51 |
 | RenderNLogLoggerLog          | .NET 9.0      |   36.73 us |    1.00 |    50.78 KB |          1.00 |
-| ---------------------------- | ------------: | ---------: | ------: | ----------: | ------------: |
+|                              |               |            |         |             |               |
 | RenderZeroLoggerLog          | NativeAOT 9.0 |   17.17 us |    0.51 |     25.7 KB |          0.51 |
 | RenderZeroLoggerHandlingLog  | NativeAOT 9.0 |   17.16 us |    0.51 |    24.14 KB |          0.48 |
 | RenderZeroLoggerStaticLog    | NativeAOT 9.0 |   16.48 us |    0.49 |     25.7 KB |          0.51 |
 | RenderNLogLoggerLog          | NativeAOT 9.0 |   33.98 us |    1.00 |    50.78 KB |          1.00 |
-| ---------------------------- | ------------: | ---------: | ------: | ----------: | ------------: |
+|                              |               |            |         |             |               |
 | RenderZeroLoggerLog          | .NET 8.0      |   19.03 us |    0.51 |     25.7 KB |          0.51 |
 | RenderZeroLoggerHandlingLog  | .NET 8.0      |   21.06 us |    0.57 |    24.14 KB |          0.48 |
 | RenderZeroLoggerStaticLog    | .NET 8.0      |   19.58 us |    0.53 |     25.7 KB |          0.51 |
 | RenderNLogLoggerLog          | .NET 8.0      |   37.27 us |    1.00 |    50.78 KB |          1.00 |
-| ---------------------------- | ------------: | ---------: | ------: | ----------: | ------------: |
+|                              |               |            |         |             |               |
 | RenderZeroLoggerLog          | NativeAOT 8.0 |   19.03 us |    0.49 |     25.7 KB |          0.51 |
 | RenderZeroLoggerHandlingLog  | NativeAOT 8.0 |   20.78 us |    0.54 |    24.14 KB |          0.48 |
 | RenderZeroLoggerStaticLog    | NativeAOT 8.0 |   19.13 us |    0.50 |     25.7 KB |          0.51 |
