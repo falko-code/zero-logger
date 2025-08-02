@@ -14,7 +14,7 @@ public readonly partial struct Logger
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Emit(LogLevel level, DefaultInterpolatedStringHandler messageHandler)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -25,7 +25,7 @@ public readonly partial struct Logger
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Emit(LogLevel level, Exception? exception, DefaultInterpolatedStringHandler messageHandler)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -36,7 +36,7 @@ public readonly partial struct Logger
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -47,7 +47,7 @@ public readonly partial struct Logger
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -58,7 +58,7 @@ public readonly partial struct Logger
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Emit(LogLevel level, LogMessageFactory messageFactory)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -70,7 +70,7 @@ public readonly partial struct Logger
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -87,7 +87,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         short argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -100,7 +100,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         short argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -113,7 +113,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         short argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -126,7 +126,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         short argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -143,7 +143,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         ushort argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -156,7 +156,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         ushort argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -169,7 +169,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         ushort argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -182,7 +182,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         ushort argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -199,7 +199,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         int argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -212,7 +212,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         int argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -225,7 +225,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         int argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -238,7 +238,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         int argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -255,7 +255,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         nint argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -268,7 +268,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         nint argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -281,7 +281,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         nint argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -294,7 +294,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         nint argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -311,7 +311,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         uint argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -324,7 +324,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         uint argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -337,7 +337,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         uint argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -350,7 +350,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         uint argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -367,7 +367,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         nuint argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -380,7 +380,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         nuint argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -393,7 +393,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         nuint argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -406,7 +406,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         nuint argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -423,7 +423,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         long argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -436,7 +436,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         long argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -449,7 +449,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         long argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -462,7 +462,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         long argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -479,7 +479,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         ulong argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -492,7 +492,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         ulong argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -505,7 +505,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         ulong argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -518,7 +518,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         ulong argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -535,7 +535,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         BigInteger argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -548,7 +548,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         BigInteger argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -561,7 +561,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         BigInteger argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -574,7 +574,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         BigInteger argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -591,7 +591,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         float argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -604,7 +604,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         float argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -617,7 +617,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         float argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -630,7 +630,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         float argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -647,7 +647,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         double argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -660,7 +660,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         double argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -673,7 +673,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         double argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -686,7 +686,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         double argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -703,7 +703,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         decimal argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -716,7 +716,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         decimal argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -729,7 +729,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         decimal argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -742,7 +742,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         decimal argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -759,7 +759,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         Guid argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -772,7 +772,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         Guid argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -785,7 +785,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         Guid argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -798,7 +798,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         Guid argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -815,7 +815,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         TimeSpan argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -828,7 +828,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         TimeSpan argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -841,7 +841,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         TimeSpan argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -854,7 +854,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         TimeSpan argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -871,7 +871,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         TimeOnly argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -884,7 +884,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         TimeOnly argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -897,7 +897,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         TimeOnly argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -910,7 +910,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         TimeOnly argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -927,7 +927,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         DateTime argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -940,7 +940,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         DateTime argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -953,7 +953,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         DateTime argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -966,7 +966,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         DateTime argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -983,7 +983,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         DateTimeOffset argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -996,7 +996,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         DateTimeOffset argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1009,7 +1009,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         DateTimeOffset argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1022,7 +1022,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         DateTimeOffset argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1039,7 +1039,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         DateOnly argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1052,7 +1052,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         DateOnly argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1065,7 +1065,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         DateOnly argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1078,7 +1078,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         DateOnly argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1095,7 +1095,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         byte argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1108,7 +1108,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         byte argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1121,7 +1121,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         byte argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1134,7 +1134,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         byte argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1151,7 +1151,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         sbyte argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1164,7 +1164,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         sbyte argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1177,7 +1177,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         sbyte argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1190,7 +1190,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         sbyte argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1207,7 +1207,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         char argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1220,7 +1220,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         char argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1233,7 +1233,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         char argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1246,7 +1246,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         char argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1263,7 +1263,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         string? argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1276,7 +1276,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         string? argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1289,7 +1289,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         string? argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1302,7 +1302,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         string? argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1320,7 +1320,7 @@ public readonly partial struct Logger
         string? argument1,
         string? argument2)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1335,7 +1335,7 @@ public readonly partial struct Logger
         string? argument1,
         string? argument2)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1350,7 +1350,7 @@ public readonly partial struct Logger
         string? argument1,
         string? argument2)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1365,7 +1365,7 @@ public readonly partial struct Logger
         string? argument1,
         string? argument2)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1385,7 +1385,7 @@ public readonly partial struct Logger
         string? argument2,
         string? argument3)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1402,7 +1402,7 @@ public readonly partial struct Logger
         string? argument2,
         string? argument3)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1419,7 +1419,7 @@ public readonly partial struct Logger
         string? argument2,
         string? argument3)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1436,7 +1436,7 @@ public readonly partial struct Logger
         string? argument2,
         string? argument3)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1458,7 +1458,7 @@ public readonly partial struct Logger
         string? argument3,
         string? argument4)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1477,7 +1477,7 @@ public readonly partial struct Logger
         string? argument3,
         string? argument4)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1496,7 +1496,7 @@ public readonly partial struct Logger
         string? argument3,
         string? argument4)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1515,7 +1515,7 @@ public readonly partial struct Logger
         string? argument3,
         string? argument4)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1535,7 +1535,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         params string?[] arguments)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1548,7 +1548,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         params string?[] arguments)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1561,7 +1561,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory message,
         params string?[] arguments)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1574,7 +1574,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory message,
         params string?[] arguments)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1590,7 +1590,7 @@ public readonly partial struct Logger
     public void Emit<T>(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         T argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1602,7 +1602,7 @@ public readonly partial struct Logger
     public void Emit<T>(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         T argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1614,7 +1614,7 @@ public readonly partial struct Logger
     public void Emit<T>(LogLevel level, LogMessageFactory messageFactory,
         T argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1626,7 +1626,7 @@ public readonly partial struct Logger
     public void Emit<T>(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         T argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1643,7 +1643,7 @@ public readonly partial struct Logger
         T1 argument1,
         T2 argument2)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1657,7 +1657,7 @@ public readonly partial struct Logger
         T1 argument1,
         T2 argument2)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1671,7 +1671,7 @@ public readonly partial struct Logger
         T1 argument1,
         T2 argument2)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1685,7 +1685,7 @@ public readonly partial struct Logger
         T1 argument1,
         T2 argument2)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1704,7 +1704,7 @@ public readonly partial struct Logger
         T2 argument2,
         T3 argument3)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1720,7 +1720,7 @@ public readonly partial struct Logger
         T2 argument2,
         T3 argument3)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1736,7 +1736,7 @@ public readonly partial struct Logger
         T2 argument2,
         T3 argument3)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1752,7 +1752,7 @@ public readonly partial struct Logger
         T2 argument2,
         T3 argument3)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1773,7 +1773,7 @@ public readonly partial struct Logger
         T3 argument3,
         T4 argument4)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1791,7 +1791,7 @@ public readonly partial struct Logger
         T3 argument3,
         T4 argument4)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1809,7 +1809,7 @@ public readonly partial struct Logger
         T3 argument3,
         T4 argument4)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1827,7 +1827,7 @@ public readonly partial struct Logger
         T3 argument3,
         T4 argument4)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1847,7 +1847,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         params object?[] arguments)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1860,7 +1860,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         params object?[] arguments)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1873,7 +1873,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory message,
         params object?[] arguments)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1886,7 +1886,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory message,
         params object?[] arguments)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1902,7 +1902,7 @@ public readonly partial struct Logger
     public void Emit<T>(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgument<T> argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1914,7 +1914,7 @@ public readonly partial struct Logger
     public void Emit<T>(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgument<T> argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1926,7 +1926,7 @@ public readonly partial struct Logger
     public void Emit<T>(LogLevel level, LogMessageFactory messageFactory,
         LogMessageArgument<T> argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1938,7 +1938,7 @@ public readonly partial struct Logger
     public void Emit<T>(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         LogMessageArgument<T> argument)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1955,7 +1955,7 @@ public readonly partial struct Logger
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1969,7 +1969,7 @@ public readonly partial struct Logger
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1983,7 +1983,7 @@ public readonly partial struct Logger
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -1997,7 +1997,7 @@ public readonly partial struct Logger
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2016,7 +2016,7 @@ public readonly partial struct Logger
         LogMessageArgument<T2> argument2,
         LogMessageArgument<T3> argument3)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2032,7 +2032,7 @@ public readonly partial struct Logger
         LogMessageArgument<T2> argument2,
         LogMessageArgument<T3> argument3)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2048,7 +2048,7 @@ public readonly partial struct Logger
         LogMessageArgument<T2> argument2,
         LogMessageArgument<T3> argument3)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2064,7 +2064,7 @@ public readonly partial struct Logger
         LogMessageArgument<T2> argument2,
         LogMessageArgument<T3> argument3)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2085,7 +2085,7 @@ public readonly partial struct Logger
         LogMessageArgument<T3> argument3,
         LogMessageArgument<T4> argument4)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2103,7 +2103,7 @@ public readonly partial struct Logger
         LogMessageArgument<T3> argument3,
         LogMessageArgument<T4> argument4)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2121,7 +2121,7 @@ public readonly partial struct Logger
         LogMessageArgument<T3> argument3,
         LogMessageArgument<T4> argument4)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2139,7 +2139,7 @@ public readonly partial struct Logger
         LogMessageArgument<T3> argument3,
         LogMessageArgument<T4> argument4)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2159,7 +2159,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgumentFactory argumentFactory)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2172,7 +2172,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgumentFactory argumentFactory)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2185,7 +2185,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory messageFactory,
         LogMessageArgumentFactory argumentFactory)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2198,7 +2198,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory messageFactory,
         LogMessageArgumentFactory argumentFactory)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2216,7 +2216,7 @@ public readonly partial struct Logger
         LogMessageArgumentFactory argumentFactory1,
         LogMessageArgumentFactory argumentFactory2)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2231,7 +2231,7 @@ public readonly partial struct Logger
         LogMessageArgumentFactory argumentFactory1,
         LogMessageArgumentFactory argumentFactory2)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2246,7 +2246,7 @@ public readonly partial struct Logger
         LogMessageArgumentFactory argumentFactory1,
         LogMessageArgumentFactory argumentFactory2)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2261,7 +2261,7 @@ public readonly partial struct Logger
         LogMessageArgumentFactory argumentFactory1,
         LogMessageArgumentFactory argumentFactory2)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2281,7 +2281,7 @@ public readonly partial struct Logger
         LogMessageArgumentFactory argumentFactory2,
         LogMessageArgumentFactory argumentFactory3)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2298,7 +2298,7 @@ public readonly partial struct Logger
         LogMessageArgumentFactory argumentFactory2,
         LogMessageArgumentFactory argumentFactory3)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2315,7 +2315,7 @@ public readonly partial struct Logger
         LogMessageArgumentFactory argumentFactory2,
         LogMessageArgumentFactory argumentFactory3)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2332,7 +2332,7 @@ public readonly partial struct Logger
         LogMessageArgumentFactory argumentFactory2,
         LogMessageArgumentFactory argumentFactory3)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2354,7 +2354,7 @@ public readonly partial struct Logger
         LogMessageArgumentFactory argumentFactory3,
         LogMessageArgumentFactory argumentFactory4)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2373,7 +2373,7 @@ public readonly partial struct Logger
         LogMessageArgumentFactory argumentFactory3,
         LogMessageArgumentFactory argumentFactory4)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2392,7 +2392,7 @@ public readonly partial struct Logger
         LogMessageArgumentFactory argumentFactory3,
         LogMessageArgumentFactory argumentFactory4)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2411,7 +2411,7 @@ public readonly partial struct Logger
         LogMessageArgumentFactory argumentFactory3,
         LogMessageArgumentFactory argumentFactory4)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2431,7 +2431,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, [Localizable(false)][StructuredMessageTemplate] string? message,
         params LogMessageArgumentFactory[] argumentFactories)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2444,7 +2444,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         params LogMessageArgumentFactory[] argumentFactories)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2457,7 +2457,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, LogMessageFactory message,
         params LogMessageArgumentFactory[] argumentFactories)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {
@@ -2470,7 +2470,7 @@ public readonly partial struct Logger
     public void Emit(LogLevel level, Exception? exception, LogMessageFactory message,
         params LogMessageArgumentFactory[] argumentFactories)
     {
-        var loggerContext = loggerRuntime.LoggerContext;
+        var loggerContext = _loggerRuntime.LoggerContext;
 
         if (loggerContext.Level.IsEnabled(level))
         {

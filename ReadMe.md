@@ -35,8 +35,6 @@ GC=Concurrent Workstation
 HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
 gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-7)
 LLD 19.1.7 (compatible with GNU linkers)
-lld is a generic driver.
-Invoke ld.lld (Unix), ld64.lld (macOS), lld-link (Windows), wasm-ld (WebAssembly) instead
 ```
 
 | Method                       | Runtime       |       Mean |   Ratio |   Allocated |   Alloc Ratio |

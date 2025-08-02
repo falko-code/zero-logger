@@ -13,10 +13,20 @@ using System.Runtime.InteropServices;
 namespace System.Logging.Loggers;
 
 [StructLayout(LayoutKind.Auto)]
-[method: MethodImpl(MethodImplOptions.AggressiveInlining)]
-public readonly partial struct Logger(LoggerRuntime loggerRuntime, string loggerSource)
+public readonly partial struct Logger
 {
+    private readonly LoggerRuntime _loggerRuntime;
+
+    private readonly string _loggerSource;
+
     private readonly IDateTimeOffsetProvider _timeProvider = DateTimeOffsetProvider.Current;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public Logger(LoggerRuntime loggerRuntime, string loggerSource)
+    {
+        _loggerRuntime = loggerRuntime;
+        _loggerSource = loggerSource;
+    }
 
     #region Log()
 
@@ -29,7 +39,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
 
         var messageProvider = new SingleMessageLogMessageRenderer(message);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -41,7 +51,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
 
         var messageProvider = new SingleMessageLogMessageRenderer(message);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -54,7 +64,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
 
         var messageProvider = new SingleMessageFactoryLogMessageRenderer(messageFactory);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -64,7 +74,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
 
         var messageProvider = new SingleMessageFactoryLogMessageRenderer(messageFactory);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -85,7 +95,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<short>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -99,7 +109,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<short>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -114,7 +124,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<short>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -126,7 +136,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<short>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -147,7 +157,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<ushort>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -161,7 +171,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<ushort>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -176,7 +186,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<ushort>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -188,7 +198,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<ushort>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -209,7 +219,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<int>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -222,7 +232,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
 
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<int>(message, argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -237,7 +247,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<int>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -249,7 +259,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<int>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -270,7 +280,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<nint>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -284,7 +294,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<nint>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -299,7 +309,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<nint>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -311,7 +321,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<nint>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -332,7 +342,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<uint>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -346,7 +356,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<uint>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -361,7 +371,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<uint>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -373,7 +383,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<uint>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -394,7 +404,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<nuint>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -408,7 +418,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<nuint>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -423,7 +433,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<nuint>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -435,7 +445,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<nuint>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -456,7 +466,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<long>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -470,7 +480,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<long>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -485,7 +495,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<long>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -497,7 +507,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<long>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -518,7 +528,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<ulong>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -532,7 +542,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<ulong>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -547,7 +557,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<ulong>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -559,7 +569,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<ulong>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -580,7 +590,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<BigInteger>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -594,7 +604,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<BigInteger>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -609,7 +619,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<BigInteger>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -621,7 +631,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<BigInteger>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -642,7 +652,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<float>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -656,7 +666,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<float>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -671,7 +681,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<float>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -683,7 +693,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<float>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -704,7 +714,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<double>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -718,7 +728,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<double>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -733,7 +743,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<double>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -745,7 +755,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<double>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -766,7 +776,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<decimal>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -780,7 +790,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<decimal>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -795,7 +805,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<decimal>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -807,7 +817,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<decimal>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -828,7 +838,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<Guid>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -842,7 +852,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<Guid>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -857,7 +867,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<Guid>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -869,7 +879,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<Guid>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -890,7 +900,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<TimeSpan>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -904,7 +914,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<TimeSpan>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -919,7 +929,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<TimeSpan>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -931,7 +941,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<TimeSpan>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -952,7 +962,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<TimeOnly>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -966,7 +976,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<TimeOnly>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -981,7 +991,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<TimeOnly>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -993,7 +1003,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<TimeOnly>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1014,7 +1024,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<DateTime>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1028,7 +1038,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<DateTime>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1043,7 +1053,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<DateTime>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1055,7 +1065,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<DateTime>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1076,7 +1086,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<DateTimeOffset>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1090,7 +1100,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<DateTimeOffset>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1105,7 +1115,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<DateTimeOffset>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1117,7 +1127,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<DateTimeOffset>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1138,7 +1148,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<DateOnly>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1152,7 +1162,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<DateOnly>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1167,7 +1177,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<DateOnly>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1179,7 +1189,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<DateOnly>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1200,7 +1210,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<byte>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1214,7 +1224,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<byte>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1229,7 +1239,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<byte>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1241,7 +1251,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<byte>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1262,7 +1272,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<sbyte>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1276,7 +1286,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<sbyte>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1291,7 +1301,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<sbyte>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1303,7 +1313,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<sbyte>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1324,7 +1334,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<char>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1338,7 +1348,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<char>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1353,7 +1363,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<char>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1365,7 +1375,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<char>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1386,7 +1396,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleStringArgumentMessageLogMessageRenderer(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1400,7 +1410,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleStringArgumentMessageLogMessageRenderer(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1415,7 +1425,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleStringArgumentMessageFactoryLogMessageRenderer(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1427,7 +1437,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleStringArgumentMessageFactoryLogMessageRenderer(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1450,7 +1460,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument1,
             argument2);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1466,7 +1476,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument1,
             argument2);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1483,7 +1493,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument1,
             argument2);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1497,7 +1507,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument1,
             argument2);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1522,7 +1532,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument2,
             argument3);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1540,7 +1550,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument2,
             argument3);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1559,7 +1569,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument2,
             argument3);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1575,7 +1585,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument2,
             argument3);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1602,7 +1612,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument3,
             argument4);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1622,7 +1632,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument3,
             argument4);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1643,7 +1653,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument3,
             argument4);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1661,7 +1671,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument3,
             argument4);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1682,7 +1692,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new ManyStringArgumentsMessageLogMessageRenderer(message,
             arguments);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1696,7 +1706,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new ManyStringArgumentsMessageLogMessageRenderer(message,
             arguments);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1711,7 +1721,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new ManyStringArgumentsMessageFactoryLogMessageRenderer(messageFactory,
             arguments);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1723,7 +1733,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new ManyStringArgumentsMessageFactoryLogMessageRenderer(messageFactory,
             arguments);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1743,7 +1753,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
 
         var messageProvider = new SingleInstanceArgumentMessageLogMessageRenderer<T>(message, argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1756,7 +1766,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
 
         var messageProvider = new SingleInstanceArgumentMessageLogMessageRenderer<T>(message, argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1770,7 +1780,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
 
         var messageProvider = new SingleInstanceArgumentMessageFactoryLogMessageRenderer<T>(messageFactory, argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1781,7 +1791,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
 
         var messageProvider = new SingleInstanceArgumentMessageFactoryLogMessageRenderer<T>(messageFactory, argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider) { Exception = exception });
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider) { Exception = exception });
     }
 
     #endregion
@@ -1801,7 +1811,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument1,
             argument2);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1817,7 +1827,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument1,
             argument2);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1834,7 +1844,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument1,
             argument2);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1848,7 +1858,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument1,
             argument2);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1873,7 +1883,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument2,
             argument3);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1891,7 +1901,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument2,
             argument3);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1910,7 +1920,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument2,
             argument3);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1926,7 +1936,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument2,
             argument3);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1953,7 +1963,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument3,
             argument4);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1973,7 +1983,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument3,
             argument4);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -1994,7 +2004,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument3,
             argument4);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2012,7 +2022,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument3,
             argument4);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2033,7 +2043,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new ManyInstanceArgumentsMessageLogMessageRenderer(message,
             arguments);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2047,7 +2057,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new ManyInstanceArgumentsMessageLogMessageRenderer(message,
             arguments);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2062,7 +2072,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new ManyInstanceArgumentsMessageFactoryLogMessageRenderer(messageFactory,
             arguments);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2074,7 +2084,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new ManyInstanceArgumentsMessageFactoryLogMessageRenderer(messageFactory,
             arguments);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2095,7 +2105,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleArgumentMessageLogMessageRenderer<T>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2109,7 +2119,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleArgumentMessageLogMessageRenderer<T>(message,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2124,7 +2134,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleArgumentMessageFactoryLogMessageRenderer<T>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2136,7 +2146,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleArgumentMessageFactoryLogMessageRenderer<T>(messageFactory,
             argument);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2159,7 +2169,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument1,
             argument2);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2175,7 +2185,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument1,
             argument2);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2192,7 +2202,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument1,
             argument2);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2206,7 +2216,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument1,
             argument2);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2231,7 +2241,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument2,
             argument3);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2249,7 +2259,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument2,
             argument3);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2268,7 +2278,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument2,
             argument3);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2284,7 +2294,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument2,
             argument3);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2311,7 +2321,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument3,
             argument4);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2331,7 +2341,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument3,
             argument4);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2352,7 +2362,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument3,
             argument4);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2370,7 +2380,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argument3,
             argument4);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2391,7 +2401,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFactoryArgumentMessageLogMessageRenderer(message,
             argumentFactory);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2405,7 +2415,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFactoryArgumentMessageLogMessageRenderer(message,
             argumentFactory);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2420,7 +2430,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFactoryArgumentMessageFactoryLogMessageRenderer(messageFactory,
             argumentFactory);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2432,7 +2442,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new SingleFactoryArgumentMessageFactoryLogMessageRenderer(messageFactory,
             argumentFactory);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2455,7 +2465,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argumentFactory1,
             argumentFactory2);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2471,7 +2481,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argumentFactory1,
             argumentFactory2);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2488,7 +2498,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argumentFactory1,
             argumentFactory2);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2502,7 +2512,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argumentFactory1,
             argumentFactory2);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2527,7 +2537,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argumentFactory2,
             argumentFactory3);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2545,7 +2555,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argumentFactory2,
             argumentFactory3);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2564,7 +2574,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argumentFactory2,
             argumentFactory3);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2580,7 +2590,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argumentFactory2,
             argumentFactory3);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2607,7 +2617,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argumentFactory3,
             argumentFactory4);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2627,7 +2637,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argumentFactory3,
             argumentFactory4);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2648,7 +2658,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argumentFactory3,
             argumentFactory4);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2666,7 +2676,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
             argumentFactory3,
             argumentFactory4);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2687,7 +2697,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new ManyFactoryArgumentsMessageLogMessageRenderer(message,
             argumentFactories);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2701,7 +2711,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new ManyFactoryArgumentsMessageLogMessageRenderer(message,
             argumentFactories);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
@@ -2716,7 +2726,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new ManyFactoryArgumentsMessageFactoryLogMessageRenderer(messageFactory,
             argumentFactories);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider));
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2728,7 +2738,7 @@ public readonly partial struct Logger(LoggerRuntime loggerRuntime, string logger
         var messageProvider = new ManyFactoryArgumentsMessageFactoryLogMessageRenderer(messageFactory,
             argumentFactories);
 
-        PublishLog(loggerContext, new LogContext(loggerSource, level, time, messageProvider)
+        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
             Exception = exception
         });
