@@ -31,6 +31,8 @@ BenchmarkDotNet v0.15.2, Linux Rocky Linux 10.0 (Red Quartz)
 AMD EPYC-Rome Processor, 1 CPU, 1 logical core and 1 physical core
 .NET 8.0.18 (8.0.1825.31117), X64 RyuJIT AVX2
 .NET 9.0.7 (9.0.725.31616), X64 RyuJIT AVX2
+GC=Concurrent Workstation
+HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
 gcc (GCC) 14.2.1 20250110 (Red Hat 14.2.1-7)
 LLD 19.1.7 (compatible with GNU linkers)
 lld is a generic driver.
