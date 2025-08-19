@@ -7,7 +7,6 @@ using System.Logging.Runtimes;
 using System.Logging.Targets;
 using System.Logging.Utils;
 using System.Numerics;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace System.Logging.Loggers;

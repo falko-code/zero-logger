@@ -2,7 +2,6 @@ using System.Logging.Contexts;
 using System.Logging.Logs;
 using System.Logging.Renderers;
 using System.Logging.Targets;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace System.Logging.Builders;

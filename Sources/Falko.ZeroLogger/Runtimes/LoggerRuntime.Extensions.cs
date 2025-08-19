@@ -1,5 +1,4 @@
 using System.Logging.Builders;
-using System.Runtime.CompilerServices;
 
 namespace System.Logging.Runtimes;
 

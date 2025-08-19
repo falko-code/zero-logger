@@ -1,7 +1,6 @@
 using System.Buffers;
 using System.Logging.Factories;
 using System.Logging.Utils;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace System.Logging.Renderers;

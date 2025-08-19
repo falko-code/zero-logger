@@ -1,5 +1,4 @@
 using System.Logging.Factories;
-using System.Runtime.CompilerServices;
 
 namespace System.Logging.Logs;
 

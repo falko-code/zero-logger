@@ -1,6 +1,5 @@
 using System.Buffers;
 using System.Logging.Utils;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace System.Logging.Renderers;

@@ -3,7 +3,6 @@ using System.Logging.Contexts;
 using System.Logging.Debugs;
 using System.Logging.Factories;
 using System.Logging.Targets;
-using System.Runtime.CompilerServices;
 
 namespace System.Logging.Runtimes;
 
@@ -28,7 +27,7 @@ public sealed partial class LoggerRuntime : IDisposable
     {
         LoggerFactory = new LoggerFactory(this);
     }
-    
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public LoggerContext GetLoggerContext()
     {
