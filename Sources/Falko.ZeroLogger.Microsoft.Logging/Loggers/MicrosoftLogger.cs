@@ -1,6 +1,6 @@
-using Falko.ZeroLogger.Microsoft.Logging.Extensions;
+using System.Logging.Extensions;
 
-namespace Falko.ZeroLogger.Microsoft.Logging.Loggers;
+namespace System.Logging.Loggers;
 
 internal sealed class MicrosoftLogger : IMicrosoftLogger
 {

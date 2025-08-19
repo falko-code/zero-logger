@@ -1,4 +1,4 @@
-namespace Falko.ZeroLogger.Microsoft.Logging.Extensions;
+namespace System.Logging.Extensions;
 
 internal static class MicrosoftLogLevelExtensions
 {
