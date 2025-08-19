@@ -28,6 +28,12 @@ public sealed partial class LoggerRuntime : IDisposable
     {
         LoggerFactory = new LoggerFactory(this);
     }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public LoggerContext GetLoggerContext()
+    {
+        return LoggerContext;
+    }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     public void Initialize(LoggerContextBuilder loggerBuilder, CancellationToken cancellationToken)

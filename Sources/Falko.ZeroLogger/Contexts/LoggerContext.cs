@@ -3,15 +3,15 @@ using System.Logging.Targets;
 
 namespace System.Logging.Contexts;
 
-internal sealed class LoggerContext
+public sealed class LoggerContext
 {
     public static readonly LoggerContext Empty = new(LogLevels.None, [], [], new CancellationToken(true));
 
     public readonly LogLevel Level;
 
-    public readonly LoggerTarget[] Targets;
+    internal readonly LoggerTarget[] Targets;
 
-    public readonly LogContextRendererSpan[] Renderers;
+    internal readonly LogContextRendererSpan[] Renderers;
 
     public readonly CancellationToken Cancellation;
 
