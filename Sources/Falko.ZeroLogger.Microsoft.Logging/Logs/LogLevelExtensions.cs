@@ -5,7 +5,8 @@ public static partial class LogLevelExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static LogLevel ToLogLevel(this MicrosoftLogLevel microsoftLogLevel)
     {
-        return Unsafe.As<MicrosoftLogLevel, LogLevel>(ref microsoftLogLevel);
+        var nativeLogLevel = Unsafe.As<MicrosoftLogLevel, int>(ref microsoftLogLevel) + 1;
+        return Unsafe.As<int, LogLevel>(ref nativeLogLevel);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
