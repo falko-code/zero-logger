@@ -2,7 +2,7 @@ using System.Logging.Builders;
 
 namespace System.Logging.Runtimes;
 
-public static class LoggerRuntimeExtensions
+public static partial class LoggerRuntimeExtensions
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static LoggerRuntime Initialize

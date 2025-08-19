@@ -1,6 +1,6 @@
 namespace System.Logging.Logs;
 
-public static class LogLevelExtensions
+public static partial class LogLevelExtensions
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsEnabled(this LogLevel level, LogLevel logLevel)

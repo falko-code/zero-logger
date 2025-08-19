@@ -1,6 +1,6 @@
-namespace System.Logging.Extensions;
+namespace System.Logging.Logs;
 
-internal static class MicrosoftLogLevelExtensions
+internal static partial class MicrosoftLogLevelExtensions
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static LogLevel ToLogLevel(this MicrosoftLogLevel microsoftLogLevel)

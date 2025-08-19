@@ -1,5 +1,3 @@
-using System.Logging.Extensions;
-
 namespace System.Logging.Loggers;
 
 internal sealed class MicrosoftLogger : IMicrosoftLogger

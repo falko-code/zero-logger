@@ -3,7 +3,7 @@ using System.Logging.Runtimes;
 
 namespace System.Logging.Factories;
 
-public static class LoggerFactoryExtensions
+public static partial class LoggerFactoryExtensions
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Logger CreateLogger(this Type type)

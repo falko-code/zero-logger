@@ -2,7 +2,7 @@ using System.Logging.Loggers;
 
 namespace System.Logging.Providers;
 
-public sealed class MicrosoftLoggerProvider : IMicrosoftLoggerProvider
+internal sealed class MicrosoftLoggerProvider : IMicrosoftLoggerProvider
 {
     private readonly LoggerRuntime _loggerRuntime;
 
@@ -10,7 +10,7 @@ public sealed class MicrosoftLoggerProvider : IMicrosoftLoggerProvider
 
     // ReSharper disable once ConvertToPrimaryConstructor
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public MicrosoftLoggerProvider(LoggerRuntime loggerRuntime, bool disposeLoggerRuntime = true)
+    public MicrosoftLoggerProvider(LoggerRuntime loggerRuntime, bool disposeLoggerRuntime)
     {
         _loggerRuntime = loggerRuntime;
         _disposeLoggerRuntime = disposeLoggerRuntime;
