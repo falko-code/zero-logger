@@ -41,7 +41,7 @@ internal sealed class MicrosoftLogger : IMicrosoftLogger
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public IDisposable? BeginScope<TState>(TState state) where TState : notnull
+    public IDisposable? BeginScope<T>(T messageState) where T : notnull
     {
         return null;
     }
