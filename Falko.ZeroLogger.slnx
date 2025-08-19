@@ -21,6 +21,7 @@
     <Project Path="Examples\Falko.ZeroLogger.Examples\Falko.ZeroLogger.Examples.csproj" Type="Classic C#" />
   </Folder>
   <Folder Name="/Sources/">
+    <Project Path="Sources\Falko.ZeroLogger.Microsoft.Logging\Falko.ZeroLogger.Microsoft.Logging.csproj" Type="Classic C#" />
     <Project Path="Sources\Falko.ZeroLogger.Renderers.Simple\Falko.ZeroLogger.Renderers.Simple.csproj" Type="Classic C#" />
     <Project Path="Sources\Falko.ZeroLogger.Targets.Console\Falko.ZeroLogger.Targets.Console.csproj" Type="Classic C#" />
     <Project Path="Sources\Falko.ZeroLogger.Targets.File\Falko.ZeroLogger.Targets.File.csproj" Type="Classic C#" />

@@ -3,5 +3,6 @@
         <PackageVersion Include="JetBrains.Annotations" Version="2025.2.0" />
         <PackageVersion Include="BenchmarkDotNet" Version="0.15.2" />
         <PackageVersion Include="NLog" Version="6.0.2" />
+        <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.8" />
     </ItemGroup>
 </Project>
