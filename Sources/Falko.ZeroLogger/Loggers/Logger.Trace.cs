@@ -81,6 +81,34 @@ public readonly partial struct Logger
 
     #endregion
 
+    #region Log(State)
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Trace<T>(T messageState, LogMessageFactory<T> messageFactory)
+    {
+        var loggerContext = _loggerRuntime.LoggerContext;
+
+        if (loggerContext.IsTraceLevelEnabled)
+        {
+            Log(loggerContext, LogLevel.Trace,
+                messageState, messageFactory);
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Trace<T>(Exception? exception, T messageState, LogMessageFactory<T> messageFactory)
+    {
+        var loggerContext = _loggerRuntime.LoggerContext;
+
+        if (loggerContext.IsTraceLevelEnabled)
+        {
+            Log(loggerContext, LogLevel.Trace, exception,
+                messageState, messageFactory);
+        }
+    }
+
+    #endregion
+
     #region Log(short)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

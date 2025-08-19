@@ -81,6 +81,34 @@ public readonly partial struct Logger
 
     #endregion
 
+    #region Log(State)
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Info<T>(T messageState, LogMessageFactory<T> messageFactory)
+    {
+        var loggerContext = _loggerRuntime.LoggerContext;
+
+        if (loggerContext.IsInfoLevelEnabled)
+        {
+            Log(loggerContext, LogLevel.Info,
+                messageState, messageFactory);
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Info<T>(Exception? exception, T messageState, LogMessageFactory<T> messageFactory)
+    {
+        var loggerContext = _loggerRuntime.LoggerContext;
+
+        if (loggerContext.IsInfoLevelEnabled)
+        {
+            Log(loggerContext, LogLevel.Info, exception,
+                messageState, messageFactory);
+        }
+    }
+
+    #endregion
+
     #region Log(short)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

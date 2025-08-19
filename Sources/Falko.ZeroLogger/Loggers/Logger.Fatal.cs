@@ -81,6 +81,34 @@ public readonly partial struct Logger
 
     #endregion
 
+    #region Log(State)
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Fatal<T>(T messageState, LogMessageFactory<T> messageFactory)
+    {
+        var loggerContext = _loggerRuntime.LoggerContext;
+
+        if (loggerContext.IsFatalLevelEnabled)
+        {
+            Log(loggerContext, LogLevel.Fatal,
+                messageState, messageFactory);
+        }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Fatal<T>(Exception? exception, T messageState, LogMessageFactory<T> messageFactory)
+    {
+        var loggerContext = _loggerRuntime.LoggerContext;
+
+        if (loggerContext.IsFatalLevelEnabled)
+        {
+            Log(loggerContext, LogLevel.Fatal, exception,
+                messageState, messageFactory);
+        }
+    }
+
+    #endregion
+
     #region Log(short)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
