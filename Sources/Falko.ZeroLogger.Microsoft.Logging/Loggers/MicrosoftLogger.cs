@@ -14,23 +14,21 @@ internal sealed class MicrosoftLogger : IMicrosoftLogger
         _logger = loggerRuntime.LoggerFactory.CreateLogger(loggerName);
     }
 
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    public void Log<T>
+    public void Log<TState>
     (
         MicrosoftLogLevel microsoftLogLevel,
         MicrosoftEventIdentifier microsoftEventIdentifier,
-        T messageState,
+        TState messageState,
         Exception? exception,
-        Func<T, Exception?, string> messageFormatter
+        Func<TState, Exception?, string> messageFormatter
     )
     {
         var logLevel = microsoftLogLevel.ToLogLevel();
-        var logMessage = new MicrosoftLogMessage<T>(messageFormatter, messageState);
+        var logMessage = new MicrosoftLogMessage<TState>(messageFormatter, messageState);
 
-        _logger.Emit(logLevel, exception, logMessage, MicrosoftLogMessage<T>.LogMessageFactory);
+        _logger.Emit(logLevel, exception, logMessage, MicrosoftLogMessage<TState>.LogMessageFactory);
     }
 
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public bool IsEnabled(MicrosoftLogLevel microsoftLogLevel)
     {
         return _loggerRuntime
@@ -38,7 +36,6 @@ internal sealed class MicrosoftLogger : IMicrosoftLogger
             .Level.IsEnabled(microsoftLogLevel.ToLogLevel());
     }
 
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public IDisposable? BeginScope<T>(T messageState) where T : notnull
     {
         return null;
