@@ -16,13 +16,11 @@ internal sealed class MicrosoftLoggerProvider : IMicrosoftLoggerProvider
         _disposeLoggerRuntime = disposeLoggerRuntime;
     }
 
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public IMicrosoftLogger CreateLogger(string categoryName)
     {
         return new MicrosoftLogger(categoryName, _loggerRuntime);
     }
 
-    [MethodImpl(MethodImplOptions.NoInlining)]
     public void Dispose()
     {
         if (_disposeLoggerRuntime) _loggerRuntime.Dispose();
