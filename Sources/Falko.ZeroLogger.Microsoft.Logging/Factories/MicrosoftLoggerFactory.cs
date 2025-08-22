@@ -3,7 +3,7 @@ using System.Logging.Loggers;
 
 namespace System.Logging.Factories;
 
-public sealed class MicrosoftLoggerFactory : IMicrosoftLoggerFactory
+internal sealed class MicrosoftLoggerFactory : IMicrosoftLoggerFactory
 {
     private readonly ConcurrentDictionary<string, IMicrosoftLogger> _loggers = new(StringComparer.Ordinal);
 
@@ -33,6 +33,6 @@ public sealed class MicrosoftLoggerFactory : IMicrosoftLoggerFactory
 
     public void Dispose()
     {
-        _loggerRuntime.Dispose();
+        if (_disposeLoggerRuntime) _loggerRuntime.Dispose();
     }
 }
