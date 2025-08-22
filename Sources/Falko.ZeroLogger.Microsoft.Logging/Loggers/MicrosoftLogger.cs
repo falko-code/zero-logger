@@ -1,6 +1,6 @@
 namespace System.Logging.Loggers;
 
-internal sealed class MicrosoftLogger : IMicrosoftLogger
+public sealed class MicrosoftLogger : IMicrosoftLogger
 {
     private readonly LoggerRuntime _loggerRuntime;
 
@@ -8,7 +8,7 @@ internal sealed class MicrosoftLogger : IMicrosoftLogger
 
     // ReSharper disable once ConvertToPrimaryConstructor
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public MicrosoftLogger(string loggerName, LoggerRuntime loggerRuntime)
+    internal MicrosoftLogger(string loggerName, LoggerRuntime loggerRuntime)
     {
         _loggerRuntime = loggerRuntime;
         _logger = loggerRuntime.LoggerFactory.CreateLogger(loggerName);
