@@ -24,6 +24,18 @@ public static partial class LogLevelExtensions
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static LogLevel ToLogLevelAndAbove(this LogLevel logLevel)
+    {
+        if (logLevel.IsEnabled(LogLevel.Trace)) return LogLevels.TraceAndAbove;
+        if (logLevel.IsEnabled(LogLevel.Debug)) return LogLevels.DebugAndAbove;
+        if (logLevel.IsEnabled(LogLevel.Info)) return LogLevels.InfoAndAbove;
+        if (logLevel.IsEnabled(LogLevel.Warn)) return LogLevels.WarnAndAbove;
+        if (logLevel.IsEnabled(LogLevel.Error)) return LogLevels.ErrorAndAbove;
+        if (logLevel.IsEnabled(LogLevel.Fatal)) return LogLevels.FatalAndAbove;
+        throw new ArgumentOutOfRangeException(nameof(logLevel), logLevel, null);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static MicrosoftLogLevel ToMinimumLogLevel(this LogLevel logLevel)
     {
         if (logLevel.IsEnabled(LogLevel.Trace)) return MicrosoftLogLevel.Trace;
