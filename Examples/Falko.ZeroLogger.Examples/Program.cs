@@ -7,8 +7,12 @@ using Falko.Examples;
 
 using var loggerRuntime = LoggerRuntime.Global.Initialize(builder => builder
     .SetLevel(LogLevels.DebugAndAbove)
-    .AddTarget(SimpleLogContextRenderer.Instance, LoggerConsoleTarget.Instance)
-    .AddTarget(SimpleLogContextRenderer.Instance, new LoggerFileTarget("program", "./Logs")));
+    .AddTarget(SimpleLogContextRenderer.Instance,
+        LoggerConsoleTarget.Instance
+            .AsConcurrent())
+    .AddTarget(SimpleLogContextRenderer.Instance,
+        new LoggerFileTarget("program", "./Logs")
+            .AsConcurrent()));
 
 LoggableStaticClass.Init();
 new LoggableInstanceClass().Init();
