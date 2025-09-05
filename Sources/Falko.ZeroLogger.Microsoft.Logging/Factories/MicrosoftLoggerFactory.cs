@@ -3,7 +3,7 @@ using System.Logging.Loggers;
 
 namespace System.Logging.Factories;
 
-internal sealed class MicrosoftLoggerFactory : IMicrosoftLoggerFactory
+public sealed class MicrosoftLoggerFactory : IMicrosoftLoggerFactory
 {
     private readonly ConcurrentDictionary<string, IMicrosoftLogger> _loggers = new(StringComparer.Ordinal);
 
@@ -13,7 +13,7 @@ internal sealed class MicrosoftLoggerFactory : IMicrosoftLoggerFactory
 
     // ReSharper disable once ConvertToPrimaryConstructor
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public MicrosoftLoggerFactory(LoggerRuntime loggerRuntime, bool disposeLoggerRuntime)
+    public MicrosoftLoggerFactory(LoggerRuntime loggerRuntime, bool disposeLoggerRuntime = true)
     {
         _loggerRuntime = loggerRuntime;
         _disposeLoggerRuntime = disposeLoggerRuntime;
