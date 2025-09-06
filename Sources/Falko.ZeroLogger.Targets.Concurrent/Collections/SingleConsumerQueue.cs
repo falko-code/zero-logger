@@ -1,4 +1,5 @@
 using System.Logging.Common;
+using System.Logging.Iterables;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -8,9 +9,7 @@ internal sealed class SingleConsumerQueue<T>
 {
     private const int PrimaryIterationDelta = 0;
 
-    private const int ItemIterationIncrement = 1;
-
-    private readonly IterableItem[] _items;
+    private readonly IterableItem<T>[] _items;
 
     private readonly int _itemsCapacity;
 
@@ -32,6 +31,18 @@ internal sealed class SingleConsumerQueue<T>
         _iterationIndexMask = GetIterationIndexMask(itemsCapacity);
 
         _items = InitializeItems(itemsCapacity);
+    }
+
+    public int Capacity
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        get => _itemsCapacity;
+    }
+
+    public int Count
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        get => _writeNumber.Iteration() - _readNumber.Iterator;
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
@@ -87,11 +98,11 @@ internal sealed class SingleConsumerQueue<T>
             ref var readItem = ref GetIterationItem(ref itemsReference, readNumberIteration);
 
             var readItemIteration = readItem.Iteration();
-            var readIterationDelta = readNumberIteration - readItemIteration + ItemIterationIncrement;
+            var readIterationDelta = readNumberIteration - readItemIteration + IConcurrentIterator.ItemIterationIncrement;
 
             if (readIterationDelta is not PrimaryIterationDelta) return true;
 
-            _readNumber.Iterator = readNumberIteration + ItemIterationIncrement;
+            _readNumber.Iterator = readNumberIteration + IConcurrentIterator.ItemIterationIncrement;
 
             var clearedReadItem = readItem.Clear();
 
@@ -104,13 +115,13 @@ internal sealed class SingleConsumerQueue<T>
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private ref IterableItem GetItemsReference()
+    private ref IterableItem<T> GetItemsReference()
     {
         return ref MemoryMarshal.GetArrayDataReference(_items);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private ref IterableItem GetIterationItem(ref IterableItem itemsReference, int iteration)
+    private ref IterableItem<T> GetIterationItem(ref IterableItem<T> itemsReference, int iteration)
     {
         return ref Unsafe.Add(ref itemsReference, GetIterationIndex(iteration));
     }
@@ -122,9 +133,9 @@ internal sealed class SingleConsumerQueue<T>
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    private static IterableItem[] InitializeItems(int itemsCapacity)
+    private static IterableItem<T>[] InitializeItems(int itemsCapacity)
     {
-        var items = new IterableItem[itemsCapacity];
+        var items = new IterableItem<T>[itemsCapacity];
 
         scoped ref var itemsReference = ref MemoryMarshal.GetArrayDataReference(items);
 
@@ -163,102 +174,5 @@ internal sealed class SingleConsumerQueue<T>
         itemsCapacity++;
 
         return itemsCapacity;
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    private struct IterableItem : IConcurrentIterator
-    {
-        // need this declared this field before '_iterator' for struct layout reasons
-        public T Item;
-
-        public int Iterator;
-
-        int IConcurrentIterator.Iterator
-        {
-            get => Iterator;
-            set => Iterator = value;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public T Clear()
-        {
-            var item = Item;
-
-            Item = default!;
-
-            return item;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int Iteration() => Volatile
-            .Read(ref Iterator);
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Iterate(int currentIterator) => Volatile
-            .Write(ref Iterator, currentIterator + ItemIterationIncrement);
-
-        public void Iterate(int currentIterator, int iterations) => Volatile
-            .Write(ref Iterator, currentIterator + iterations);
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool TryIterate(int currentIterator) => Interlocked
-            .CompareExchange(ref Iterator, currentIterator + ItemIterationIncrement, currentIterator) == currentIterator;
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Exchange(int nextIterator) => Volatile
-            .Write(ref Iterator, nextIterator);
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool TryExchange(int currentIterator, int nextIterator) => Interlocked
-            .CompareExchange(ref Iterator, nextIterator, currentIterator) == currentIterator;
-    }
-
-    // There is an explicitly defined size to avoid false sharing
-    [StructLayout(LayoutKind.Explicit, Size = 64)]
-    private struct IterableNumber : IConcurrentIterator
-    {
-        [FieldOffset(0)]
-        public int Iterator;
-
-        int IConcurrentIterator.Iterator
-        {
-            get => Iterator;
-            set => Iterator = value;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int Iteration() => Volatile
-            .Read(ref Iterator);
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Iterate(int currentIterator) => Volatile
-            .Write(ref Iterator, currentIterator + ItemIterationIncrement);
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool TryIterate(int currentIterator) => Interlocked
-            .CompareExchange(ref Iterator, currentIterator + ItemIterationIncrement, currentIterator) == currentIterator;
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Exchange(int nextIterator) => Volatile
-            .Write(ref Iterator, nextIterator);
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool TryExchange(int currentIterator, int nextIterator) => Interlocked
-            .CompareExchange(ref Iterator, nextIterator, currentIterator) == currentIterator;
-    }
-
-    private interface IConcurrentIterator
-    {
-        int Iterator { get; set; }
-
-        int Iteration();
-
-        void Iterate(int currentIterator);
-
-        bool TryIterate(int currentIterator);
-
-        void Exchange(int nextIterator);
-
-        bool TryExchange(int currentIterator, int nextIterator);
     }
 }

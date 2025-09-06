@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace System.Logging.Targets;
 
-public sealed class ConcurrentLoggerTarget : LoggerTarget
+public sealed class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWorkItem
 {
     private readonly SingleConsumerQueue<RenderableLogContext> _logsQueue;
 
@@ -15,9 +15,11 @@ public sealed class ConcurrentLoggerTarget : LoggerTarget
 
     private readonly LoggerTarget _loggerTarget;
 
-    private readonly CancellationTokenSource _cancellationSource;
+    private volatile int _initialized;
 
-    private readonly CancellationToken _cancellationToken;
+    private volatile int _executing;
+
+    private volatile int _disposed;
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     public ConcurrentLoggerTarget(LoggerTarget loggerTarget, int capacity = 1024, int timeoutMilliseconds = 25)
@@ -28,15 +30,24 @@ public sealed class ConcurrentLoggerTarget : LoggerTarget
         _logsQueue = new SingleConsumerQueue<RenderableLogContext>(capacity);
         _timeoutMilliseconds = timeoutMilliseconds;
         _loggerTarget = loggerTarget;
-        _cancellationSource = new CancellationTokenSource();
-        _cancellationToken = _cancellationSource.Token;
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public override void Initialize(CancellationToken cancellationToken)
     {
+        if (_disposed is 1) return;
+
+        var initialized = _initialized;
+
+        if (initialized is 1 || Interlocked.CompareExchange(ref _initialized, 1, initialized) is 1)
+        {
+            return;
+        }
+
         _loggerTarget.Initialize(cancellationToken);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public override void Publish
     (
         in LogContext context,
@@ -44,84 +55,70 @@ public sealed class ConcurrentLoggerTarget : LoggerTarget
         CancellationToken cancellationToken
     )
     {
-        if (_cancellationToken.IsCancellationRequested)
-        {
-            DebugEventLogger.Handle
-            (
-                message: "An attempt was made to publish a log context to a disposed concurrent logger target"
-            );
+        if (_disposed is 1) return;
 
-            return;
-        }
-
-        var logEnqueued = _logsQueue.Enqueue
+        var enqueued = _logsQueue.Enqueue
         (
             item: new RenderableLogContext(context, renderer),
             cancellationToken: cancellationToken
         );
 
-        if (logEnqueued is false)
-        {
-            DebugEventLogger.Handle
-            (
-                message: "An attempt was made to publish a log context that was canceled due upper code cancellation token"
-            );
+        if (enqueued is false) return;
 
-            return;
-        }
-
-        // TODO: do we need there?
+        TryQueueWorkItem();
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public void Execute()
+    {
+        var cancellationTimeout = new CancellationTimeout(_timeoutMilliseconds);
+
+        var all = _logsQueue.Dequeue
+        (
+            argument: _loggerTarget,
+            iteration: static (loggerTarget, log) =>
+            {
+                try
+                {
+                    loggerTarget.Publish
+                    (
+                        context: log.Context,
+                        renderer: log.Renderer,
+                        cancellationToken: CancellationToken.None
+                    );
+                }
+                catch (Exception exception)
+                {
+                    DebugEventLogger.Handle
+                    (
+                        message: "An exception occurred while publishing a log context from the concurrent logger target to the inner logger target",
+                        exception: exception
+                    );
+                }
+            },
+            cancellationTimeout: cancellationTimeout
+        );
+
+        if (all is false) QueueWorkItem();
+        else Interlocked.CompareExchange(ref _executing, 0, 1);
+    }
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public override void Dispose(CancellationToken cancellationToken)
     {
-        if (_cancellationToken.IsCancellationRequested)
-        {
-            DebugEventLogger.Handle
-            (
-                message: "An attempt was made to dispose the concurrent logger target more than once"
-            );
+        var disposed = _disposed;
 
+        if (disposed is 1 || Interlocked.CompareExchange(ref _disposed, 1, disposed) is 1)
+        {
             return;
         }
 
-        try
+        if (_executing is 1)
         {
-            _cancellationSource.Cancel();
-        }
-        catch (Exception exception)
-        {
-            DebugEventLogger.Handle
-            (
-                message: "An exception occurred while disposing the concurrent logger target",
-                exception: exception
-            );
-        }
+            var waiter = new SpinWait();
 
-        try
-        {
-            _cancellationSource.Dispose();
-        }
-        catch (Exception exception)
-        {
-            DebugEventLogger.Handle
-            (
-                message: "An exception occurred while disposing the concurrent logger target",
-                exception: exception
-            );
-        }
-
-        try
-        {
-            // _completionSource.Task.Wait(cancellationToken);
-        }
-        catch (Exception exception)
-        {
-            DebugEventLogger.Handle
-            (
-                message: "An exception occurred while disposing the concurrent logger target",
-                exception: exception
-            );
+            do waiter.SpinOnce();
+            while (_executing is 1);
         }
 
         try
@@ -136,6 +133,27 @@ public sealed class ConcurrentLoggerTarget : LoggerTarget
                 exception: exception
             );
         }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private void TryQueueWorkItem()
+    {
+        if (_disposed is 1) return;
+
+        var executing = _executing;
+
+        if (executing is not 0 || Interlocked.CompareExchange(ref _executing, 1, executing) is 1)
+        {
+            return;
+        }
+
+        QueueWorkItem();
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private void QueueWorkItem()
+    {
+        ThreadPool.UnsafeQueueUserWorkItem(this, preferLocal: false);
     }
 
     private readonly struct RenderableLogContext
