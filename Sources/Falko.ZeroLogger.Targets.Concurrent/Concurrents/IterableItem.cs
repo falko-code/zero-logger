@@ -1,13 +1,14 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace System.Logging.Iterables;
+namespace System.Logging.Concurrents;
 
-// there is an explicitly defined size to avoid false sharing
-[StructLayout(LayoutKind.Explicit, Size = 64)]
-internal struct IterableNumber : IConcurrentIterator
+[StructLayout(LayoutKind.Sequential)]
+internal struct IterableItem<T> : IConcurrentIterator
 {
-    [FieldOffset(0)]
+    // need this declared this field before 'Iterator' for struct layout reasons
+    public T Item;
+
     public int Iterator;
 
     int IConcurrentIterator.Iterator
@@ -17,16 +18,29 @@ internal struct IterableNumber : IConcurrentIterator
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public T Clear()
+    {
+        var item = Item;
+
+        Item = default!;
+
+        return item;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public int Iteration() => Volatile
         .Read(ref Iterator);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Iterate(int currentIterator) => Volatile
-        .Write(ref Iterator, currentIterator + 1);
+        .Write(ref Iterator, currentIterator + IConcurrentIterator.ItemIterationIncrement);
+
+    public void Iterate(int currentIterator, int iterations) => Volatile
+        .Write(ref Iterator, currentIterator + iterations);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool TryIterate(int currentIterator) => Interlocked
-        .CompareExchange(ref Iterator, currentIterator + 1, currentIterator) == currentIterator;
+        .CompareExchange(ref Iterator, currentIterator + IConcurrentIterator.ItemIterationIncrement, currentIterator) == currentIterator;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Exchange(int nextIterator) => Volatile

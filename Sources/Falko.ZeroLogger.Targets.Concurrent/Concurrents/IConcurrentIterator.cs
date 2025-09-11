@@ -1,4 +1,4 @@
-namespace System.Logging.Iterables;
+namespace System.Logging.Concurrents;
 
 internal interface IConcurrentIterator
 {

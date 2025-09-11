@@ -1,5 +1,6 @@
 using System.Logging.Collections;
 using System.Logging.Common;
+using System.Logging.Concurrents;
 using System.Logging.Contexts;
 using System.Logging.Debugs;
 using System.Logging.Renderers;
@@ -15,11 +16,11 @@ public sealed class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWorkItem
 
     private readonly LoggerTarget _loggerTarget;
 
-    private volatile int _initialized;
+    private ConcurrentBoolean _initialized;
 
-    private volatile int _executing;
+    private ConcurrentBoolean _executing;
 
-    private volatile int _disposed;
+    private ConcurrentBoolean _disposed;
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     public ConcurrentLoggerTarget(LoggerTarget loggerTarget, int capacity = 1024, int timeoutMilliseconds = 25)
@@ -35,14 +36,9 @@ public sealed class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWorkItem
     [MethodImpl(MethodImplOptions.NoInlining)]
     public override void Initialize(CancellationToken cancellationToken)
     {
-        if (_disposed is 1) return;
+        if (_disposed.IsTrue()) return;
 
-        var initialized = _initialized;
-
-        if (initialized is 1 || Interlocked.CompareExchange(ref _initialized, 1, initialized) is 1)
-        {
-            return;
-        }
+        if (_initialized.IsTrue()) return;
 
         _loggerTarget.Initialize(cancellationToken);
     }
@@ -55,7 +51,7 @@ public sealed class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWorkItem
         CancellationToken cancellationToken
     )
     {
-        if (_disposed is 1) return;
+        if (_disposed.IsTrue()) return;
 
         var enqueued = _logsQueue.Enqueue
         (
@@ -100,26 +96,15 @@ public sealed class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWorkItem
         );
 
         if (all is false) QueueWorkItem();
-        else Interlocked.CompareExchange(ref _executing, 0, 1);
+        else if (_executing.TrySetFalse()) TryQueueWorkItem();
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     public override void Dispose(CancellationToken cancellationToken)
     {
-        var disposed = _disposed;
+        if (_disposed.TrySetTrue()) return;
 
-        if (disposed is 1 || Interlocked.CompareExchange(ref _disposed, 1, disposed) is 1)
-        {
-            return;
-        }
-
-        if (_executing is 1)
-        {
-            var waiter = new SpinWait();
-
-            do waiter.SpinOnce();
-            while (_executing is 1);
-        }
+        _executing.WaitFalse();
 
         try
         {
@@ -138,14 +123,11 @@ public sealed class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWorkItem
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void TryQueueWorkItem()
     {
-        if (_disposed is 1) return;
+        if (_disposed.IsTrue()) return;
 
-        var executing = _executing;
+        if (_logsQueue.IsEmpty) return;
 
-        if (executing is not 0 || Interlocked.CompareExchange(ref _executing, 1, executing) is 1)
-        {
-            return;
-        }
+        if (_executing.TrySetTrue() is false) return;
 
         QueueWorkItem();
     }

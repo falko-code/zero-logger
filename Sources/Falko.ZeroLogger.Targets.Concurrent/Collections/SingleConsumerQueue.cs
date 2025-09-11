@@ -1,5 +1,5 @@
 using System.Logging.Common;
-using System.Logging.Iterables;
+using System.Logging.Concurrents;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -39,10 +39,10 @@ internal sealed class SingleConsumerQueue<T>
         get => _itemsCapacity;
     }
 
-    public int Count
+    public bool IsEmpty
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get => _writeNumber.Iteration() - _readNumber.Iterator;
+        get => _writeNumber.Iteration() == _readNumber.Iteration();
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
@@ -93,7 +93,7 @@ internal sealed class SingleConsumerQueue<T>
 
         while (cancellationTimeout.IsExpired is false)
         {
-            var readNumberIteration = _readNumber.Iterator;
+            var readNumberIteration = _readNumber.Iteration();
 
             ref var readItem = ref GetIterationItem(ref itemsReference, readNumberIteration);
 
@@ -102,7 +102,7 @@ internal sealed class SingleConsumerQueue<T>
 
             if (readIterationDelta is not PrimaryIterationDelta) return true;
 
-            _readNumber.Iterator = readNumberIteration + IConcurrentIterator.ItemIterationIncrement;
+            _readNumber.Iterate(readNumberIteration);
 
             var clearedReadItem = readItem.Clear();
 
