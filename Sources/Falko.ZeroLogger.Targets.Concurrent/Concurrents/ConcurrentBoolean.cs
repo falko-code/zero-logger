@@ -27,7 +27,7 @@ internal struct ConcurrentBoolean
     {
         var currentValue = Volatile.Read(ref _value);
 
-        if (currentValue == TrueValue) return true;
+        if (currentValue == TrueValue) return false;
 
         return Interlocked.CompareExchange(ref _value, TrueValue, currentValue) == FalseValue;
     }
@@ -37,7 +37,7 @@ internal struct ConcurrentBoolean
     {
         var currentValue = Volatile.Read(ref _value);
 
-        if (currentValue == FalseValue) return true;
+        if (currentValue == FalseValue) return false;
 
         return Interlocked.CompareExchange(ref _value, FalseValue, currentValue) == TrueValue;
     }
