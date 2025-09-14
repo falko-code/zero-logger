@@ -56,29 +56,30 @@ internal sealed class SingleConsumerQueue<T>
 
         scoped ref var itemsReference = ref GetItemsReference();
 
-        while (cancellationToken.IsCancellationRequested is false)
+        ItemEnqueuing:
+
+        var writeNumberIteration = _writeNumber.Iteration();
+
+        scoped ref var writeItem = ref GetIterationItem(ref itemsReference, writeNumberIteration);
+
+        var writeItemIteration = writeItem.Iteration();
+        var writeIterationDelta = writeItemIteration - writeNumberIteration;
+
+        if (writeIterationDelta is PrimaryIterationDelta)
         {
-            var writeNumberIteration = _writeNumber.Iteration();
+            if (_writeNumber.TryIterate(writeNumberIteration) is false) goto ItemEnqueuing;
 
-            scoped ref var writeItem = ref GetIterationItem(ref itemsReference, writeNumberIteration);
+            writeItem.Item = item;
+            writeItem.Iterate(writeNumberIteration);
 
-            var writeItemIteration = writeItem.Iteration();
-            var writeIterationDelta = writeItemIteration - writeNumberIteration;
-
-            if (writeIterationDelta is PrimaryIterationDelta)
-            {
-                if (_writeNumber.TryIterate(writeNumberIteration) is false) continue;
-
-                writeItem.Item = item;
-                writeItem.Iterate(writeNumberIteration);
-
-                return true;
-            }
-
-            if (writeIterationDelta < PrimaryIterationDelta) queueFullSpin.SpinOnce();
+            return true;
         }
 
-        return false;
+        if (cancellationToken.IsCancellationRequested || writeIterationDelta >= PrimaryIterationDelta) return false;
+
+        queueFullSpin.SpinOnce();
+
+        goto ItemEnqueuing;
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
@@ -91,27 +92,28 @@ internal sealed class SingleConsumerQueue<T>
     {
         scoped ref var itemsReference = ref GetItemsReference();
 
-        while (cancellationTimeout.IsExpired is false)
-        {
-            var readNumberIteration = _readNumber.Iteration();
+        ItemDequeuing:
 
-            ref var readItem = ref GetIterationItem(ref itemsReference, readNumberIteration);
+        var readNumberIteration = _readNumber.Iteration();
 
-            var readItemIteration = readItem.Iteration();
-            var readIterationDelta = readNumberIteration - readItemIteration + IConcurrentIterator.ItemIterationIncrement;
+        ref var readItem = ref GetIterationItem(ref itemsReference, readNumberIteration);
 
-            if (readIterationDelta is not PrimaryIterationDelta) return true;
+        var readItemIteration = readItem.Iteration();
+        var readIterationDelta = readNumberIteration - readItemIteration + IConcurrentIterator.ItemIterationIncrement;
 
-            _readNumber.Iterate(readNumberIteration);
+        if (readIterationDelta is not PrimaryIterationDelta) return true;
 
-            var clearedReadItem = readItem.Clear();
+        _readNumber.Iterate(readNumberIteration);
 
-            iteration(argument, clearedReadItem);
+        var clearedReadItem = readItem.Clear();
 
-            readItem.Exchange(readNumberIteration + _itemsCapacity);
-        }
+        iteration(argument, clearedReadItem);
 
-        return false;
+        readItem.Exchange(readNumberIteration + _itemsCapacity);
+
+        if (cancellationTimeout.IsExpired) return false;
+
+        goto ItemDequeuing;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -153,7 +155,7 @@ internal sealed class SingleConsumerQueue<T>
         return itemsCapacity - 1;
     }
 
-    [MethodImpl(MethodImplOptions.NoInlining)]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static int RoundItemsCapacity(int itemsCapacity)
     {
         if (itemsCapacity > 1 << 30)
