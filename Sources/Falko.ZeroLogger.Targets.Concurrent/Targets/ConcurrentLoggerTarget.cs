@@ -102,7 +102,7 @@ public sealed partial class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWo
     [MethodImpl(MethodImplOptions.NoInlining)]
     public override void Dispose(CancellationToken cancellationToken)
     {
-        if (_disposed.TrySetTrue()) return;
+        if (_disposed.TrySetTrue() is false) return;
 
         _executing.WaitFalse();
 
