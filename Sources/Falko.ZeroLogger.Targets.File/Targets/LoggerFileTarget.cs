@@ -20,12 +20,6 @@ public sealed class LoggerFileTarget : LoggerTarget
 
     private static readonly string ApplicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-#if NET9_0_OR_GREATER
-    private readonly Lock _locker = new();
-#else
-    private readonly object _locker = new();
-#endif
-
     private readonly string _directoryPath;
 
     private readonly string _filePrefix;
@@ -91,58 +85,49 @@ public sealed class LoggerFileTarget : LoggerTarget
 
     public override void Initialize(CancellationToken cancellationToken)
     {
-        lock (_locker)
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(WritingBufferCapacity, FileSizeForArchiving);
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(FileSizeForArchiving, 0);
+
+        ThrowIfFilePrefixContainsNotLetter();
+
+        if (SyncLogs() is false)
         {
-            ArgumentOutOfRangeException.ThrowIfGreaterThan(WritingBufferCapacity, FileSizeForArchiving);
-            ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(FileSizeForArchiving, 0);
+            DebugEventLogger.Handle("Error while trying to sync logs file when initializing target");
 
-            ThrowIfFilePrefixContainsNotLetter();
-
-            if (SyncLogs() is false)
-            {
-                DebugEventLogger.Handle("Error while trying to sync logs file when initializing target");
-
-                return;
-            }
-
-            ArchiveDeprecatedDaysLogs();
-            DeleteDeprecatedLogsArchives();
+            return;
         }
+
+        ArchiveDeprecatedDaysLogs();
+        DeleteDeprecatedLogsArchives();
     }
 
     public override void Publish(in LogContext logContext, ILogContextRenderer renderer, CancellationToken cancellationToken)
     {
-        lock (_locker)
+        if (IsLogsDateChangingRequired(logContext.Time.DateTime))
         {
-            if (IsLogsDateChangingRequired(logContext.Time.DateTime))
-            {
-                MoveNextDateWithLogsArchivingOfPrevious();
-            }
-            else if (IsLogsFileSplittingRequired())
-            {
-                SplitLogsToArchive();
-            }
-
-            TransferLogToWritingBuffer(logContext, renderer);
-
-            if (IsWritingBufferWritingThresholdReached(logContext.Time.UtcDateTime) is false)
-            {
-                return;
-            }
-
-            TransferWritingBufferToLogsStream();
+            MoveNextDateWithLogsArchivingOfPrevious();
         }
+        else if (IsLogsFileSplittingRequired())
+        {
+            SplitLogsToArchive();
+        }
+
+        TransferLogToWritingBuffer(logContext, renderer);
+
+        if (IsWritingBufferWritingThresholdReached(logContext.Time.UtcDateTime) is false)
+        {
+            return;
+        }
+
+        TransferWritingBufferToLogsStream();
     }
 
     public override void Dispose(CancellationToken cancellationToken)
     {
-        lock (_locker)
-        {
-            TransferWritingBufferToLogsStream();
+        TransferWritingBufferToLogsStream();
 
-            CloseLogsFile();
-            CloseWritingBuffer();
-        }
+        CloseLogsFile();
+        CloseWritingBuffer();
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

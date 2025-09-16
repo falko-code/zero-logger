@@ -26,6 +26,8 @@ public sealed class LoggerContextBuilder()
         ArgumentNullException.ThrowIfNull(renderer, nameof(renderer));
         ArgumentNullException.ThrowIfNull(target, nameof(target));
 
+        if (target.OnlySingleThreadAccess) target = new LockLoggerTarget(target);
+
         _targetPairs.Add(new KeyValuePair<ILogContextRenderer, LoggerTarget>(renderer, target));
 
         return this;

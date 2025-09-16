@@ -5,6 +5,8 @@ namespace System.Logging.Targets;
 
 public abstract class LoggerTarget : IDisposable
 {
+    public virtual bool OnlySingleThreadAccess => true;
+
     public void Initialize() => Initialize(CancellationToken.None);
 
     public abstract void Initialize(CancellationToken cancellationToken);
