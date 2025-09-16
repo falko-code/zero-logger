@@ -4,8 +4,6 @@ internal interface IConcurrentIterator
 {
     const int ItemIterationIncrement = 1;
 
-    int Iterator { get; set; }
-
     int Iteration();
 
     void Iterate(int currentIterator);

@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace System.Logging.Targets;
 
-public sealed class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWorkItem
+public sealed partial class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWorkItem
 {
     private readonly SingleConsumerQueue<RenderableLogContext> _logsQueue;
 
@@ -23,7 +23,7 @@ public sealed class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWorkItem
     private ConcurrentBoolean _disposed;
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public ConcurrentLoggerTarget(LoggerTarget loggerTarget, int capacity = 1024, int timeoutMilliseconds = 25)
+    public ConcurrentLoggerTarget(LoggerTarget loggerTarget, int capacity = 1024, int timeoutMilliseconds = 24)
     {
         ArgumentNullException.ThrowIfNull(loggerTarget);
         CancellationTimeout.ThrowIfInvalid(timeoutMilliseconds);
@@ -136,20 +136,5 @@ public sealed class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWorkItem
     private void QueueWorkItem()
     {
         ThreadPool.UnsafeQueueUserWorkItem(this, preferLocal: false);
-    }
-
-    private readonly struct RenderableLogContext
-    {
-        public readonly LogContext Context;
-
-        public readonly ILogContextRenderer Renderer;
-
-        // ReSharper disable once ConvertToPrimaryConstructor
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public RenderableLogContext(in LogContext context, ILogContextRenderer renderer)
-        {
-            Context = context;
-            Renderer = renderer;
-        }
     }
 }

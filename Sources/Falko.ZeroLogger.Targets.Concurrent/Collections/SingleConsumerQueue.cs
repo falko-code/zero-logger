@@ -9,7 +9,7 @@ internal sealed class SingleConsumerQueue<T>
 {
     private const int PrimaryIterationDelta = 0;
 
-    private readonly IterableItem<T>[] _items;
+    private readonly ConcurrentItemIterator<T>[] _items;
 
     private readonly int _itemsCapacity;
 
@@ -96,7 +96,7 @@ internal sealed class SingleConsumerQueue<T>
 
         var readNumberIteration = _readNumber.Iteration();
 
-        ref var readItem = ref GetIterationItem(ref itemsReference, readNumberIteration);
+        scoped ref var readItem = ref GetIterationItem(ref itemsReference, readNumberIteration);
 
         var readItemIteration = readItem.Iteration();
         var readIterationDelta = readNumberIteration - readItemIteration + IConcurrentIterator.ItemIterationIncrement;
@@ -117,13 +117,13 @@ internal sealed class SingleConsumerQueue<T>
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private ref IterableItem<T> GetItemsReference()
+    private ref ConcurrentItemIterator<T> GetItemsReference()
     {
         return ref MemoryMarshal.GetArrayDataReference(_items);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private ref IterableItem<T> GetIterationItem(ref IterableItem<T> itemsReference, int iteration)
+    private ref ConcurrentItemIterator<T> GetIterationItem(ref ConcurrentItemIterator<T> itemsReference, int iteration)
     {
         return ref Unsafe.Add(ref itemsReference, GetIterationIndex(iteration));
     }
@@ -135,15 +135,15 @@ internal sealed class SingleConsumerQueue<T>
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    private static IterableItem<T>[] InitializeItems(int itemsCapacity)
+    private static ConcurrentItemIterator<T>[] InitializeItems(int itemsCapacity)
     {
-        var items = new IterableItem<T>[itemsCapacity];
+        var items = new ConcurrentItemIterator<T>[itemsCapacity];
 
         scoped ref var itemsReference = ref MemoryMarshal.GetArrayDataReference(items);
 
         for (var itemIndex = 0; itemIndex < itemsCapacity; itemIndex++)
         {
-            Unsafe.Add(ref itemsReference, itemIndex).Iterator = itemIndex;
+            Unsafe.Add(ref itemsReference, itemIndex).Exchange(itemIndex);
         }
 
         return items;

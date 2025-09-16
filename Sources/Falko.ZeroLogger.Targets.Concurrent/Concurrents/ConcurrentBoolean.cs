@@ -17,12 +17,6 @@ internal struct ConcurrentBoolean
     public bool IsFalse() => Volatile.Read(ref _value) == FalseValue;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void SetTrue() => Interlocked.Exchange(ref _value, TrueValue);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void SetFalse() => Interlocked.Exchange(ref _value, FalseValue);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool TrySetTrue()
     {
         var currentValue = Volatile.Read(ref _value);
