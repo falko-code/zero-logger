@@ -1,8 +1,13 @@
 <Project>
+    <PropertyGroup Label="Versions">
+        <MicrosoftPackagesVersion>9.0.9</MicrosoftPackagesVersion>
+    </PropertyGroup>
+
     <ItemGroup Label="Dependencies">
         <PackageVersion Include="JetBrains.Annotations" Version="2025.2.2" />
         <PackageVersion Include="BenchmarkDotNet" Version="0.15.2" />
         <PackageVersion Include="NLog" Version="6.0.2" />
-        <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.9" />
+        <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(MicrosoftPackagesVersion)" />
+        <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(MicrosoftPackagesVersion)" />
     </ItemGroup>
 </Project>
