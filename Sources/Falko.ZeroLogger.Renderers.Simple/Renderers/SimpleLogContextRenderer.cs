@@ -2,7 +2,6 @@ using System.Logging.Builders;
 using System.Logging.Contexts;
 using System.Logging.Logs;
 using System.Numerics;
-using System.Runtime.CompilerServices;
 
 namespace System.Logging.Renderers;
 

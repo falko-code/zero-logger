@@ -4,7 +4,6 @@ using System.Logging.Contexts;
 using System.Logging.Debugs;
 using System.Logging.Renderers;
 using System.Logging.Utils;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 // ReSharper disable LocalizableElement

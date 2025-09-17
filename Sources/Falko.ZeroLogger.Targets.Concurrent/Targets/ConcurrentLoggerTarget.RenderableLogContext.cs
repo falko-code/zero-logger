@@ -1,6 +1,5 @@
 using System.Logging.Contexts;
 using System.Logging.Renderers;
-using System.Runtime.CompilerServices;
 
 namespace System.Logging.Targets;
 

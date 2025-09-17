@@ -1,7 +1,6 @@
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 
-namespace System.Logging.Common;
+namespace System.Logging.Concurrents;
 
 internal readonly struct CancellationTimeout
 {

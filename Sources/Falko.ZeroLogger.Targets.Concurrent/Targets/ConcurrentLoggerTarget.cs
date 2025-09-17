@@ -1,10 +1,8 @@
 using System.Logging.Collections;
-using System.Logging.Common;
 using System.Logging.Concurrents;
 using System.Logging.Contexts;
 using System.Logging.Debugs;
 using System.Logging.Renderers;
-using System.Runtime.CompilerServices;
 
 namespace System.Logging.Targets;
 

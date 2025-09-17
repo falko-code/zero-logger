@@ -1,6 +1,4 @@
-using System.Logging.Common;
 using System.Logging.Concurrents;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace System.Logging.Collections;

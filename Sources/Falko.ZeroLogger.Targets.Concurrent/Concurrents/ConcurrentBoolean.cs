@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 namespace System.Logging.Concurrents;
 
 internal struct ConcurrentBoolean
