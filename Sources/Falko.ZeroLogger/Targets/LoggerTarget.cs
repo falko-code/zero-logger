@@ -5,7 +5,7 @@ namespace System.Logging.Targets;
 
 public abstract class LoggerTarget : IDisposable
 {
-    public virtual bool OnlySingleThreadAccess => true;
+    public virtual bool RequiresSynchronization => true;
 
     public void Initialize() => Initialize(CancellationToken.None);
 

@@ -11,7 +11,7 @@ public sealed class LockLoggerTarget(LoggerTarget singleThreadLoggerTarget) : Lo
     private readonly object _locker = new();
 #endif
 
-    public override bool OnlySingleThreadAccess => false;
+    public override bool RequiresSynchronization => false;
 
     public override void Initialize(CancellationToken cancellationToken)
     {

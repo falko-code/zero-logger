@@ -35,7 +35,7 @@ public sealed partial class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWo
         _loggerTarget = loggerTarget;
     }
 
-    public override bool OnlySingleThreadAccess => false;
+    public override bool RequiresSynchronization => false;
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     public override void Initialize(CancellationToken cancellationToken)
