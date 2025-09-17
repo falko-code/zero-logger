@@ -10,6 +10,8 @@ namespace System.Logging.Targets;
 
 public sealed partial class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWorkItem
 {
+    private static readonly Action<LoggerTarget, RenderableLogContext> PublishLogDelegate = PublishLog;
+
     private readonly SingleConsumerQueue<RenderableLogContext> _logsQueue;
 
     private readonly int _timeoutMilliseconds;
@@ -74,26 +76,7 @@ public sealed partial class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWo
         var all = _logsQueue.Dequeue
         (
             argument: _loggerTarget,
-            iteration: static (loggerTarget, log) =>
-            {
-                try
-                {
-                    loggerTarget.Publish
-                    (
-                        context: log.Context,
-                        renderer: log.Renderer,
-                        cancellationToken: CancellationToken.None
-                    );
-                }
-                catch (Exception exception)
-                {
-                    DebugEventLogger.Handle
-                    (
-                        message: "An exception occurred while publishing a log context from the concurrent logger target to the inner logger target",
-                        exception: exception
-                    );
-                }
-            },
+            iteration: PublishLogDelegate,
             cancellationTimeout: cancellationTimeout
         );
 
@@ -138,5 +121,21 @@ public sealed partial class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWo
     private void QueueWorkItem()
     {
         ThreadPool.UnsafeQueueUserWorkItem(this, preferLocal: false);
+    }
+
+    private static void PublishLog(LoggerTarget loggerTarget, RenderableLogContext logContext)
+    {
+        try
+        {
+            loggerTarget.Publish(context: logContext.Context, renderer: logContext.Renderer, cancellationToken: CancellationToken.None);
+        }
+        catch (Exception exception)
+        {
+            DebugEventLogger.Handle
+            (
+                message: "An exception occurred while publishing a log context from the concurrent logger target to the inner logger target",
+                exception: exception
+            );
+        }
     }
 }
