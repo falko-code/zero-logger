@@ -2,7 +2,7 @@ namespace System.Logging.Renderers;
 
 internal abstract class PersistentLogMessageRenderer : ILogMessageRenderer
 {
-    private string? _message;
+    private volatile string? _message;
 
     public string Render()
     {
