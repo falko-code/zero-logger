@@ -26,7 +26,7 @@ public sealed class LoggerContextBuilder()
         ArgumentNullException.ThrowIfNull(renderer, nameof(renderer));
         ArgumentNullException.ThrowIfNull(target, nameof(target));
 
-        if (target.RequiresSynchronization) target = new LockLoggerTarget(target);
+        if (target.RequiresSynchronization) target = new LockingLoggerTarget(target);
 
         _targetPairs.Add(new KeyValuePair<ILogContextRenderer, LoggerTarget>(renderer, target));
 
