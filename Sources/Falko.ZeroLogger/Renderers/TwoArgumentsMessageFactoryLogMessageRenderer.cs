@@ -4,6 +4,7 @@ using System.Logging.Utils;
 
 namespace System.Logging.Renderers;
 
+[method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 internal sealed class TwoArgumentsMessageFactoryLogMessageRenderer<T1, T2>
 (
     LogMessageFactory messageFactory,

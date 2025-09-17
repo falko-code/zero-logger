@@ -2,9 +2,10 @@ using System.Logging.Contexts;
 
 namespace System.Logging.Renderers;
 
+[method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 internal sealed class PersistentLogContextRenderer(ILogContextRenderer renderer) : ILogContextRenderer
 {
-    private string? _message;
+    private volatile string? _message;
 
     public string Render(in LogContext logContext)
     {

@@ -2,6 +2,7 @@ using System.Logging.Utils;
 
 namespace System.Logging.Renderers;
 
+[method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 internal sealed class ThreeInstanceArgumentsMessageLogMessageRenderer<T1, T2, T3>
 (
     string? message,

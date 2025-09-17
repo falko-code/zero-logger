@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace System.Logging.Renderers;
 
+[method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 internal sealed class ManyInstanceArgumentsMessageFactoryLogMessageRenderer
 (
     LogMessageFactory messageFactory,
