@@ -1,5 +1,6 @@
 using System.Logging.Loggers;
 using System.Logging.Runtimes;
+using System.Logging.Utils;
 
 namespace System.Logging.Factories;
 
@@ -17,7 +18,7 @@ public readonly struct LoggerFactory(LoggerRuntime loggerRuntime)
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Logger CreateLogger<T>() where T : notnull
     {
-        var name = typeof(T).FullName;
+        var name = TypeUtils.GetTypeName(typeof(T));
 
         ArgumentNullException.ThrowIfNull(name);
 
@@ -29,7 +30,7 @@ public readonly struct LoggerFactory(LoggerRuntime loggerRuntime)
     {
         ArgumentNullException.ThrowIfNull(type);
 
-        var name = type.FullName;
+        var name = TypeUtils.GetTypeName(type);
 
         ArgumentNullException.ThrowIfNull(name);
 

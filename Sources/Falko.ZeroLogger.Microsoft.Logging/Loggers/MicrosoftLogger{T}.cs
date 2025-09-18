@@ -6,14 +6,11 @@ public sealed class MicrosoftLogger<TTarget> : ILogger<TTarget>
 {
     private readonly IMicrosoftLogger _logger;
 
+    // ReSharper disable once ConvertToPrimaryConstructor
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public MicrosoftLogger(IMicrosoftLoggerFactory loggerFactory)
     {
-        var loggerName = typeof(TTarget).FullName;
-
-        ArgumentException.ThrowIfNullOrEmpty(loggerName);
-
-        _logger = loggerFactory.CreateLogger(loggerName);
+        _logger = loggerFactory.CreateLogger<TTarget>();
     }
 
     public void Log<TState>
