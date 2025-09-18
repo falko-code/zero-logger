@@ -7,7 +7,7 @@ internal static class TypeUtils
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static string GetTypeName(Type type)
     {
-        var nameBuilder = new ValueStringBuilder(stackalloc char[256]);
+        var nameBuilder = new ValueStringBuilder(stackalloc char[128]);
 
         try
         {
