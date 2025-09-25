@@ -1,4 +1,7 @@
-﻿using System.Logging.Factories;
+﻿using System.Logging.Concurrents;
+using System.Logging.Factories;
+using System.Logging.Runtimes;
+using System.Logging.Targets;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
 using BenchmarkDotNet.Jobs;
