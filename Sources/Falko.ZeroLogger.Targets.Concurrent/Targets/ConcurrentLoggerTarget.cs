@@ -36,13 +36,13 @@ public sealed partial class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWo
     public override bool RequiresSynchronization => false;
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public override void Initialize(CancellationToken cancellationToken)
+    public override void Initialize(CancellationContext cancellationContext)
     {
         if (_disposed.IsTrue()) return;
 
         if (_initialized.IsTrue()) return;
 
-        _loggerTarget.Initialize(cancellationToken);
+        _loggerTarget.Initialize(cancellationContext);
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
@@ -57,7 +57,7 @@ public sealed partial class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWo
 
         var enqueued = _logsQueue.Enqueue
         (
-            item: new RenderableLogContext(context, renderer),
+            item: new RenderableLogContext(context, renderer, cancellationToken),
             cancellationToken: cancellationToken
         );
 
@@ -83,7 +83,7 @@ public sealed partial class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWo
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public override void Dispose(CancellationToken cancellationToken)
+    public override void Dispose(CancellationContext cancellationContext)
     {
         if (_disposed.TrySetTrue() is false) return;
 
@@ -91,7 +91,7 @@ public sealed partial class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWo
 
         try
         {
-            _loggerTarget.Dispose(cancellationToken);
+            _loggerTarget.Dispose(cancellationContext);
         }
         catch (Exception exception)
         {
@@ -125,7 +125,7 @@ public sealed partial class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWo
     {
         try
         {
-            loggerTarget.Publish(context: logContext.Context, renderer: logContext.Renderer, cancellationToken: CancellationToken.None);
+            loggerTarget.Publish(context: logContext.Context, renderer: logContext.Renderer, cancellationToken: logContext.CancellationToken);
         }
         catch (Exception exception)
         {

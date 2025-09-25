@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.IO.Compression;
+using System.Logging.Concurrents;
 using System.Logging.Contexts;
 using System.Logging.Debugs;
 using System.Logging.Renderers;
@@ -82,7 +83,7 @@ public sealed class LoggerFileTarget : LoggerTarget
 		init => _writingBufferInterval = value;
 	}
 
-    public override void Initialize(CancellationToken cancellationToken)
+    public override void Initialize(CancellationContext cancellationContext)
     {
         ArgumentOutOfRangeException.ThrowIfGreaterThan(WritingBufferCapacity, FileSizeForArchiving);
         ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(FileSizeForArchiving, 0);
@@ -100,7 +101,12 @@ public sealed class LoggerFileTarget : LoggerTarget
         DeleteDeprecatedLogsArchives();
     }
 
-    public override void Publish(in LogContext logContext, ILogContextRenderer renderer, CancellationToken cancellationToken)
+    public override void Publish
+    (
+        in LogContext logContext,
+        ILogContextRenderer renderer,
+        CancellationToken cancellationToken
+    )
     {
         if (IsLogsDateChangingRequired(logContext.Time.DateTime))
         {
@@ -121,7 +127,7 @@ public sealed class LoggerFileTarget : LoggerTarget
         TransferWritingBufferToLogsStream();
     }
 
-    public override void Dispose(CancellationToken cancellationToken)
+    public override void Dispose(CancellationContext cancellationContext)
     {
         TransferWritingBufferToLogsStream();
 

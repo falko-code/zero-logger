@@ -109,7 +109,7 @@ internal sealed class SingleConsumerQueue<T>
 
         readItem.Exchange(readNumberIteration + _itemsCapacity);
 
-        if (cancellationTimeout.IsExpired) return false;
+        if (cancellationTimeout.IsCancellationRequested) return false;
 
         goto ItemDequeuing;
     }

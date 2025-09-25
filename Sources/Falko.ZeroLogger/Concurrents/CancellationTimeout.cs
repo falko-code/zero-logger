@@ -2,50 +2,52 @@ using System.Diagnostics;
 
 namespace System.Logging.Concurrents;
 
-internal readonly struct CancellationTimeout
+public readonly struct CancellationTimeout
 {
     private static readonly Stopwatch GlobalStopwatch = Stopwatch.StartNew();
 
     private static readonly long TicksPerMillisecond = Stopwatch.Frequency / 1000;
 
-    private static int MaximumMilliseconds => (int)Math.Floor(TimeSpan.MaxValue.TotalMilliseconds);
+    private static int MaximumMilliseconds => ToMilliseconds(TimeSpan.MaxValue);
 
     private readonly Stopwatch _globalStopwatch;
 
     private readonly long _endTicks;
 
-    public readonly int DurationMilliseconds;
+    private readonly int _durationMilliseconds;
 
-    // ReSharper disable once ConvertToPrimaryConstructor
+    // ReSharper disable ConvertToPrimaryConstructor
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public CancellationTimeout(int millisecondsTimeout)
     {
         _globalStopwatch = GlobalStopwatch;
         _endTicks = GlobalStopwatch.ElapsedTicks + millisecondsTimeout * TicksPerMillisecond;
 
-        DurationMilliseconds = millisecondsTimeout;
+        _durationMilliseconds = millisecondsTimeout;
     }
 
-    public bool IsExpired
+    public static CancellationTimeout None => new(MaximumMilliseconds);
+
+    public bool CanBeCanceled
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        get => _durationMilliseconds < MaximumMilliseconds;
+    }
+
+    public bool IsCancellationRequested
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get => _globalStopwatch.ElapsedTicks >= _endTicks;
     }
 
-    public int RemainingMilliseconds
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public static CancellationTimeout From(TimeSpan timeout)
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get
-        {
-            var elapsedTicks = _globalStopwatch.ElapsedTicks;
-            var endTicks = _endTicks;
+        var millisecondsTimeout = ToMilliseconds(timeout);
 
-            if (elapsedTicks >= endTicks) return 0;
+        ThrowIfInvalid(millisecondsTimeout);
 
-            var remainingTicks = endTicks - elapsedTicks;
-
-            return (int)(remainingTicks / TicksPerMillisecond);
-        }
+        return new CancellationTimeout(millisecondsTimeout);
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
@@ -53,5 +55,11 @@ internal readonly struct CancellationTimeout
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(millisecondsTimeout);
         ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(millisecondsTimeout, MaximumMilliseconds);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int ToMilliseconds(TimeSpan timeout)
+    {
+        return (int)Math.Floor(timeout.TotalMilliseconds);
     }
 }

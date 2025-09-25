@@ -1,3 +1,4 @@
+using System.Logging.Concurrents;
 using System.Logging.Contexts;
 using System.Logging.Renderers;
 
@@ -14,33 +15,35 @@ public sealed class LockingLoggerTarget(LoggerTarget singleThreadLoggerTarget) :
 
     public override bool RequiresSynchronization => false;
 
-    public override void Initialize(CancellationToken cancellationToken)
+    public override void Initialize(CancellationContext cancellationContext)
     {
 #if NET9_0_OR_GREATER
-        using var _ = _locker.EnterScope();
-        singleThreadLoggerTarget.Initialize(cancellationToken);
+        using (_locker.EnterScope()) singleThreadLoggerTarget.Initialize(cancellationContext);
 #else
-        lock (_locker) singleThreadLoggerTarget.Initialize(cancellationToken);
+        lock (_locker) singleThreadLoggerTarget.Initialize(cancellationContext);
 #endif
     }
 
-    public override void Publish(in LogContext context, ILogContextRenderer renderer, CancellationToken cancellationToken)
+    public override void Publish
+    (
+        in LogContext context,
+        ILogContextRenderer renderer,
+        CancellationToken cancellationToken
+    )
     {
 #if NET9_0_OR_GREATER
-        using var _ = _locker.EnterScope();
-        singleThreadLoggerTarget.Publish(context, renderer, cancellationToken);
+        using (_locker.EnterScope()) singleThreadLoggerTarget.Publish(context, renderer, cancellationToken);
 #else
         lock (_locker) singleThreadLoggerTarget.Publish(context, renderer, cancellationToken);
 #endif
     }
 
-    public override void Dispose(CancellationToken cancellationToken)
+    public override void Dispose(CancellationContext cancellationContext)
     {
 #if NET9_0_OR_GREATER
-        using var _ = _locker.EnterScope();
-        singleThreadLoggerTarget.Dispose(cancellationToken);
+        using (_locker.EnterScope()) singleThreadLoggerTarget.Dispose(cancellationContext);
 #else
-        lock (_locker) singleThreadLoggerTarget.Dispose(cancellationToken);
+        lock (_locker) singleThreadLoggerTarget.Dispose(cancellationContext);
 #endif
     }
 }

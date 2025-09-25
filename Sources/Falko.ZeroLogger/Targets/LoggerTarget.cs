@@ -1,3 +1,4 @@
+using System.Logging.Concurrents;
 using System.Logging.Contexts;
 using System.Logging.Renderers;
 
@@ -7,13 +8,20 @@ public abstract class LoggerTarget : IDisposable
 {
     public virtual bool RequiresSynchronization => true;
 
-    public void Initialize() => Initialize(CancellationToken.None);
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Initialize() => Initialize(CancellationContext.None);
 
-    public abstract void Initialize(CancellationToken cancellationToken);
+    public abstract void Initialize(CancellationContext cancellationContext);
 
-    public abstract void Publish(in LogContext context, ILogContextRenderer renderer, CancellationToken cancellationToken);
+    public abstract void Publish
+    (
+        in LogContext context,
+        ILogContextRenderer renderer,
+        CancellationToken cancellationToken
+    );
 
-    public abstract void Dispose(CancellationToken cancellationToken);
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Dispose() => Dispose(CancellationContext.None);
 
-    public void Dispose() => Dispose(CancellationToken.None);
+    public abstract void Dispose(CancellationContext cancellationContext);
 }

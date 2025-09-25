@@ -227,16 +227,19 @@ file sealed class RenderingZeroLoggerTarget : System.Logging.Targets.LoggerTarge
 
     private RenderingZeroLoggerTarget() { }
 
-    public override void Initialize(CancellationToken cancellationToken) { }
+    public override void Initialize(CancellationContext cancellationContext) { }
 
-    public override void Publish(in System.Logging.Contexts.LogContext context,
+    public override void Publish
+    (
+        in System.Logging.Contexts.LogContext context,
         System.Logging.Renderers.ILogContextRenderer renderer,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken
+    )
     {
         _ = renderer.Render(context);
     }
 
-    public override void Dispose(CancellationToken cancellationToken) { }
+    public override void Dispose(CancellationContext cancellationContext) { }
 }
 
 file sealed class RenderingNLogLoggerTarget : NLog.Targets.TargetWithLayout
@@ -296,16 +299,19 @@ file sealed class EmptyZeroLoggerTarget : System.Logging.Targets.LoggerTarget
 
     private EmptyZeroLoggerTarget() { }
 
-    public override void Initialize(CancellationToken cancellationToken) { }
+    public override void Initialize(CancellationContext cancellationContext) { }
 
-    public override void Publish(in System.Logging.Contexts.LogContext context,
+    public override void Publish
+    (
+        in System.Logging.Contexts.LogContext context,
         System.Logging.Renderers.ILogContextRenderer renderer,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken
+    )
     {
         _ = context;
     }
 
-    public override void Dispose(CancellationToken cancellationToken) { }
+    public override void Dispose(CancellationContext cancellationContext) { }
 }
 
 file sealed class EmptyNLogLoggerTarget : NLog.Targets.TargetWithLayout

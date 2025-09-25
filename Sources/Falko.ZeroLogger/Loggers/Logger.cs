@@ -2785,7 +2785,7 @@ public readonly partial struct Logger
         // ReSharper disable once ConvertIfStatementToSwitchStatement
         if (targetsLength > 1)
         {
-            var cancellationToken = loggerContext.Cancellation;
+            var cancellationToken = loggerContext.CancellationToken;
 
             scoped ref var targetsRef = ref MemoryMarshal.GetArrayDataReference(targets);
 
@@ -2839,7 +2839,7 @@ public readonly partial struct Logger
         }
         else if (targetsLength is 1)
         {
-            PublishLog(targets[0], logContext, renderers[0].Renderer, loggerContext.Cancellation);
+            PublishLog(targets[0], logContext, renderers[0].Renderer, loggerContext.CancellationToken);
         }
     }
 

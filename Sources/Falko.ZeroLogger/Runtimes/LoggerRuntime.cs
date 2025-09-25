@@ -1,4 +1,5 @@
 using System.Logging.Builders;
+using System.Logging.Concurrents;
 using System.Logging.Contexts;
 using System.Logging.Debugs;
 using System.Logging.Factories;
@@ -35,11 +36,11 @@ public sealed partial class LoggerRuntime : IDisposable
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public void Initialize(LoggerContextBuilder loggerBuilder, CancellationToken cancellationToken)
+    public void Initialize(LoggerContextBuilder loggerBuilder, CancellationContext cancellationContext)
     {
         lock (_locker)
         {
-            Dispose(cancellationToken);
+            Dispose(cancellationContext);
 
             var contextCancellation = new CancellationTokenSource();
 
@@ -56,24 +57,24 @@ public sealed partial class LoggerRuntime : IDisposable
 
                 for (var targetIndex = 0; targetIndex < targetsLength; targetIndex++)
                 {
-                    InitializeTarget(targetsSpan[targetIndex], cancellationToken);
+                    InitializeTarget(targetsSpan[targetIndex], cancellationContext);
                 }
             }
             else if (targetsLength is 1)
             {
-                InitializeTarget(context.Targets[0], cancellationToken);
+                InitializeTarget(context.Targets[0], cancellationContext);
             }
         }
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public void Dispose(CancellationToken cancellationToken)
+    public void Dispose(CancellationContext cancellationContext)
     {
         lock (_locker)
         {
             var loggerContext = LoggerContext;
 
-            if (loggerContext.Cancellation.IsCancellationRequested) return;
+            if (loggerContext.CancellationToken.IsCancellationRequested) return;
 
             var cancellationTokenSource = _contextCancellation!;
 
@@ -107,13 +108,13 @@ public sealed partial class LoggerRuntime : IDisposable
                 for (var targetIndex = 0; targetIndex < targetsLength; targetIndex++)
                 {
                     // ReSharper disable once PossiblyMistakenUseOfCancellationToken
-                    DisposeTarget(targetsSpan[targetIndex], cancellationToken);
+                    DisposeTarget(targetsSpan[targetIndex], cancellationContext);
                 }
             }
             else if (targetsLength is 1)
             {
                 // ReSharper disable once PossiblyMistakenUseOfCancellationToken
-                DisposeTarget(targets[0], cancellationToken);
+                DisposeTarget(targets[0], cancellationContext);
             }
 
             _contextCancellation = null;
@@ -122,11 +123,11 @@ public sealed partial class LoggerRuntime : IDisposable
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static void InitializeTarget(LoggerTarget target, CancellationToken cancellationToken)
+    private static void InitializeTarget(LoggerTarget target, CancellationContext cancellationContext)
     {
         try
         {
-            target.Initialize(cancellationToken);
+            target.Initialize(cancellationContext);
         }
         catch (Exception exception)
         {
@@ -135,11 +136,11 @@ public sealed partial class LoggerRuntime : IDisposable
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static void DisposeTarget(LoggerTarget target, CancellationToken cancellationToken)
+    private static void DisposeTarget(LoggerTarget target, CancellationContext cancellationContext)
     {
         try
         {
-            target.Dispose(cancellationToken);
+            target.Dispose(cancellationContext);
         }
         catch (Exception exception)
         {

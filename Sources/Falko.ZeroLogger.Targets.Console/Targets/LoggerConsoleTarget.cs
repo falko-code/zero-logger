@@ -1,3 +1,4 @@
+using System.Logging.Concurrents;
 using System.Logging.Contexts;
 using System.Logging.Renderers;
 
@@ -9,12 +10,17 @@ public sealed class LoggerConsoleTarget : LoggerTarget
 
     private LoggerConsoleTarget() { }
 
-    public override void Initialize(CancellationToken cancellationToken) { }
+    public override void Initialize(CancellationContext cancellationContext) { }
 
-    public override void Publish(in LogContext context, ILogContextRenderer renderer, CancellationToken cancellationToken)
+    public override void Publish
+    (
+        in LogContext context,
+        ILogContextRenderer renderer,
+        CancellationToken cancellationToken
+    )
     {
         Console.Write(renderer.Render(context));
     }
 
-    public override void Dispose(CancellationToken cancellationToken) { }
+    public override void Dispose(CancellationContext cancellationContext) { }
 }

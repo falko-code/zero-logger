@@ -5,7 +5,7 @@ namespace System.Logging.Contexts;
 
 public sealed class LoggerContext
 {
-    public static readonly LoggerContext Empty = new(LogLevels.None, [], [], new CancellationToken(true));
+    public static readonly LoggerContext Empty = new(LogLevels.None, [], [], CancellationToken.None);
 
     public readonly LogLevel Level;
 
@@ -13,7 +13,7 @@ public sealed class LoggerContext
 
     internal readonly LogContextRendererSpan[] Renderers;
 
-    public readonly CancellationToken Cancellation;
+    public readonly CancellationToken CancellationToken;
 
     public readonly bool IsTraceLevelEnabled;
 
@@ -27,12 +27,19 @@ public sealed class LoggerContext
 
     public readonly bool IsFatalLevelEnabled;
 
-    internal LoggerContext(LogLevel level, LoggerTarget[] targets, LogContextRendererSpan[] renderers, CancellationToken cancellationToken)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    internal LoggerContext
+    (
+        LogLevel level,
+        LoggerTarget[] targets,
+        LogContextRendererSpan[] renderers,
+        CancellationToken cancellationToken
+    )
     {
         Level = level;
         Targets = targets;
         Renderers = renderers;
-        Cancellation = cancellationToken;
+        CancellationToken = cancellationToken;
 
         IsTraceLevelEnabled = level.IsEnabled(LogLevel.Trace);
         IsDebugLevelEnabled = level.IsEnabled(LogLevel.Debug);
