@@ -5,7 +5,7 @@ namespace System.Logging.Utils;
 
 internal sealed class ProcessorDateTimeOffsetProvider : IDateTimeOffsetProvider
 {
-    private const long CachedTimeUpdateThresholdMilliseconds = 12;
+    private const long CachedTimeUpdateThresholdMilliseconds = 8;
 
     private readonly Stopwatch _stopwatch;
 
