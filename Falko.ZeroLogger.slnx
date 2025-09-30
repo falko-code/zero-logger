@@ -31,6 +31,9 @@
   </Folder>
   <Folder Name="/Tests/">
     <Project Path="Tests\Falko.ZeroLogger.Tests\Falko.ZeroLogger.Tests.csproj" Type="Classic C#" />
+    <Project Path="Tests\Falko.ZeroLogger.Targets.Console.Tests\Falko.ZeroLogger.Targets.Console.Tests.csproj" Type="Classic C#" />
+    <Project Path="Tests\Falko.ZeroLogger.Renderers.Simple.Tests\Falko.ZeroLogger.Renderers.Simple.Tests.csproj" Type="Classic C#" />
+    <Project Path="Tests\Falko.ZeroLogger.Integration.Tests\Falko.ZeroLogger.Integration.Tests.csproj" Type="Classic C#" />
     <Project Path="Tests\Falko.ZeroLogger.Targets.File.Tests\Falko.ZeroLogger.Targets.File.Tests.csproj" Type="Classic C#" />
   </Folder>
 </Solution>
