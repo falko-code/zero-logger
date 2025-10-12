@@ -3,7 +3,7 @@
 
     <PropertyGroup Label="Assembly">
         <Version>0.9.0</Version>
-        <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
+        <TargetFrameworks>net10.0;net9.0;net8.0</TargetFrameworks>
         <IsAotCompatible>true</IsAotCompatible>
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     </PropertyGroup>
