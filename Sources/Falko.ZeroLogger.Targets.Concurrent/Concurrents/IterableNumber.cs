@@ -15,11 +15,11 @@ internal struct IterableNumber : IConcurrentIterator
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Iterate(int currentIterator) => Volatile
-        .Write(ref _iterator, currentIterator + IConcurrentIterator.ItemIterationIncrement);
+        .Write(ref _iterator, currentIterator + 1);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool TryIterate(int currentIterator) => Interlocked
-        .CompareExchange(ref _iterator, currentIterator + IConcurrentIterator.ItemIterationIncrement, currentIterator) == currentIterator;
+        .CompareExchange(ref _iterator, currentIterator + 1, currentIterator) == currentIterator;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Exchange(int nextIterator) => Volatile

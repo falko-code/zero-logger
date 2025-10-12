@@ -2,8 +2,6 @@ namespace System.Logging.Concurrents;
 
 internal interface IConcurrentIterator
 {
-    const int ItemIterationIncrement = 1;
-
     int Iteration();
 
     void Iterate(int currentIterator);

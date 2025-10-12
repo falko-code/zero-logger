@@ -97,7 +97,7 @@ internal sealed class SingleConsumerQueue<T>
         scoped ref var readItem = ref GetIterationItem(ref itemsReference, readNumberIteration);
 
         var readItemIteration = readItem.Iteration();
-        var readIterationDelta = readNumberIteration - readItemIteration + IConcurrentIterator.ItemIterationIncrement;
+        var readIterationDelta = readNumberIteration - readItemIteration + 1;
 
         if (readIterationDelta is not PrimaryIterationDelta) return true;
 
