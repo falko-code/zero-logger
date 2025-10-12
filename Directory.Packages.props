@@ -6,7 +6,7 @@
     <ItemGroup Label="Dependencies">
         <PackageVersion Include="JetBrains.Annotations" Version="2025.2.2" />
         <PackageVersion Include="BenchmarkDotNet" Version="0.15.4" />
-        <PackageVersion Include="NLog" Version="6.0.4" />
+        <PackageVersion Include="NLog" Version="6.0.5" />
         <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(MicrosoftPackagesVersion)" />
         <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(MicrosoftPackagesVersion)" />
     </ItemGroup>
