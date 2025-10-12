@@ -1,7 +1,7 @@
-using System.Logging.Factories;
-using System.Logging.Logs;
-using System.Logging.Runtimes;
-using System.Logging.Targets;
+using Falko.Logging.Factories;
+using Falko.Logging.Logs;
+using Falko.Logging.Runtimes;
+using Falko.Logging.Targets;
 using Falko.ZeroLogger.Targets.File.Tests.Renderers;
 
 namespace Falko.ZeroLogger.Targets.File.Tests.Testers;

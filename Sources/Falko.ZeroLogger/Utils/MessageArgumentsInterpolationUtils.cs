@@ -1,8 +1,8 @@
 using System.Buffers;
-using System.Logging.Builders;
 using System.Runtime.InteropServices;
+using Falko.Logging.Builders;
 
-namespace System.Logging.Utils;
+namespace Falko.Logging.Utils;
 
 internal static class MessageArgumentsInterpolationUtils
 {

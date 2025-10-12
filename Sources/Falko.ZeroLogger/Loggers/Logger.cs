@@ -1,15 +1,15 @@
-using System.Logging.Contexts;
-using System.Logging.Debugs;
-using System.Logging.Factories;
-using System.Logging.Logs;
-using System.Logging.Renderers;
-using System.Logging.Runtimes;
-using System.Logging.Targets;
-using System.Logging.Utils;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using Falko.Logging.Contexts;
+using Falko.Logging.Debugs;
+using Falko.Logging.Factories;
+using Falko.Logging.Logs;
+using Falko.Logging.Renderers;
+using Falko.Logging.Runtimes;
+using Falko.Logging.Targets;
+using Falko.Logging.Utils;
 
-namespace System.Logging.Loggers;
+namespace Falko.Logging.Loggers;
 
 [StructLayout(LayoutKind.Auto)]
 public readonly partial struct Logger

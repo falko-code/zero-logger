@@ -1,7 +1,7 @@
-using System.Logging.Concurrents;
 using System.Runtime.InteropServices;
+using Falko.Logging.Concurrents;
 
-namespace System.Logging.Collections;
+namespace Falko.Logging.Collections;
 
 internal sealed class SingleConsumerQueue<T>
 {

@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace System.Logging.Concurrents;
+namespace Falko.Logging.Concurrents;
 
 [StructLayout(LayoutKind.Sequential)]
 internal struct ConcurrentItemIterator<T> : IConcurrentIterator

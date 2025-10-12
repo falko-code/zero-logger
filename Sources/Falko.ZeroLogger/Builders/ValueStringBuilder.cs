@@ -1,6 +1,6 @@
 using System.Buffers;
 
-namespace System.Logging.Builders;
+namespace Falko.Logging.Builders;
 
 public ref struct ValueStringBuilder : IDisposable
 {

@@ -1,9 +1,9 @@
-using System.Logging.Builders;
-using System.Logging.Contexts;
-using System.Logging.Logs;
 using System.Numerics;
+using Falko.Logging.Builders;
+using Falko.Logging.Contexts;
+using Falko.Logging.Logs;
 
-namespace System.Logging.Renderers;
+namespace Falko.Logging.Renderers;
 
 public sealed class SimpleLogContextRenderer : ILogContextRenderer
 {

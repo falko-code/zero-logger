@@ -1,4 +1,4 @@
-namespace System.Logging.Renderers;
+namespace Falko.Logging.Renderers;
 
 internal abstract class PersistentLogMessageRenderer : ILogMessageRenderer
 {

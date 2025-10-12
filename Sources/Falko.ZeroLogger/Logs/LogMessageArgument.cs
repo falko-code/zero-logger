@@ -1,7 +1,7 @@
-using System.Logging.Factories;
-using System.Logging.Utils;
+using Falko.Logging.Factories;
+using Falko.Logging.Utils;
 
-namespace System.Logging.Logs;
+namespace Falko.Logging.Logs;
 
 public static class LogMessageArgument
 {

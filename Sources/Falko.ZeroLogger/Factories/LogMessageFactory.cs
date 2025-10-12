@@ -1,4 +1,4 @@
-namespace System.Logging.Factories;
+namespace Falko.Logging.Factories;
 
 public delegate string? LogMessageFactory();
 

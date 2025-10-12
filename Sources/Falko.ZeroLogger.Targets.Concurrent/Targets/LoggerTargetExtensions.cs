@@ -1,4 +1,4 @@
-namespace System.Logging.Targets;
+namespace Falko.Logging.Targets;
 
 public static partial class LoggerTargetExtensions
 {

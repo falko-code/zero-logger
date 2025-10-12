@@ -1,8 +1,8 @@
-using System.Logging.Concurrents;
-using System.Logging.Contexts;
-using System.Logging.Renderers;
+using Falko.Logging.Concurrents;
+using Falko.Logging.Contexts;
+using Falko.Logging.Renderers;
 
-namespace System.Logging.Targets;
+namespace Falko.Logging.Targets;
 
 public sealed class LoggerConsoleTarget : LoggerTarget
 {

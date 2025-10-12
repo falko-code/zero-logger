@@ -1,6 +1,6 @@
-using System.Logging.Utils;
+using Falko.Logging.Utils;
 
-namespace System.Logging.Renderers;
+namespace Falko.Logging.Renderers;
 
 [method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 internal sealed class FourInstanceArgumentsMessageLogMessageRenderer<T1, T2, T3, T4>

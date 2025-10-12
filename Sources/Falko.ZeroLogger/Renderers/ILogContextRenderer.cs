@@ -1,6 +1,6 @@
-using System.Logging.Contexts;
+using Falko.Logging.Contexts;
 
-namespace System.Logging.Renderers;
+namespace Falko.Logging.Renderers;
 
 public interface ILogContextRenderer
 {

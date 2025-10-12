@@ -1,4 +1,7 @@
-namespace System.Logging.Loggers;
+using Falko.Logging.Logs;
+using Falko.Logging.Runtimes;
+
+namespace Falko.Logging.Loggers;
 
 public sealed class MicrosoftLogger : IMicrosoftLogger
 {

@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace System.Logging.Concurrents;
+namespace Falko.Logging.Concurrents;
 
 // there is an explicitly defined size to avoid false sharing
 [StructLayout(LayoutKind.Explicit, Size = 64)]

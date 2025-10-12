@@ -1,7 +1,7 @@
-using System.Logging.Utils;
 using System.Runtime.InteropServices;
+using Falko.Logging.Utils;
 
-namespace System.Logging.Renderers;
+namespace Falko.Logging.Renderers;
 
 [method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 internal sealed class ManyStringArgumentsMessageLogMessageRenderer

@@ -1,11 +1,17 @@
-﻿using System.Logging.Concurrents;
-using System.Logging.Factories;
-using System.Logging.Runtimes;
-using System.Logging.Targets;
-using BenchmarkDotNet.Attributes;
+﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
+using Falko.Logging.Builders;
+using Falko.Logging.Concurrents;
+using Falko.Logging.Contexts;
+using Falko.Logging.Factories;
+using Falko.Logging.Loggers;
+using Falko.Logging.Logs;
+using Falko.Logging.Renderers;
+using Falko.Logging.Runtimes;
+using Falko.Logging.Targets;
+using NLog.Targets.Wrappers;
 
 BenchmarkRunner.Run<LogIgnoringBenchmark>();
 BenchmarkRunner.Run<LogWritingBenchmark>();

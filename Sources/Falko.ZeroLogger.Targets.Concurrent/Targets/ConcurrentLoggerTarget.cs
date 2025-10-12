@@ -1,10 +1,10 @@
-using System.Logging.Collections;
-using System.Logging.Concurrents;
-using System.Logging.Contexts;
-using System.Logging.Debugs;
-using System.Logging.Renderers;
+using Falko.Logging.Collections;
+using Falko.Logging.Concurrents;
+using Falko.Logging.Contexts;
+using Falko.Logging.Debugs;
+using Falko.Logging.Renderers;
 
-namespace System.Logging.Targets;
+namespace Falko.Logging.Targets;
 
 public sealed partial class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWorkItem
 {

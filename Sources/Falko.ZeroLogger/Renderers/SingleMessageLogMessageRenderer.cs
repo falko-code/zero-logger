@@ -1,4 +1,4 @@
-namespace System.Logging.Renderers;
+namespace Falko.Logging.Renderers;
 
 [method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 internal sealed class SingleMessageLogMessageRenderer(string? message) : ILogMessageRenderer

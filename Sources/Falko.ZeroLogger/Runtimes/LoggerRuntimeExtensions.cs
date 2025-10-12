@@ -1,7 +1,7 @@
-using System.Logging.Builders;
-using System.Logging.Concurrents;
+using Falko.Logging.Builders;
+using Falko.Logging.Concurrents;
 
-namespace System.Logging.Runtimes;
+namespace Falko.Logging.Runtimes;
 
 public static partial class LoggerRuntimeExtensions
 {

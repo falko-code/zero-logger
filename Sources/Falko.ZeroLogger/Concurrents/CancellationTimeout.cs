@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace System.Logging.Concurrents;
+namespace Falko.Logging.Concurrents;
 
 public readonly struct CancellationTimeout
 {

@@ -9,5 +9,3 @@ global using IMicrosoftLoggerFactory = Microsoft.Extensions.Logging.ILoggerFacto
 global using MicrosoftEventIdentifier = Microsoft.Extensions.Logging.EventId;
 
 // Falko
-global using System.Logging.Logs;
-global using System.Logging.Runtimes;

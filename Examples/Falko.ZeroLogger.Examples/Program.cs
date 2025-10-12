@@ -1,9 +1,9 @@
-﻿using System.Logging.Factories;
-using System.Logging.Logs;
-using System.Logging.Renderers;
-using System.Logging.Runtimes;
-using System.Logging.Targets;
-using Falko.Examples;
+﻿using Falko.Examples;
+using Falko.Logging.Factories;
+using Falko.Logging.Logs;
+using Falko.Logging.Renderers;
+using Falko.Logging.Runtimes;
+using Falko.Logging.Targets;
 
 using var loggerRuntime = LoggerRuntime.Global.Initialize(builder => builder
     .SetLevel(LogLevels.DebugAndAbove)

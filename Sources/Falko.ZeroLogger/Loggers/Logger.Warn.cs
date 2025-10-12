@@ -1,10 +1,10 @@
 using System.ComponentModel;
-using System.Logging.Factories;
-using System.Logging.Logs;
 using System.Numerics;
+using Falko.Logging.Factories;
+using Falko.Logging.Logs;
 using JetBrains.Annotations;
 
-namespace System.Logging.Loggers;
+namespace Falko.Logging.Loggers;
 
 public readonly partial struct Logger
 {

@@ -1,7 +1,7 @@
-using System.Logging.Loggers;
-using System.Logging.Runtimes;
+using Falko.Logging.Loggers;
+using Falko.Logging.Runtimes;
 
-namespace System.Logging.Factories;
+namespace Falko.Logging.Factories;
 
 public static partial class LoggerFactoryExtensions
 {

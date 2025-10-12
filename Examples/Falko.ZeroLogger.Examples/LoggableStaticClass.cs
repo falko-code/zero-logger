@@ -1,5 +1,5 @@
-using System.Logging.Factories;
-using System.Logging.Loggers;
+using Falko.Logging.Factories;
+using Falko.Logging.Loggers;
 
 namespace Falko.Examples;
 

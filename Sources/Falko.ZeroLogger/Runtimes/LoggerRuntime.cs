@@ -1,11 +1,11 @@
-using System.Logging.Builders;
-using System.Logging.Concurrents;
-using System.Logging.Contexts;
-using System.Logging.Debugs;
-using System.Logging.Factories;
-using System.Logging.Targets;
+using Falko.Logging.Builders;
+using Falko.Logging.Concurrents;
+using Falko.Logging.Contexts;
+using Falko.Logging.Debugs;
+using Falko.Logging.Factories;
+using Falko.Logging.Targets;
 
-namespace System.Logging.Runtimes;
+namespace Falko.Logging.Runtimes;
 
 public sealed partial class LoggerRuntime : IDisposable
 {

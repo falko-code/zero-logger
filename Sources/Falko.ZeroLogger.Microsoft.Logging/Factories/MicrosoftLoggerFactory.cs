@@ -1,7 +1,8 @@
 using System.Collections.Concurrent;
-using System.Logging.Loggers;
+using Falko.Logging.Loggers;
+using Falko.Logging.Runtimes;
 
-namespace System.Logging.Factories;
+namespace Falko.Logging.Factories;
 
 public sealed class MicrosoftLoggerFactory : IMicrosoftLoggerFactory
 {

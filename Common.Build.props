@@ -9,9 +9,9 @@
     </PropertyGroup>
 
     <PropertyGroup Label="Language">
-        <RootNamespace>System.Logging</RootNamespace>
-        <LangVersion>13</LangVersion>
+        <RootNamespace>Falko.Logging</RootNamespace>
         <Nullable>enable</Nullable>
+        <LangVersion>13</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 

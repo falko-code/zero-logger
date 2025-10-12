@@ -1,4 +1,4 @@
-namespace System.Logging.Concurrents;
+namespace Falko.Logging.Concurrents;
 
 public static partial class CancellationContextExtensions
 {

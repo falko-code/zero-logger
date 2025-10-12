@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace System.Logging.Debugs;
+namespace Falko.Logging.Debugs;
 
 public static class DebugEventLogger
 {

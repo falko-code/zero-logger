@@ -1,4 +1,4 @@
-namespace System.Logging.Logs;
+namespace Falko.Logging.Logs;
 
 [Flags]
 public enum LogLevel

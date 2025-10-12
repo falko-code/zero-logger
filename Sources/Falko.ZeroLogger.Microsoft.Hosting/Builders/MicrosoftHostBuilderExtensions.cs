@@ -1,11 +1,11 @@
-using System.Logging.Factories;
-using System.Logging.Loggers;
-using System.Logging.Runtimes;
+using Falko.Logging.Factories;
+using Falko.Logging.Loggers;
+using Falko.Logging.Runtimes;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 
-namespace System.Logging.Builders;
+namespace Falko.Logging.Builders;
 
 public static class MicrosoftHostBuilderExtensions
 {

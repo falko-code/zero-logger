@@ -1,4 +1,4 @@
-namespace System.Logging.Concurrents;
+namespace Falko.Logging.Concurrents;
 
 internal interface IConcurrentIterator
 {

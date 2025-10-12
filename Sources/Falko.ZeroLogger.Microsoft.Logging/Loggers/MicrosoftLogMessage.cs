@@ -1,6 +1,6 @@
-using System.Logging.Factories;
+using Falko.Logging.Factories;
 
-namespace System.Logging.Loggers;
+namespace Falko.Logging.Loggers;
 
 internal readonly struct MicrosoftLogMessage<T>
 {

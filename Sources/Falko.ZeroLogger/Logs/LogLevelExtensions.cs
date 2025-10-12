@@ -1,4 +1,4 @@
-namespace System.Logging.Logs;
+namespace Falko.Logging.Logs;
 
 public static partial class LogLevelExtensions
 {

@@ -1,4 +1,4 @@
-namespace System.Logging.Utils;
+namespace Falko.Logging.Utils;
 
 internal interface IDateTimeOffsetProvider
 {

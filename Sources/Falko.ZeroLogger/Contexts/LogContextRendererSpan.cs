@@ -1,6 +1,6 @@
-using System.Logging.Renderers;
+using Falko.Logging.Renderers;
 
-namespace System.Logging.Contexts;
+namespace Falko.Logging.Contexts;
 
 internal readonly struct LogContextRendererSpan(ILogContextRenderer renderer, int count)
 {

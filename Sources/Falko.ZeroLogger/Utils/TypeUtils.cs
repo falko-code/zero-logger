@@ -1,6 +1,6 @@
-using System.Logging.Builders;
+using Falko.Logging.Builders;
 
-namespace System.Logging.Utils;
+namespace Falko.Logging.Utils;
 
 internal static class TypeUtils
 {

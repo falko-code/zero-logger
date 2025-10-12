@@ -1,8 +1,8 @@
-using System.Logging.Loggers;
-using System.Logging.Runtimes;
-using System.Logging.Utils;
+using Falko.Logging.Loggers;
+using Falko.Logging.Runtimes;
+using Falko.Logging.Utils;
 
-namespace System.Logging.Factories;
+namespace Falko.Logging.Factories;
 
 [method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 public readonly struct LoggerFactory(LoggerRuntime loggerRuntime)

@@ -1,7 +1,7 @@
-using System.Logging.Logs;
-using System.Logging.Renderers;
+using Falko.Logging.Logs;
+using Falko.Logging.Renderers;
 
-namespace System.Logging.Contexts;
+namespace Falko.Logging.Contexts;
 
 [method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 public readonly struct LogContext(string source, LogLevel level, DateTimeOffset time, ILogMessageRenderer message)

@@ -1,6 +1,6 @@
-using System.Logging.Factories;
+using Falko.Logging.Factories;
 
-namespace System.Logging.Renderers;
+namespace Falko.Logging.Renderers;
 
 [method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 internal sealed class StateMessageFactoryLogMessageRenderer<T>

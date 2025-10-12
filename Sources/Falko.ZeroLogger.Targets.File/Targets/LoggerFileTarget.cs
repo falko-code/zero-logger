@@ -1,18 +1,18 @@
 using System.Globalization;
 using System.IO.Compression;
-using System.Logging.Concurrents;
-using System.Logging.Contexts;
-using System.Logging.Debugs;
-using System.Logging.Renderers;
-using System.Logging.Utils;
 using System.Text;
+using Falko.Logging.Concurrents;
+using Falko.Logging.Contexts;
+using Falko.Logging.Debugs;
+using Falko.Logging.Renderers;
+using Falko.Logging.Utils;
 
 // ReSharper disable LocalizableElement
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 // ReSharper disable MemberCanBePrivate.Global
 #pragma warning disable CS8618 // Non-null value when exiting constructor.
 
-namespace System.Logging.Targets;
+namespace Falko.Logging.Targets;
 
 public sealed class LoggerFileTarget : LoggerTarget
 {

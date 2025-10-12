@@ -1,7 +1,7 @@
-using System.Logging.Logs;
-using System.Logging.Targets;
+using Falko.Logging.Logs;
+using Falko.Logging.Targets;
 
-namespace System.Logging.Contexts;
+namespace Falko.Logging.Contexts;
 
 public sealed class LoggerContext
 {

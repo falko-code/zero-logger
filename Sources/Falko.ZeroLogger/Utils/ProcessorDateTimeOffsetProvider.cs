@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace System.Logging.Utils;
+namespace Falko.Logging.Utils;
 
 internal sealed class ProcessorDateTimeOffsetProvider : IDateTimeOffsetProvider
 {

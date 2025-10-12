@@ -1,6 +1,6 @@
-using System.Logging.Factories;
+using Falko.Logging.Factories;
 
-namespace System.Logging.Logs;
+namespace Falko.Logging.Logs;
 
 [method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 public readonly struct LogMessageArgument<T>(T argument, LogMessageArgumentFactory<T> argumentFactory)

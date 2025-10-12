@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 
-namespace System.Logging.Loggers;
+namespace Falko.Logging.Loggers;
 
 public sealed class MicrosoftLogger<TTarget> : ILogger<TTarget>
 {

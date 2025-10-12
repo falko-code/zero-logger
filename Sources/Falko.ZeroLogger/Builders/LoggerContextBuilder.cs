@@ -1,10 +1,10 @@
-using System.Logging.Contexts;
-using System.Logging.Logs;
-using System.Logging.Renderers;
-using System.Logging.Targets;
 using System.Runtime.InteropServices;
+using Falko.Logging.Contexts;
+using Falko.Logging.Logs;
+using Falko.Logging.Renderers;
+using Falko.Logging.Targets;
 
-namespace System.Logging.Builders;
+namespace Falko.Logging.Builders;
 
 [method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 public sealed class LoggerContextBuilder()

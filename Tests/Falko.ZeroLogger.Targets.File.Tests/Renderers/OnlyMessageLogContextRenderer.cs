@@ -1,5 +1,5 @@
-using System.Logging.Contexts;
-using System.Logging.Renderers;
+using Falko.Logging.Contexts;
+using Falko.Logging.Renderers;
 
 namespace Falko.ZeroLogger.Targets.File.Tests.Renderers;
 
@@ -11,6 +11,6 @@ public sealed class OnlyMessageLogContextRenderer : ILogContextRenderer
 
     public string Render(in LogContext logContext)
     {
-        return logContext.Message.Render() + "\n";
+        return logContext.Message.Render() + '\n';
     }
 }
