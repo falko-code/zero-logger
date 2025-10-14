@@ -6,8 +6,7 @@ using Falko.Logging.Targets;
 
 namespace Falko.Logging.Builders;
 
-[method: MethodImpl(MethodImplOptions.AggressiveInlining)]
-public sealed class LoggerContextBuilder()
+public sealed class LoggerContextBuilder
 {
     private readonly List<KeyValuePair<ILogContextRenderer, LoggerTarget>> _targetPairs = [];
 
