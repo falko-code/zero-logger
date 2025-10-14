@@ -1,0 +1,27 @@
+using Falko.Logging.Concurrents;
+using Falko.Logging.Contexts;
+using Falko.Logging.Renderers;
+using Falko.Logging.Targets;
+
+namespace Falko.Examples.Targets;
+
+public sealed class WithoutRenderingZeroLoggerTarget : LoggerTarget
+{
+    public static readonly WithoutRenderingZeroLoggerTarget Instance = new();
+
+    private WithoutRenderingZeroLoggerTarget() { }
+
+    public override void Initialize(CancellationContext cancellationContext) { }
+
+    public override void Publish
+    (
+        in LogContext context,
+        ILogContextRenderer renderer,
+        CancellationToken cancellationToken
+    )
+    {
+        _ = context;
+    }
+
+    public override void Dispose(CancellationContext cancellationContext) { }
+}
