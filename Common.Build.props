@@ -12,7 +12,7 @@
         <NoWarn>$(NoWarn);1591</NoWarn>
         <RootNamespace>Falko.Logging</RootNamespace>
         <Nullable>enable</Nullable>
-        <LangVersion>13</LangVersion>
+        <LangVersion>14</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
