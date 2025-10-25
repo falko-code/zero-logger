@@ -8,7 +8,7 @@ public static class LogMessageArgument
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static LogMessageArgument<T> Create<T>(T argument, LogMessageArgumentFactory<T> argumentFactory)
     {
-        ArgumentNullException.ThrowIfNull(argumentFactory, nameof(argumentFactory));
+        ArgumentNullException.ThrowIfNull(argumentFactory);
 
         return new LogMessageArgument<T>
         (
@@ -30,7 +30,7 @@ public static class LogMessageArgument
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static LogMessageArgument<LogMessageArgumentFactory> Create(LogMessageArgumentFactory argumentFactory)
     {
-        ArgumentNullException.ThrowIfNull(argumentFactory, nameof(argumentFactory));
+        ArgumentNullException.ThrowIfNull(argumentFactory);
 
         return new LogMessageArgument<LogMessageArgumentFactory>
         (
