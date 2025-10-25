@@ -93,11 +93,7 @@ public ref struct ValueStringBuilder : IDisposable
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public override string ToString()
     {
-#if NET9_0_OR_GREATER
-        return string.Create(_position, _span[.._position], static (span, chars) => chars.CopyTo(span));
-#else
         return new string(_span[.._position]);
-#endif
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
