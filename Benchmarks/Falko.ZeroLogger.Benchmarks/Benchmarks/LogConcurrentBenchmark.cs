@@ -1,6 +1,4 @@
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Engines;
-using BenchmarkDotNet.Jobs;
 using Falko.Examples.Configurations;
 using Falko.Logging.Factories;
 using NLog;
@@ -9,14 +7,8 @@ using NLogLogger = NLog.Logger;
 
 namespace Falko.Examples.Benchmarks;
 
-[MemoryDiagnoser]
-[SimpleJob(RunStrategy.Throughput, RuntimeMoniker.Net10_0)]
-[SimpleJob(RunStrategy.Throughput, RuntimeMoniker.NativeAot10_0)]
-[SimpleJob(RunStrategy.Throughput, RuntimeMoniker.Net90)]
-[SimpleJob(RunStrategy.Throughput, RuntimeMoniker.NativeAot90)]
-[SimpleJob(RunStrategy.Throughput, RuntimeMoniker.Net80)]
-[SimpleJob(RunStrategy.Throughput, RuntimeMoniker.NativeAot80)]
-[MinColumn, MeanColumn, MaxColumn]
+[MemoryDiagnoser(displayGenColumns: false)]
+[HideColumns("Job", "Error", "StdDev", "Median", "RatioSD")]
 public class LogConcurrentBenchmark
 {
     private static readonly ZeroLogger ZeroLogger = typeof(LogConcurrentBenchmark)
