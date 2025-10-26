@@ -18,28 +18,63 @@ internal static class MessageArgumentsInterpolationUtils
         if (string.IsNullOrEmpty(message)) return string.Empty;
 
         var argumentStartIndex = message.IndexOf(ArgumentOpenBrace);
+
         if (argumentStartIndex is -1) return message;
 
-        var argumentEndIndex = message.IndexOf(ArgumentCloseBrace, argumentStartIndex + 1);
-        if (argumentEndIndex is -1) return message;
+        var argumentStartAfterIndex = argumentStartIndex + 1;
 
-        scoped ReadOnlySpan<char> argumentSpan = argument ?? NullString;
+        var argumentEndIndex = message.IndexOf(ArgumentCloseBrace, argumentStartAfterIndex);
 
-        const int argumentSymbolsCount = 2;
+        if (argumentEndIndex is -1)
+        {
+            var bracerContext = new BracerInterpolationContext
+            (
+                message: message,
+                bracerStartIndex: argumentStartIndex
+            );
 
-        var messageLength = message.Length + argumentSpan.Length - argumentSymbolsCount;
+            return string.Create(message.Length - 1, bracerContext, static (span, context) =>
+            {
+                var message = context.Message;
+                var bracerIndex = context.BracerStartIndex;
 
-        using scoped var messageBuilder = messageLength > ValueStringBuilder.MaximumSafeStackBufferSize
-            ? new ValueStringBuilder(messageLength)
-            : new ValueStringBuilder(stackalloc char[messageLength]);
+                message[..bracerIndex].CopyTo(span);
+                message[(bracerIndex + 1)..].CopyTo(span[bracerIndex..]);
+            });
+        }
 
-        scoped var messageSpan = message.AsSpan();
+        var argumentEndAfterIndex = argumentEndIndex + 1;
 
-        messageBuilder.Append(messageSpan[..argumentStartIndex]);
-        messageBuilder.Append(argumentSpan);
-        messageBuilder.Append(messageSpan[(argumentEndIndex + 1)..]);
+        argument ??= NullString;
 
-        return messageBuilder.ToString();
+        var messageLength = message.Length + argument.Length - (argumentEndAfterIndex - argumentStartIndex);
+
+        var argumentContext = new ArgumentInterpolationContext
+        (
+            message: message,
+            argument: argument,
+            argumentStartIndex: argumentStartIndex,
+            argumentEndAfterIndex: argumentEndAfterIndex
+        );
+
+        return string.Create(messageLength, argumentContext, static (span, context) =>
+        {
+            scoped ReadOnlySpan<char> messageSpan = context.Message;
+
+            var left = messageSpan[..context.ArgumentStartIndex];
+            var leftLength = left.Length;
+
+            left.CopyTo(span);
+
+            var argument = context.Argument;
+            var argumentLength = argument.Length;
+
+            argument.CopyTo(span[leftLength..]);
+
+            var right = messageSpan[context.ArgumentEndAfterIndex..];
+
+            right.CopyTo(span[(leftLength + argumentLength)..]);
+        });
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -122,42 +157,43 @@ internal static class MessageArgumentsInterpolationUtils
     [MethodImpl(MethodImplOptions.NoInlining)]
     private static string InterpolateCore(string message, scoped ref string? argumentsRef, int argumentsCount)
     {
-        var messageLength = message.Length * argumentsCount * DefaultMessageArgumentLength;
+        var messageLength = message.Length;
 
-        using scoped var messageBuilder = messageLength > ValueStringBuilder.MaximumSafeStackBufferSize
-            ? new ValueStringBuilder(messageLength)
+        var messageBuilderCapacity = messageLength * argumentsCount * DefaultMessageArgumentLength;
+
+        using scoped var messageBuilder = messageBuilderCapacity > ValueStringBuilder.MaximumSafeStackBufferSize
+            ? new ValueStringBuilder(messageBuilderCapacity)
             : new ValueStringBuilder(stackalloc char[ValueStringBuilder.MaximumSafeStackBufferSize]);
 
         scoped var messageSpan = message.AsSpan();
 
         var messageIndex = 0;
-        var argumentIndex = -1;
 
-        for (;;)
+        for (var argumentIndex = 0; argumentIndex < argumentsCount; argumentIndex++)
         {
-            var argumentOpenIndex = message.IndexOf(ArgumentOpenBrace, messageIndex);
+            var argumentOpenIndex = message.IndexOf
+            (
+                value: ArgumentOpenBrace,
+                startIndex: messageIndex,
+                count: messageLength - messageIndex
+            );
 
-            if (argumentOpenIndex is -1)
-            {
-                messageBuilder.Append(messageSpan[messageIndex..]);
-                break;
-            }
+            if (argumentOpenIndex is -1) break;
 
             messageBuilder.Append(messageSpan[messageIndex..argumentOpenIndex]);
 
-            var argumentCloseIndex = message.IndexOf(ArgumentCloseBrace, argumentOpenIndex + 1);
+            var argumentOpenAfterIndex = argumentOpenIndex + 1;
+
+            var argumentCloseIndex = message.IndexOf
+            (
+                ArgumentCloseBrace,
+                argumentOpenAfterIndex,
+                messageLength - argumentOpenAfterIndex
+            );
 
             if (argumentCloseIndex is -1)
             {
-                messageBuilder.Append(messageSpan[argumentOpenIndex..]);
-                break;
-            }
-
-            ++argumentIndex;
-
-            if (argumentIndex >= argumentsCount)
-            {
-                messageBuilder.Append(messageSpan[argumentOpenIndex..]);
+                messageIndex = argumentOpenAfterIndex;
                 break;
             }
 
@@ -169,8 +205,37 @@ internal static class MessageArgumentsInterpolationUtils
             messageIndex = argumentCloseIndex + 1;
         }
 
+        messageBuilder.Append(messageSpan[messageIndex..]);
         return messageBuilder.ToString();
     }
+}
+
+file struct ArgumentInterpolationContext
+(
+    string message,
+    string argument,
+    int argumentStartIndex,
+    int argumentEndAfterIndex
+)
+{
+    public readonly string Message = message;
+
+    public readonly string Argument = argument;
+
+    public readonly int ArgumentStartIndex = argumentStartIndex;
+
+    public readonly int ArgumentEndAfterIndex = argumentEndAfterIndex;
+}
+
+file struct BracerInterpolationContext
+(
+    string message,
+    int bracerStartIndex
+)
+{
+    public readonly string Message = message;
+
+    public readonly int BracerStartIndex = bracerStartIndex;
 }
 
 file interface IFixedArray<T>
