@@ -65,60 +65,42 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
 
         if (exception is null)
         {
-            scoped var messageBuilder = messageLength > ValueStringBuilder.MaximumSafeStackBufferSize
-                ? new ValueStringBuilder(messageLength)
-                : new ValueStringBuilder(stackalloc char[messageLength]);
-
-            try
+            return string.Create(messageLength, (logContext.Time, levelText, sourceText, messageText), static (span, context) =>
             {
-                RenderHeader(ref messageBuilder, logContext.Time, levelText, sourceText, messageText);
+                var messageBuilder = new ValueStringBuilder(span);
 
-                return messageBuilder.ToString();
-            }
-            finally
-            {
-                messageBuilder.Dispose();
-            }
+                RenderHeader(ref messageBuilder, context.Time, context.levelText, context.sourceText, context.messageText);
+            });
         }
-        else
+
+        var exceptionTypeName = exception.GetType().FullName ?? UnknownException;
+
+        var exceptionMessage = exception.Message;
+
+        var exceptionStackTrace = exception.StackTrace;
+        var exceptionStackTraceBlockLength = exceptionStackTrace is not null
+            ? GetExceptionBlockLength(ExceptionStackTraceBlockNameLength, exceptionStackTrace)
+            : 0;
+
+        messageLength = messageLength
+                        + GetExceptionBlockLength(ExceptionTypeBlockNameLength, exceptionTypeName)
+                        + GetExceptionBlockLength(ExceptionMessageBlockNameLength, exceptionMessage)
+                        + exceptionStackTraceBlockLength;
+
+        return string.Create(messageLength, (logContext.Time, levelText, sourceText, messageText, exceptionTypeName, exceptionMessage, exceptionStackTrace, exception), static (span, context) =>
         {
-            var exceptionTypeName = exception.GetType().FullName ?? UnknownException;
+            var messageBuilder = new ValueStringBuilder(span);
 
-            var exceptionMessage = exception.Message;
+            RenderHeader(ref messageBuilder, context.Time, context.levelText, context.sourceText, context.messageText);
 
-            var exceptionStackTrace = exception.StackTrace;
-            var exceptionStackTraceBlockLength = exceptionStackTrace is not null
-                ? GetExceptionBlockLength(ExceptionStackTraceBlockNameLength, exceptionStackTrace)
-                : 0;
+            RenderExceptionBlock(ref messageBuilder, ExceptionTypeBlockName, context.exceptionTypeName);
+            RenderExceptionBlock(ref messageBuilder, ExceptionMessageBlockName, context.exceptionMessage);
 
-            messageLength = messageLength
-                + GetExceptionBlockLength(ExceptionTypeBlockNameLength, exceptionTypeName)
-                + GetExceptionBlockLength(ExceptionMessageBlockNameLength, exceptionMessage)
-                + exceptionStackTraceBlockLength;
-
-            scoped var messageBuilder = messageLength > ValueStringBuilder.MaximumSafeStackBufferSize
-                ? new ValueStringBuilder(messageLength)
-                : new ValueStringBuilder(stackalloc char[messageLength]);
-
-            try
+            if (context.exceptionStackTrace is not null)
             {
-                RenderHeader(ref messageBuilder, logContext.Time, levelText, sourceText, messageText);
-
-                RenderExceptionBlock(ref messageBuilder, ExceptionTypeBlockName, exceptionTypeName);
-                RenderExceptionBlock(ref messageBuilder, ExceptionMessageBlockName, exceptionMessage);
-
-                if (exceptionStackTraceBlockLength is not 0)
-                {
-                    RenderExceptionBlock(ref messageBuilder, ExceptionStackTraceBlockName, exceptionStackTrace!);
-                }
-
-                return messageBuilder.ToString();
+                RenderExceptionBlock(ref messageBuilder, ExceptionStackTraceBlockName, context.exceptionStackTrace);
             }
-            finally
-            {
-                messageBuilder.Dispose();
-            }
-        }
+        });
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
