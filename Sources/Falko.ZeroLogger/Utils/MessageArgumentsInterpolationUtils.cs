@@ -15,7 +15,7 @@ internal static class MessageArgumentsInterpolationUtils
     public static string Interpolate(string? message,
         string? argument)
     {
-        if (message is null) return string.Empty;
+        if (string.IsNullOrEmpty(message)) return string.Empty;
 
         var argumentStartIndex = message.IndexOf(ArgumentOpenBrace);
         if (argumentStartIndex is -1) return message;
@@ -47,7 +47,7 @@ internal static class MessageArgumentsInterpolationUtils
         string? argument1,
         string? argument2)
     {
-        if (message is null) return string.Empty;
+        if (string.IsNullOrEmpty(message)) return string.Empty;
 
         const int argumentsCount = 2;
 
@@ -69,7 +69,7 @@ internal static class MessageArgumentsInterpolationUtils
         string? argument2,
         string? argument3)
     {
-        if (message is null) return string.Empty;
+        if (string.IsNullOrEmpty(message)) return string.Empty;
 
         const int argumentsCount = 3;
 
@@ -93,7 +93,7 @@ internal static class MessageArgumentsInterpolationUtils
         string? argument3,
         string? argument4)
     {
-        if (message is null) return string.Empty;
+        if (string.IsNullOrEmpty(message)) return string.Empty;
 
         const int argumentsCount = 4;
 
@@ -114,7 +114,7 @@ internal static class MessageArgumentsInterpolationUtils
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string Interpolate(string? message, scoped ref string? arguments, int count)
     {
-        if (message is null) return string.Empty;
+        if (string.IsNullOrEmpty(message)) return string.Empty;
 
         return InterpolateCore(message, ref arguments, count);
     }
