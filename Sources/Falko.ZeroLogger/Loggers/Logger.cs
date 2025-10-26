@@ -8,7 +8,6 @@ using Falko.Logging.Providers;
 using Falko.Logging.Renderers;
 using Falko.Logging.Runtimes;
 using Falko.Logging.Targets;
-using Falko.Logging.Utils;
 
 namespace Falko.Logging.Loggers;
 
