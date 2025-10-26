@@ -5,12 +5,11 @@ namespace Falko.Examples.Targets;
 
 public sealed class WithRenderingNLogLoggerTarget : TargetWithLayout
 {
-    public static readonly WithRenderingNLogLoggerTarget Instance = new()
+    public WithRenderingNLogLoggerTarget(int index)
     {
-        Layout = "[${time}] [${level:uppercase=true}] [${logger}] ${message}",
-    };
-
-    private WithRenderingNLogLoggerTarget() { }
+        Name = $"{nameof(WithoutRenderingNLogLoggerTarget)}_Instance{index}";
+        Layout = "[${time}] [${level:uppercase=true}] [${logger}] ${message}";
+    }
 
     protected override void Write(LogEventInfo logEvent)
     {

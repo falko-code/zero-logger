@@ -38,13 +38,13 @@ public sealed class WithRenderingLoggerConfigurer : LoggerConfigurer
         var configuration = new LoggingConfiguration();
 
         configuration.AddRule(LogLevel.Info, LogLevel.Fatal,
-            WithRenderingNLogLoggerTarget.Instance);
+            new WithRenderingNLogLoggerTarget(0));
 
         configuration.AddRule(LogLevel.Info, LogLevel.Fatal,
-            WithRenderingNLogLoggerTarget.Instance);
+            new WithRenderingNLogLoggerTarget(1));
 
         configuration.AddRule(LogLevel.Info, LogLevel.Fatal,
-            WithRenderingNLogLoggerTarget.Instance);
+            new WithRenderingNLogLoggerTarget(2));
 
         LogManager.Configuration = configuration;
     }

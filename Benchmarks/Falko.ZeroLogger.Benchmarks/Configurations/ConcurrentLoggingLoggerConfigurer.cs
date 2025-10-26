@@ -39,15 +39,15 @@ public sealed class ConcurrentLoggingLoggerConfigurer(int capacity) : LoggerConf
         var configuration = new LoggingConfiguration();
 
         configuration.AddRule(LogLevel.Info, LogLevel.Fatal,
-            new AsyncTargetWrapper(WithoutRenderingNLogLoggerTarget.Instance, capacity,
+            new AsyncTargetWrapper(new WithoutRenderingNLogLoggerTarget(0), capacity,
                 AsyncTargetWrapperOverflowAction.Block));
 
         configuration.AddRule(LogLevel.Info, LogLevel.Fatal,
-            new AsyncTargetWrapper(WithoutRenderingNLogLoggerTarget.Instance, capacity,
+            new AsyncTargetWrapper(new WithoutRenderingNLogLoggerTarget(1), capacity,
                 AsyncTargetWrapperOverflowAction.Block));
 
         configuration.AddRule(LogLevel.Info, LogLevel.Fatal,
-            new AsyncTargetWrapper(WithoutRenderingNLogLoggerTarget.Instance, capacity,
+            new AsyncTargetWrapper(new WithoutRenderingNLogLoggerTarget(2), capacity,
                 AsyncTargetWrapperOverflowAction.Block));
 
         LogManager.Configuration = configuration;

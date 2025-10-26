@@ -5,9 +5,10 @@ namespace Falko.Examples.Targets;
 
 public sealed class WithoutRenderingNLogLoggerTarget : TargetWithLayout
 {
-    public static readonly WithoutRenderingNLogLoggerTarget Instance = new();
-
-    private WithoutRenderingNLogLoggerTarget() { }
+    public WithoutRenderingNLogLoggerTarget(int index)
+    {
+        Name = $"{nameof(WithoutRenderingNLogLoggerTarget)}_Instance{index}";
+    }
 
     protected override void Write(LogEventInfo logEvent)
     {
