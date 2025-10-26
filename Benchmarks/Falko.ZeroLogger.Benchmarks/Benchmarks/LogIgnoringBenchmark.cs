@@ -7,7 +7,6 @@ using NLogLogger = NLog.Logger;
 
 namespace Falko.Examples.Benchmarks;
 
-[MemoryDiagnoser(displayGenColumns: false)]
 [HideColumns("Job", "Error", "StdDev", "Median", "RatioSD")]
 public class LogIgnoringBenchmark
 {
