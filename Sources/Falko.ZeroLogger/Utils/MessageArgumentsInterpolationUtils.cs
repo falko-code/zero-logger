@@ -214,6 +214,7 @@ internal static class MessageArgumentsInterpolationUtils
     }
 }
 
+[method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 file struct ArgumentInterpolationContext
 (
     string message,
@@ -231,6 +232,7 @@ file struct ArgumentInterpolationContext
     public readonly int ArgumentEndAfterIndex = argumentEndAfterIndex;
 }
 
+[method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 file struct BracerInterpolationContext
 (
     string message,
