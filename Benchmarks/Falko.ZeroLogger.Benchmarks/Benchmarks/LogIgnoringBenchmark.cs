@@ -9,9 +9,9 @@ namespace Falko.Examples.Benchmarks;
 
 [MemoryDiagnoser(displayGenColumns: false)]
 [HideColumns("Job", "Error", "StdDev", "Median", "RatioSD")]
-public class LogConcurrentBenchmark
+public class LogIgnoringBenchmark
 {
-    private static readonly ZeroLogger ZeroLogger = typeof(LogConcurrentBenchmark)
+    private static readonly ZeroLogger ZeroLogger = typeof(LogIgnoringBenchmark)
         .CreateLogger();
 
     private static readonly NLogLogger NLogLogger = LogManager
@@ -20,39 +20,39 @@ public class LogConcurrentBenchmark
     [Params(248, 512)]
     public int Iterations { get; set; }
 
-    [Params(248, 512)]
-    public int Capacity { get; set; }
+    [Params(1, 3)]
+    public int Targets { get; set; }
 
     [GlobalSetup]
     public void Setup()
     {
-        new ConcurrentLoggingLoggerConfigurer(Capacity).Configure();
+        new WithoutRenderingLoggerConfigurer(Targets).Configure();
     }
 
     [Benchmark]
     public void LogZeroLogger()
     {
-        Parallel.For(0, Iterations, iteration =>
+        for (var iteration = 0; iteration < Iterations; iteration++)
         {
-            ZeroLogger.Info("Iteration {IterationNumber}", iteration);
-        });
+            ZeroLogger.Debug("Iteration {IterationNumber}", iteration);
+        }
     }
 
     [Benchmark]
     public void LogZeroLoggerStatic()
     {
-        Parallel.For(0, Iterations, iteration =>
+        for (var iteration = 0; iteration < Iterations; iteration++)
         {
-            ZeroLogger.Info(static () => "Iteration {IterationNumber}", iteration);
-        });
+            ZeroLogger.Debug(static () => "Iteration {IterationNumber}", iteration);
+        }
     }
 
     [Benchmark(Baseline = true)]
     public void LogNLogLogger()
     {
-        Parallel.For(0, Iterations, iteration =>
+        for (var iteration = 0; iteration < Iterations; iteration++)
         {
-            NLogLogger.Info("Iteration {IterationNumber}", iteration);
-        });
+            NLogLogger.Debug("Iteration {IterationNumber}", iteration);
+        }
     }
 }

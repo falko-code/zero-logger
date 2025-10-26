@@ -9,26 +9,19 @@ using LogLevel = NLog.LogLevel;
 
 namespace Falko.Examples.Configurations;
 
-public sealed class WithRenderingLoggerConfigurer : LoggerConfigurer
+public sealed class WithRenderingLoggerConfigurer(int targetsCount) : LoggerConfigurer
 {
-    public static readonly WithRenderingLoggerConfigurer Instance = new();
-
-    private WithRenderingLoggerConfigurer() { }
-
     protected override void ConfigureZeroLogger()
     {
         var loggerBuilder = new LoggerContextBuilder();
 
         loggerBuilder.SetLevel(LogLevels.InfoAndAbove);
 
-        loggerBuilder.AddTarget(SimpleLogContextRenderer.Instance,
-            WithRenderingZeroLoggerTarget.Instance);
-
-        loggerBuilder.AddTarget(SimpleLogContextRenderer.Instance,
-            WithRenderingZeroLoggerTarget.Instance);
-
-        loggerBuilder.AddTarget(SimpleLogContextRenderer.Instance,
-            WithRenderingZeroLoggerTarget.Instance);
+        for (var i = 0; i < targetsCount; i++)
+        {
+            loggerBuilder.AddTarget(SimpleLogContextRenderer.Instance,
+                WithRenderingZeroLoggerTarget.Instance);
+        }
 
         LoggerRuntime.Global.Initialize(loggerBuilder);
     }
@@ -37,14 +30,11 @@ public sealed class WithRenderingLoggerConfigurer : LoggerConfigurer
     {
         var configuration = new LoggingConfiguration();
 
-        configuration.AddRule(LogLevel.Info, LogLevel.Fatal,
-            new WithRenderingNLogLoggerTarget(0));
-
-        configuration.AddRule(LogLevel.Info, LogLevel.Fatal,
-            new WithRenderingNLogLoggerTarget(1));
-
-        configuration.AddRule(LogLevel.Info, LogLevel.Fatal,
-            new WithRenderingNLogLoggerTarget(2));
+        for (var i = 0; i < targetsCount; i++)
+        {
+            configuration.AddRule(LogLevel.Info, LogLevel.Fatal,
+                new WithRenderingNLogLoggerTarget(i));
+        }
 
         LogManager.Configuration = configuration;
     }

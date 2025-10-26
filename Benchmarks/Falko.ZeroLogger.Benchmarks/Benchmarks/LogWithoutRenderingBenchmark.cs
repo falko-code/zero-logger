@@ -20,15 +20,17 @@ public class LogWithoutRenderingBenchmark
     [Params(248, 512)]
     public int Iterations { get; set; }
 
+    [Params(1, 3)]
+    public int Targets { get; set; }
+
     [GlobalSetup]
     public void Setup()
     {
-        WithoutRenderingLoggerConfigurer.Instance
-            .Configure();
+        new WithoutRenderingLoggerConfigurer(Targets).Configure();
     }
 
     [Benchmark]
-    public void RenderZeroLoggerLog()
+    public void LogZeroLogger()
     {
         for (var iteration = 0; iteration < Iterations; iteration++)
         {
@@ -37,7 +39,7 @@ public class LogWithoutRenderingBenchmark
     }
 
     [Benchmark]
-    public void RenderZeroLoggerStaticLog()
+    public void LogZeroLoggerStatic()
     {
         for (var iteration = 0; iteration < Iterations; iteration++)
         {
@@ -46,7 +48,7 @@ public class LogWithoutRenderingBenchmark
     }
 
     [Benchmark(Baseline = true)]
-    public void RenderNLogLoggerLog()
+    public void LogNLogLogger()
     {
         for (var iteration = 0; iteration < Iterations; iteration++)
         {
