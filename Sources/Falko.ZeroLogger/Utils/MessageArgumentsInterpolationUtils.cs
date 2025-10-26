@@ -1,5 +1,3 @@
-using System.Buffers;
-using System.Runtime.InteropServices;
 using Falko.Logging.Builders;
 
 namespace Falko.Logging.Utils;
@@ -53,26 +51,14 @@ internal static class MessageArgumentsInterpolationUtils
 
         const int argumentsCount = 2;
 
-        var arrays = ArrayPool<string?>.Shared;
+        Fixed2StringsArray arguments = default;
 
-        var arguments = arrays.Rent(argumentsCount);
+        scoped ref var argumentsRef = ref arguments.GetArrayDataReference();
 
-        scoped ref var argumentsRef = ref MemoryMarshal.GetArrayDataReference(arguments);
+        Unsafe.Add(ref argumentsRef, 0) = argument1;
+        Unsafe.Add(ref argumentsRef, 1) = argument2;
 
-        try
-        {
-            Unsafe.Add(ref argumentsRef, 0) = argument1;
-            Unsafe.Add(ref argumentsRef, 1) = argument2;
-
-            message = InterpolateCore(message, ref argumentsRef, argumentsCount);
-        }
-        finally
-        {
-            Unsafe.Add(ref argumentsRef, 0) = null;
-            Unsafe.Add(ref argumentsRef, 1) = null;
-
-            arrays.Return(arguments);
-        }
+        message = InterpolateCore(message, ref argumentsRef, argumentsCount);
 
         return message;
     }
@@ -87,28 +73,15 @@ internal static class MessageArgumentsInterpolationUtils
 
         const int argumentsCount = 3;
 
-        var arrays = ArrayPool<string?>.Shared;
+        Fixed3StringsArray arguments = default;
 
-        var arguments = arrays.Rent(argumentsCount);
+        scoped ref var argumentsRef = ref arguments.GetArrayDataReference();
 
-        scoped ref var argumentsRef = ref MemoryMarshal.GetArrayDataReference(arguments);
+        Unsafe.Add(ref argumentsRef, 0) = argument1;
+        Unsafe.Add(ref argumentsRef, 1) = argument2;
+        Unsafe.Add(ref argumentsRef, 2) = argument3;
 
-        try
-        {
-            Unsafe.Add(ref argumentsRef, 0) = argument1;
-            Unsafe.Add(ref argumentsRef, 1) = argument2;
-            Unsafe.Add(ref argumentsRef, 2) = argument3;
-
-            message = InterpolateCore(message, ref argumentsRef, argumentsCount);
-        }
-        finally
-        {
-            Unsafe.Add(ref argumentsRef, 0) = null;
-            Unsafe.Add(ref argumentsRef, 1) = null;
-            Unsafe.Add(ref argumentsRef, 2) = null;
-
-            arrays.Return(arguments);
-        }
+        message = InterpolateCore(message, ref argumentsRef, argumentsCount);
 
         return message;
     }
@@ -124,30 +97,16 @@ internal static class MessageArgumentsInterpolationUtils
 
         const int argumentsCount = 4;
 
-        var arrays = ArrayPool<string?>.Shared;
+        Fixed4StringsArray arguments = default;
 
-        var arguments = arrays.Rent(argumentsCount);
+        scoped ref var argumentsRef = ref arguments.GetArrayDataReference();
 
-        scoped ref var argumentsRef = ref MemoryMarshal.GetArrayDataReference(arguments);
+        Unsafe.Add(ref argumentsRef, 0) = argument1;
+        Unsafe.Add(ref argumentsRef, 1) = argument2;
+        Unsafe.Add(ref argumentsRef, 2) = argument3;
+        Unsafe.Add(ref argumentsRef, 3) = argument4;
 
-        try
-        {
-            Unsafe.Add(ref argumentsRef, 0) = argument1;
-            Unsafe.Add(ref argumentsRef, 1) = argument2;
-            Unsafe.Add(ref argumentsRef, 2) = argument3;
-            Unsafe.Add(ref argumentsRef, 3) = argument4;
-
-            message = InterpolateCore(message, ref argumentsRef, argumentsCount);
-        }
-        finally
-        {
-            Unsafe.Add(ref argumentsRef, 0) = null;
-            Unsafe.Add(ref argumentsRef, 1) = null;
-            Unsafe.Add(ref argumentsRef, 2) = null;
-            Unsafe.Add(ref argumentsRef, 3) = null;
-
-            arrays.Return(arguments);
-        }
+        message = InterpolateCore(message, ref argumentsRef, argumentsCount);
 
         return message;
     }
@@ -211,5 +170,47 @@ internal static class MessageArgumentsInterpolationUtils
         }
 
         return messageBuilder.ToString();
+    }
+}
+
+file interface IFixedArray<T>
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    ref T GetArrayDataReference();
+}
+
+[InlineArray(2)]
+file struct Fixed2StringsArray : IFixedArray<string?>
+{
+    private string? _element0;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public ref string? GetArrayDataReference()
+    {
+        return ref Unsafe.As<Fixed2StringsArray, string?>(ref Unsafe.AsRef(in this));
+    }
+}
+
+[InlineArray(3)]
+file struct Fixed3StringsArray : IFixedArray<string?>
+{
+    private string? _element0;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public ref string? GetArrayDataReference()
+    {
+        return ref Unsafe.As<Fixed3StringsArray, string?>(ref Unsafe.AsRef(in this));
+    }
+}
+
+[InlineArray(4)]
+file struct Fixed4StringsArray : IFixedArray<string?>
+{
+    private string? _element0;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public ref string? GetArrayDataReference()
+    {
+        return ref Unsafe.As<Fixed4StringsArray, string?>(ref Unsafe.AsRef(in this));
     }
 }
