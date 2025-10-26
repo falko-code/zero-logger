@@ -4,6 +4,7 @@ using Falko.Logging.Contexts;
 using Falko.Logging.Debugs;
 using Falko.Logging.Factories;
 using Falko.Logging.Logs;
+using Falko.Logging.Providers;
 using Falko.Logging.Renderers;
 using Falko.Logging.Runtimes;
 using Falko.Logging.Targets;

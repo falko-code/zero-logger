@@ -1,4 +1,4 @@
-namespace Falko.Logging.Utils;
+namespace Falko.Logging.Providers;
 
 internal sealed class SystemDateTimeOffsetProvider : IDateTimeOffsetProvider
 {

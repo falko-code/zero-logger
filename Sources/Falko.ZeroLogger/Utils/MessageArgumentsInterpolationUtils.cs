@@ -1,4 +1,5 @@
 using Falko.Logging.Builders;
+using Falko.Logging.Collections;
 
 namespace Falko.Logging.Utils;
 
@@ -86,9 +87,10 @@ internal static class MessageArgumentsInterpolationUtils
 
         const int argumentsCount = 2;
 
-        Fixed2StringsArray arguments = default;
+        Inline2StringsArray arguments = default;
 
-        scoped ref var argumentsRef = ref arguments.GetArrayDataReference();
+        scoped ref var argumentsRef = ref InlineArrayMarshal
+            .GetArrayDataReference<Inline2StringsArray, string?>(ref arguments);
 
         Unsafe.Add(ref argumentsRef, 0) = argument1;
         Unsafe.Add(ref argumentsRef, 1) = argument2;
@@ -108,9 +110,10 @@ internal static class MessageArgumentsInterpolationUtils
 
         const int argumentsCount = 3;
 
-        Fixed3StringsArray arguments = default;
+        Inline3StringsArray arguments = default;
 
-        scoped ref var argumentsRef = ref arguments.GetArrayDataReference();
+        scoped ref var argumentsRef = ref InlineArrayMarshal
+            .GetArrayDataReference<Inline3StringsArray, string?>(ref arguments);
 
         Unsafe.Add(ref argumentsRef, 0) = argument1;
         Unsafe.Add(ref argumentsRef, 1) = argument2;
@@ -132,9 +135,10 @@ internal static class MessageArgumentsInterpolationUtils
 
         const int argumentsCount = 4;
 
-        Fixed4StringsArray arguments = default;
+        Inline4StringsArray arguments = default;
 
-        scoped ref var argumentsRef = ref arguments.GetArrayDataReference();
+        scoped ref var argumentsRef = ref InlineArrayMarshal
+            .GetArrayDataReference<Inline4StringsArray, string?>(ref arguments);
 
         Unsafe.Add(ref argumentsRef, 0) = argument1;
         Unsafe.Add(ref argumentsRef, 1) = argument2;
@@ -236,46 +240,4 @@ file struct BracerInterpolationContext
     public readonly string Message = message;
 
     public readonly int BracerStartIndex = bracerStartIndex;
-}
-
-file interface IFixedArray<T>
-{
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    ref T GetArrayDataReference();
-}
-
-[InlineArray(2)]
-file struct Fixed2StringsArray : IFixedArray<string?>
-{
-    private string? _element0;
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public ref string? GetArrayDataReference()
-    {
-        return ref Unsafe.As<Fixed2StringsArray, string?>(ref Unsafe.AsRef(in this));
-    }
-}
-
-[InlineArray(3)]
-file struct Fixed3StringsArray : IFixedArray<string?>
-{
-    private string? _element0;
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public ref string? GetArrayDataReference()
-    {
-        return ref Unsafe.As<Fixed3StringsArray, string?>(ref Unsafe.AsRef(in this));
-    }
-}
-
-[InlineArray(4)]
-file struct Fixed4StringsArray : IFixedArray<string?>
-{
-    private string? _element0;
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public ref string? GetArrayDataReference()
-    {
-        return ref Unsafe.As<Fixed4StringsArray, string?>(ref Unsafe.AsRef(in this));
-    }
 }
