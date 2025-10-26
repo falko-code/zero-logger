@@ -5,7 +5,7 @@
 
 ![NuGet Version](https://img.shields.io/nuget/v/Falko.ZeroLogger?style=for-the-badge&color=green)
 ![NuGet Version](https://img.shields.io/nuget/vpre/Falko.ZeroLogger?style=for-the-badge&color=red)
-![SDK Version](https://img.shields.io/badge/.NET-8%2C9%2C10-gray?style=for-the-badge)
+![SDK Version](https://img.shields.io/badge/.NET-10%2C9%2C8-gray?style=for-the-badge)
 ![CSharp Version](https://img.shields.io/badge/CSharp-14-gray?style=for-the-badge)
 ![GitHub License](https://img.shields.io/github/license/falko-code/zero-logger?style=for-the-badge&color=gray)
 
