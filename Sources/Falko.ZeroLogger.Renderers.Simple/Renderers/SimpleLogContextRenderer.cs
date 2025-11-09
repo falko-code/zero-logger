@@ -67,7 +67,7 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
         {
             return string.Create(messageLength, (logContext.Time, levelText, sourceText, messageText), static (span, context) =>
             {
-                ValueStringStream messageStream = span;
+                SpanStringStream messageStream = span;
 
                 RenderHeader(ref messageStream, context.Time, context.levelText, context.sourceText, context.messageText);
             });
@@ -89,7 +89,7 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
 
         return string.Create(messageLength, (logContext.Time, levelText, sourceText, messageText, exceptionTypeName, exceptionMessage, exceptionStackTrace, exception), static (span, context) =>
         {
-            ValueStringStream messageStream = span;
+            SpanStringStream messageStream = span;
 
             RenderHeader(ref messageStream, context.Time, context.levelText, context.sourceText, context.messageText);
 
@@ -104,7 +104,7 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static void RenderHeader(scoped ref ValueStringStream messageStream,
+    private static void RenderHeader(scoped ref SpanStringStream messageStream,
         DateTimeOffset time,
         string levelText,
         string sourceText,
@@ -126,7 +126,7 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static void RenderHeaderBlock(scoped ref ValueStringStream messageStream,
+    private static void RenderHeaderBlock(scoped ref SpanStringStream messageStream,
         string blockText)
     {
         messageStream.Next('[');
@@ -136,7 +136,7 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static void RenderTimeHeaderBlock(scoped ref ValueStringStream messageStream,
+    private static void RenderTimeHeaderBlock(scoped ref SpanStringStream messageStream,
         DateTimeOffset time)
     {
         messageStream.Next('[');
@@ -152,7 +152,7 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static void RenderExceptionBlock(scoped ref ValueStringStream messageStream,
+    private static void RenderExceptionBlock(scoped ref SpanStringStream messageStream,
         string blockName,
         string blockText)
     {
@@ -171,10 +171,12 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static void AppendTime(scoped ref ValueStringStream messageStream, DateTimeOffset time)
+    private static void AppendTime(scoped ref SpanStringStream messageStream, DateTimeOffset time)
     {
-        messageStream.Next(TimeHeaderLength, time.TimeOfDay, static (buffer, time) =>
+        messageStream.Next(TimeHeaderLength, time.TimeOfDay, static (scoped ref stream, in time) =>
         {
+            var buffer = stream.GetBuffer();
+
             var hours = time.Hours;
             var hoursTensDigit = hours / 10;
             var hoursOnesDigit = hours - hoursTensDigit * 10;

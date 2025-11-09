@@ -8,7 +8,7 @@ public ref struct ValueStringBuilder : IDisposable
 
     private char[]? _buffer;
 
-    private ValueStringStream _stream;
+    private SpanStringStream _stream;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ValueStringBuilder(Span<char> span)
@@ -45,6 +45,30 @@ public ref struct ValueStringBuilder : IDisposable
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#if NET9_0_OR_GREATER
+    public void Append<T>(T @object)
+        where T : ISpanFormattable, allows ref struct
+#else
+    public void Append<T>(T @object)
+        where T : ISpanFormattable
+#endif
+    {
+        _stream.Next(@object);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#if NET9_0_OR_GREATER
+    public void Append<T>(T @object, int repeat)
+        where T : ISpanFormattable, allows ref struct
+#else
+    public void Append<T>(T @object, int repeat)
+        where T : ISpanFormattable
+#endif
+    {
+        _stream.Next(@object, repeat);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append(scoped ReadOnlySpan<char> chars)
     {
         _stream.Next(chars);
@@ -71,7 +95,7 @@ public ref struct ValueStringBuilder : IDisposable
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Append<T>(int length, T state, SpanAction<char, T> fill)
     {
-        _stream.Next(length, state, fill);
+        _stream.Next(length, in state, (scoped ref stream, in state) => fill(stream.GetBuffer(), state));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -88,6 +112,7 @@ public ref struct ValueStringBuilder : IDisposable
         ArrayPool<char>.Shared.Return(_buffer);
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static string Create<T>(int capacity, T argument, ValueStringBuilderAction<T> build)
 #if NET9_0_OR_GREATER
         where T : allows ref struct
@@ -108,6 +133,7 @@ public ref struct ValueStringBuilder : IDisposable
         }
     }
 
+    [MethodImpl(MethodImplOptions.NoInlining)]
     public static string Create<T>(T argument, ValueStringBuilderAction<T> build)
 #if NET9_0_OR_GREATER
         where T : allows ref struct
@@ -126,3 +152,10 @@ public ref struct ValueStringBuilder : IDisposable
         }
     }
 }
+
+public delegate void ValueStringBuilderAction<in T>(scoped ref ValueStringBuilder builder, T argument)
+#if NET9_0_OR_GREATER
+    where T : allows ref struct;
+#else
+    ;
+#endif
