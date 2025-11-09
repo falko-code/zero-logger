@@ -7,21 +7,11 @@ internal static class TypeUtils
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static string GetTypeName(Type type)
     {
-        var nameBuilder = new ValueStringBuilder(stackalloc char[128]);
-
-        try
-        {
-            GetTypeName(type, ref nameBuilder);
-            return nameBuilder.ToString();
-        }
-        finally
-        {
-            nameBuilder.Dispose();
-        }
+        return ValueStringBuilder.Create(ValueStringBuilder.MaximumSafeStackBufferSize, type, GetTypeName);
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    private static void GetTypeName(Type type, ref ValueStringBuilder nameBuilder)
+    private static void GetTypeName(ref ValueStringBuilder nameBuilder, Type type)
     {
         var name = type.FullName ?? type.Name;
         var nameLength = name.Length;
@@ -60,7 +50,7 @@ internal static class TypeUtils
                 nameBuilder.Append(' ');
             }
 
-            GetTypeName(genericArguments[i], ref nameBuilder);
+            GetTypeName(ref nameBuilder, genericArguments[i]);
         }
 
         nameBuilder.Append('>');

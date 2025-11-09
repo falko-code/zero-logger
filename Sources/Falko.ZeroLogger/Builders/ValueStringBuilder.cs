@@ -6,101 +6,105 @@ public ref struct ValueStringBuilder : IDisposable
 {
     public const int MaximumSafeStackBufferSize = 256;
 
-    private char[]? _array;
+    private char[]? _buffer;
 
-    private Span<char> _span;
-
-    private int _position;
+    private ValueStringStream _stream;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ValueStringBuilder(Span<char> span)
     {
-        _span = span;
+        _stream = span;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ValueStringBuilder(int capacity)
     {
-        _array = ArrayPool<char>.Shared.Rent(capacity);
-        _span = _array.AsSpan();
+        _buffer = ArrayPool<char>.Shared.Rent(capacity);
+        _stream = _buffer;
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
     public void Ensure(int length)
     {
-        var newLength = length + _position;
+        var newLength = length + _stream.Position;
 
-        if (newLength <= _span.Length) return;
+        if (newLength <= _stream.Length) return;
 
         var newArray = ArrayPool<char>.Shared.Rent(newLength);
         var newSpan = newArray.AsSpan();
 
-        _span[.._position].CopyTo(newSpan);
+        _stream.AsReadOnlySpan().CopyTo(newSpan);
 
-        if (_array is not null)
+        if (_buffer is not null)
         {
-            ArrayPool<char>.Shared.Return(_array);
+            ArrayPool<char>.Shared.Return(_buffer);
         }
 
-        _array = newArray;
-        _span = newSpan;
+        _buffer = newArray;
+        _stream = newSpan;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(scoped ReadOnlySpan<char> symbols)
+    public void Append(scoped ReadOnlySpan<char> chars)
     {
-        var length = symbols.Length;
-
-        if (length is 0) return;
-
-        symbols.CopyTo(_span[_position..]);
-        _position += length;
+        _stream.Next(chars);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(string symbols)
+    public void Append(string chars)
     {
-        var length = symbols.Length;
-
-        if (length is 0) return;
-
-        symbols.CopyTo(_span[_position..]);
-        _position += length;
+        _stream.Next(chars);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(char symbol, int repeat)
+    public void Append(char @char, int repeat)
     {
-        _span.Slice(_position, repeat).Fill(symbol);
-        _position += repeat;
+        _stream.Next(@char, repeat);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(char symbol)
+    public void Append(char @char)
     {
-        _span[_position] = symbol;
-        ++_position;
+        _stream.Next(@char);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append<T>(int length, T state, SpanAction<char, T> action)
+    public void Append<T>(int length, T state, SpanAction<char, T> fill)
     {
-        action(_span.Slice(_position, length), state);
-
-        _position += length;
+        _stream.Next(length, state, fill);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public override string ToString()
     {
-        return new string(_span[.._position]);
+        return _stream.ToString();
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Dispose()
     {
-        if (_array is null) return;
+        if (_buffer is null) return;
 
-        ArrayPool<char>.Shared.Return(_array);
+        ArrayPool<char>.Shared.Return(_buffer);
+    }
+
+    public static string Create<T>(int capacity, T argument, ValueStringBuilderAction<T> build)
+#if NET9_0_OR_GREATER
+        where T : allows ref struct
+#endif
+    {
+        scoped var builder = capacity > MaximumSafeStackBufferSize
+            ? new ValueStringBuilder(capacity)
+            : new ValueStringBuilder(stackalloc char[MaximumSafeStackBufferSize]);
+
+        try
+        {
+            build(ref builder, argument);
+            return builder.ToString();
+        }
+        finally
+        {
+            builder.Dispose();
+        }
     }
 }

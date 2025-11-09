@@ -67,9 +67,9 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
         {
             return string.Create(messageLength, (logContext.Time, levelText, sourceText, messageText), static (span, context) =>
             {
-                var messageBuilder = new ValueStringBuilder(span);
+                ValueStringStream messageStream = span;
 
-                RenderHeader(ref messageBuilder, context.Time, context.levelText, context.sourceText, context.messageText);
+                RenderHeader(ref messageStream, context.Time, context.levelText, context.sourceText, context.messageText);
             });
         }
 
@@ -89,34 +89,34 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
 
         return string.Create(messageLength, (logContext.Time, levelText, sourceText, messageText, exceptionTypeName, exceptionMessage, exceptionStackTrace, exception), static (span, context) =>
         {
-            var messageBuilder = new ValueStringBuilder(span);
+            ValueStringStream messageStream = span;
 
-            RenderHeader(ref messageBuilder, context.Time, context.levelText, context.sourceText, context.messageText);
+            RenderHeader(ref messageStream, context.Time, context.levelText, context.sourceText, context.messageText);
 
-            RenderExceptionBlock(ref messageBuilder, ExceptionTypeBlockName, context.exceptionTypeName);
-            RenderExceptionBlock(ref messageBuilder, ExceptionMessageBlockName, context.exceptionMessage);
+            RenderExceptionBlock(ref messageStream, ExceptionTypeBlockName, context.exceptionTypeName);
+            RenderExceptionBlock(ref messageStream, ExceptionMessageBlockName, context.exceptionMessage);
 
             if (context.exceptionStackTrace is not null)
             {
-                RenderExceptionBlock(ref messageBuilder, ExceptionStackTraceBlockName, context.exceptionStackTrace);
+                RenderExceptionBlock(ref messageStream, ExceptionStackTraceBlockName, context.exceptionStackTrace);
             }
         });
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static void RenderHeader(scoped ref ValueStringBuilder messageBuilder,
+    private static void RenderHeader(scoped ref ValueStringStream messageStream,
         DateTimeOffset time,
         string levelText,
         string sourceText,
         string messageText)
     {
-        RenderTimeHeaderBlock(ref messageBuilder, time);
-        RenderHeaderBlock(ref messageBuilder, levelText);
-        RenderHeaderBlock(ref messageBuilder, sourceText);
+        RenderTimeHeaderBlock(ref messageStream, time);
+        RenderHeaderBlock(ref messageStream, levelText);
+        RenderHeaderBlock(ref messageStream, sourceText);
 
-        messageBuilder.Append(messageText);
+        messageStream.Next(messageText);
 
-        messageBuilder.Append(NewLine);
+        messageStream.Next(NewLine);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -126,23 +126,23 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static void RenderHeaderBlock(scoped ref ValueStringBuilder messageBuilder,
+    private static void RenderHeaderBlock(scoped ref ValueStringStream messageStream,
         string blockText)
     {
-        messageBuilder.Append('[');
-        messageBuilder.Append(blockText);
-        messageBuilder.Append(']');
-        messageBuilder.Append(' ');
+        messageStream.Next('[');
+        messageStream.Next(blockText);
+        messageStream.Next(']');
+        messageStream.Next(' ');
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static void RenderTimeHeaderBlock(scoped ref ValueStringBuilder messageBuilder,
+    private static void RenderTimeHeaderBlock(scoped ref ValueStringStream messageStream,
         DateTimeOffset time)
     {
-        messageBuilder.Append('[');
-        AppendTime(ref messageBuilder, time);
-        messageBuilder.Append(']');
-        messageBuilder.Append(' ');
+        messageStream.Next('[');
+        AppendTime(ref messageStream, time);
+        messageStream.Next(']');
+        messageStream.Next(' ');
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -152,14 +152,14 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static void RenderExceptionBlock(scoped ref ValueStringBuilder messageBuilder,
+    private static void RenderExceptionBlock(scoped ref ValueStringStream messageStream,
         string blockName,
         string blockText)
     {
-        messageBuilder.Append(' ', ExceptionBlockPadding);
-        messageBuilder.Append(blockName);
-        messageBuilder.Append(blockText);
-        messageBuilder.Append(NewLine);
+        messageStream.Next(' ', ExceptionBlockPadding);
+        messageStream.Next(blockName);
+        messageStream.Next(blockText);
+        messageStream.Next(NewLine);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -171,9 +171,9 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static void AppendTime(scoped ref ValueStringBuilder messageBuilder, DateTimeOffset time)
+    private static void AppendTime(scoped ref ValueStringStream messageStream, DateTimeOffset time)
     {
-        messageBuilder.Append(TimeHeaderLength, time.TimeOfDay, static (buffer, time) =>
+        messageStream.Next(TimeHeaderLength, time.TimeOfDay, static (buffer, time) =>
         {
             var hours = time.Hours;
             var hoursTensDigit = hours / 10;
