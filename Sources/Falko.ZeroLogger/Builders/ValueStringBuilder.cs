@@ -107,4 +107,22 @@ public ref struct ValueStringBuilder : IDisposable
             builder.Dispose();
         }
     }
+
+    public static string Create<T>(T argument, ValueStringBuilderAction<T> build)
+#if NET9_0_OR_GREATER
+        where T : allows ref struct
+#endif
+    {
+        scoped var builder = new ValueStringBuilder(stackalloc char[MaximumSafeStackBufferSize]);
+
+        try
+        {
+            build(ref builder, argument);
+            return builder.ToString();
+        }
+        finally
+        {
+            builder.Dispose();
+        }
+    }
 }

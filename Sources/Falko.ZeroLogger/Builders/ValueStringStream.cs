@@ -8,6 +8,7 @@ public ref struct ValueStringStream(Span<char> buffer)
     private Span<char> _buffer = buffer;
 
     private int _position;
+
     public int Position
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

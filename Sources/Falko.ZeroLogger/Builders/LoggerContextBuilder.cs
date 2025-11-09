@@ -22,8 +22,8 @@ public sealed class LoggerContextBuilder
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public LoggerContextBuilder AddTarget(ILogContextRenderer renderer, LoggerTarget target)
     {
-        ArgumentNullException.ThrowIfNull(renderer, nameof(renderer));
-        ArgumentNullException.ThrowIfNull(target, nameof(target));
+        ArgumentNullException.ThrowIfNull(renderer);
+        ArgumentNullException.ThrowIfNull(target);
 
         if (target.RequiresSynchronization) target = new LockingLoggerTarget(target);
 
