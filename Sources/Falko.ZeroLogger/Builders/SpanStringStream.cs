@@ -29,7 +29,7 @@ public ref struct SpanStringStream(Span<char> buffer) : IStringStream
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Next<T>(T value)
+    public void Write<T>(T value)
 #if NET9_0_OR_GREATER
         where T : ISpanFormattable, allows ref struct
 #else
@@ -52,7 +52,7 @@ public ref struct SpanStringStream(Span<char> buffer) : IStringStream
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public void Next<T>(T value, int repeat)
+    public void Write<T>(T value, int repeat)
 #if NET9_0_OR_GREATER
         where T : ISpanFormattable, allows ref struct
 #else
@@ -63,7 +63,7 @@ public ref struct SpanStringStream(Span<char> buffer) : IStringStream
 
         if (repeat is 1)
         {
-            Next(value);
+            Write(value);
             return;
         }
 
@@ -93,7 +93,7 @@ public ref struct SpanStringStream(Span<char> buffer) : IStringStream
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Next(scoped ReadOnlySpan<char> symbols)
+    public void Write(scoped ReadOnlySpan<char> symbols)
     {
         var position = _position;
         ref var symbolsRef = ref symbols;
@@ -103,7 +103,7 @@ public ref struct SpanStringStream(Span<char> buffer) : IStringStream
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Next(string symbols)
+    public void Write(string symbols)
     {
         scoped ref var positionRef = ref _position;
         var position = positionRef;
@@ -114,7 +114,7 @@ public ref struct SpanStringStream(Span<char> buffer) : IStringStream
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Next(char symbol, int repeat)
+    public void Write(char symbol, int repeat)
     {
         scoped ref var positionRef = ref _position;
         var position = positionRef;
@@ -123,7 +123,7 @@ public ref struct SpanStringStream(Span<char> buffer) : IStringStream
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Next(char symbol)
+    public void Write(char symbol)
     {
         scoped ref var positionRef = ref _position;
         var position = positionRef;
@@ -132,7 +132,7 @@ public ref struct SpanStringStream(Span<char> buffer) : IStringStream
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Next<T>(int length, in T state, StringStreamAction<T> action)
+    public void Write<T>(int length, in T state, SpanStringStreamAction<T> action)
 #if NET9_0_OR_GREATER
         where T : allows ref struct
 #endif

@@ -2,7 +2,7 @@ using System.Buffers;
 
 namespace Falko.Logging.Builders;
 
-public ref struct ValueStringBuilder : IDisposable
+public ref struct ValueStringStream : IStringStream, IDisposable
 {
     public const int MaximumSafeStackBufferSize = 256;
 
@@ -11,13 +11,13 @@ public ref struct ValueStringBuilder : IDisposable
     private SpanStringStream _stream;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public ValueStringBuilder(Span<char> span)
+    public ValueStringStream(Span<char> span)
     {
         _stream = span;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public ValueStringBuilder(int capacity)
+    public ValueStringStream(int capacity)
     {
         _buffer = ArrayPool<char>.Shared.Rent(capacity);
         _stream = _buffer;
@@ -44,65 +44,81 @@ public ref struct ValueStringBuilder : IDisposable
         _stream = newSpan;
     }
 
+    public int Position
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        get => _stream.Position;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        set => _stream.Position = value;
+    }
+
+    public int Length
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        get => _stream.Length;
+    }
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Write<T>(T value)
 #if NET9_0_OR_GREATER
-    public void Append<T>(T @object)
         where T : ISpanFormattable, allows ref struct
 #else
-    public void Append<T>(T @object)
         where T : ISpanFormattable
 #endif
     {
-        _stream.Next(@object);
+        _stream.Write(value);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Write<T>(T value, int repeat)
 #if NET9_0_OR_GREATER
-    public void Append<T>(T @object, int repeat)
         where T : ISpanFormattable, allows ref struct
 #else
-    public void Append<T>(T @object, int repeat)
         where T : ISpanFormattable
 #endif
     {
-        _stream.Next(@object, repeat);
+        _stream.Write(value, repeat);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(scoped ReadOnlySpan<char> chars)
+    public void Write(scoped ReadOnlySpan<char> symbols)
     {
-        _stream.Next(chars);
+        _stream.Write(symbols);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(string chars)
+    public void Write(string symbols)
     {
-        _stream.Next(chars);
+        _stream.Write(symbols);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(char @char, int repeat)
+    public void Write(char symbol, int repeat)
     {
-        _stream.Next(@char, repeat);
+        _stream.Write(symbol, repeat);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append(char @char)
+    public void Write(char symbol)
     {
-        _stream.Next(@char);
+        _stream.Write(symbol);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Append<T>(int length, T state, SpanAction<char, T> fill)
+    public void Write<T>(int length, in T state, SpanStringStreamAction<T> action)
+#if NET9_0_OR_GREATER
+        where T : allows ref struct
+#endif
     {
-        _stream.Next(length, in state, (scoped ref stream, in state) => fill(stream.GetBuffer(), state));
+        _stream.Write(length, in state, action);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public override string ToString()
-    {
-        return _stream.ToString();
-    }
+    public ReadOnlySpan<char> AsReadOnlySpan() => _stream.AsReadOnlySpan();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public override string ToString() => _stream.ToString();
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Dispose()
@@ -113,14 +129,14 @@ public ref struct ValueStringBuilder : IDisposable
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static string Create<T>(int capacity, T argument, ValueStringBuilderAction<T> build)
+    public static string Create<T>(int capacity, T argument, ValueStringStreamAction<T> build)
 #if NET9_0_OR_GREATER
         where T : allows ref struct
 #endif
     {
         scoped var builder = capacity > MaximumSafeStackBufferSize
-            ? new ValueStringBuilder(capacity)
-            : new ValueStringBuilder(stackalloc char[MaximumSafeStackBufferSize]);
+            ? new ValueStringStream(capacity)
+            : new ValueStringStream(stackalloc char[MaximumSafeStackBufferSize]);
 
         try
         {
@@ -134,12 +150,12 @@ public ref struct ValueStringBuilder : IDisposable
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public static string Create<T>(T argument, ValueStringBuilderAction<T> build)
+    public static string Create<T>(T argument, ValueStringStreamAction<T> build)
 #if NET9_0_OR_GREATER
         where T : allows ref struct
 #endif
     {
-        scoped var builder = new ValueStringBuilder(stackalloc char[MaximumSafeStackBufferSize]);
+        scoped var builder = new ValueStringStream(stackalloc char[MaximumSafeStackBufferSize]);
 
         try
         {
@@ -152,10 +168,3 @@ public ref struct ValueStringBuilder : IDisposable
         }
     }
 }
-
-public delegate void ValueStringBuilderAction<in T>(scoped ref ValueStringBuilder builder, T argument)
-#if NET9_0_OR_GREATER
-    where T : allows ref struct;
-#else
-    ;
-#endif

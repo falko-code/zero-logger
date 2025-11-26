@@ -114,9 +114,9 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
         RenderHeaderBlock(ref messageStream, levelText);
         RenderHeaderBlock(ref messageStream, sourceText);
 
-        messageStream.Next(messageText);
+        messageStream.Write(messageText);
 
-        messageStream.Next(NewLine);
+        messageStream.Write(NewLine);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -129,20 +129,20 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
     private static void RenderHeaderBlock(scoped ref SpanStringStream messageStream,
         string blockText)
     {
-        messageStream.Next('[');
-        messageStream.Next(blockText);
-        messageStream.Next(']');
-        messageStream.Next(' ');
+        messageStream.Write('[');
+        messageStream.Write(blockText);
+        messageStream.Write(']');
+        messageStream.Write(' ');
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static void RenderTimeHeaderBlock(scoped ref SpanStringStream messageStream,
         DateTimeOffset time)
     {
-        messageStream.Next('[');
+        messageStream.Write('[');
         AppendTime(ref messageStream, time);
-        messageStream.Next(']');
-        messageStream.Next(' ');
+        messageStream.Write(']');
+        messageStream.Write(' ');
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -156,10 +156,10 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
         string blockName,
         string blockText)
     {
-        messageStream.Next(' ', ExceptionBlockPadding);
-        messageStream.Next(blockName);
-        messageStream.Next(blockText);
-        messageStream.Next(NewLine);
+        messageStream.Write(' ', ExceptionBlockPadding);
+        messageStream.Write(blockName);
+        messageStream.Write(blockText);
+        messageStream.Write(NewLine);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -173,7 +173,7 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static void AppendTime(scoped ref SpanStringStream messageStream, DateTimeOffset time)
     {
-        messageStream.Next(TimeHeaderLength, time.TimeOfDay, static (scoped ref stream, in time) =>
+        messageStream.Write(TimeHeaderLength, time.TimeOfDay, static (scoped ref stream, in time) =>
         {
             var buffer = stream.GetBuffer();
 

@@ -165,9 +165,9 @@ internal static class MessageArgumentsInterpolationUtils
 
         var messageBuilderCapacity = messageLength * argumentsCount * DefaultMessageArgumentLength;
 
-        using scoped var messageBuilder = messageBuilderCapacity > ValueStringBuilder.MaximumSafeStackBufferSize
-            ? new ValueStringBuilder(messageBuilderCapacity)
-            : new ValueStringBuilder(stackalloc char[ValueStringBuilder.MaximumSafeStackBufferSize]);
+        using scoped var messageBuilder = messageBuilderCapacity > ValueStringStream.MaximumSafeStackBufferSize
+            ? new ValueStringStream(messageBuilderCapacity)
+            : new ValueStringStream(stackalloc char[ValueStringStream.MaximumSafeStackBufferSize]);
 
         scoped var messageSpan = message.AsSpan();
 
@@ -184,7 +184,7 @@ internal static class MessageArgumentsInterpolationUtils
 
             if (argumentOpenIndex is -1) break;
 
-            messageBuilder.Append(messageSpan[messageIndex..argumentOpenIndex]);
+            messageBuilder.Write(messageSpan[messageIndex..argumentOpenIndex]);
 
             var argumentOpenAfterIndex = argumentOpenIndex + 1;
 
@@ -204,12 +204,12 @@ internal static class MessageArgumentsInterpolationUtils
             var argument = Unsafe.Add(ref argumentsRef, argumentIndex) ?? NullString;
 
             messageBuilder.Ensure(argument.Length);
-            messageBuilder.Append(argument);
+            messageBuilder.Write(argument);
 
             messageIndex = argumentCloseIndex + 1;
         }
 
-        messageBuilder.Append(messageSpan[messageIndex..]);
+        messageBuilder.Write(messageSpan[messageIndex..]);
         return messageBuilder.ToString();
     }
 }

@@ -7,19 +7,19 @@ internal static class TypeUtils
     [MethodImpl(MethodImplOptions.NoInlining)]
     public static string GetTypeName(Type type)
     {
-        return ValueStringBuilder.Create(ValueStringBuilder.MaximumSafeStackBufferSize, type, GetTypeName);
+        return ValueStringStream.Create(ValueStringStream.MaximumSafeStackBufferSize, type, GetTypeName);
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    private static void GetTypeName(ref ValueStringBuilder nameBuilder, Type type)
+    private static void GetTypeName(scoped ref ValueStringStream nameStream, in Type type)
     {
         var name = type.FullName ?? type.Name;
         var nameLength = name.Length;
 
         if (type.IsGenericType is false)
         {
-            nameBuilder.Ensure(nameLength);
-            nameBuilder.Append(name);
+            nameStream.Ensure(nameLength);
+            nameStream.Write(name);
 
             return;
         }
@@ -28,17 +28,17 @@ internal static class TypeUtils
 
         if (index <= 0)
         {
-            nameBuilder.Ensure(nameLength);
-            nameBuilder.Append(name);
+            nameStream.Ensure(nameLength);
+            nameStream.Write(name);
 
             return;
         }
 
         scoped ReadOnlySpan<char> shortName = name.AsSpan(0, index);
 
-        nameBuilder.Ensure(shortName.Length + 2);
-        nameBuilder.Append(shortName);
-        nameBuilder.Append('<');
+        nameStream.Ensure(shortName.Length + 2);
+        nameStream.Write(shortName);
+        nameStream.Write('<');
 
         scoped ReadOnlySpan<Type> genericArguments = type.GetGenericArguments();
 
@@ -46,13 +46,13 @@ internal static class TypeUtils
         {
             if (i > 0)
             {
-                nameBuilder.Append(',');
-                nameBuilder.Append(' ');
+                nameStream.Write(',');
+                nameStream.Write(' ');
             }
 
-            GetTypeName(ref nameBuilder, genericArguments[i]);
+            GetTypeName(ref nameStream, genericArguments[i]);
         }
 
-        nameBuilder.Append('>');
+        nameStream.Write('>');
     }
 }
