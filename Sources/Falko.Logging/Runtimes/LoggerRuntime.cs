@@ -19,7 +19,7 @@ public sealed partial class LoggerRuntime : IDisposable
 
     private CancellationTokenSource? _contextCancellation;
 
-    internal volatile LoggerContext LoggerContext = LoggerContext.Empty;
+    internal LoggerContext LoggerContext = LoggerContext.Empty;
 
     public readonly LoggerFactory LoggerFactory;
 
