@@ -3,11 +3,11 @@
 
 # Falko Logging
 
-![NuGet Version](https://img.shields.io/nuget/v/Falko.Logging?style=for-the-badge&color=green)
-![NuGet Version](https://img.shields.io/nuget/vpre/Falko.Logging?style=for-the-badge&color=red)
-![SDK Version](https://img.shields.io/badge/.NET-10%2C9%2C8-gray?style=for-the-badge)
-![CSharp Version](https://img.shields.io/badge/CSharp-14-gray?style=for-the-badge)
-![GitHub License](https://img.shields.io/github/license/falko-code/zero-logger?style=for-the-badge&color=gray)
+[![NuGet Version](https://img.shields.io/nuget/v/Falko.Logging?style=for-the-badge&color=green)](https://www.nuget.org/packages?q=Falko.Logging&prerel=false)
+[![NuGet Version](https://img.shields.io/nuget/vpre/Falko.Logging?style=for-the-badge&color=red)](https://www.nuget.org/packages?q=Falko.Logging&prerel=true)
+[![SDK Version](https://img.shields.io/badge/.NET-10%2C9%2C8-gray?style=for-the-badge)](https://dotnet.microsoft.com/en-us/download)
+[![CSharp Version](https://img.shields.io/badge/CSharp-14-gray?style=for-the-badge)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history)
+[![GitHub License](https://img.shields.io/github/license/falko-code/zero-logger?style=for-the-badge&color=gray)](License.md)
 
 High-performance static structured logger with minimal allocations.
 
@@ -19,7 +19,7 @@ using var loggerRuntime = new LoggerRuntime().Initialize(builder => builder
 
 var logger = typeof(Program).CreateLogger(loggerRuntime);
 
-logger.Info(static () => "PI is {PI}", static () => Math.PI.ToString("F"));
+logger.Info("PI is {PI}", static () => Math.PI.ToString("F"));
 ```
 
 ## Performance
