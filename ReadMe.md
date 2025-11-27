@@ -3,7 +3,7 @@
 
 # Falko Logging
 
-[![NuGet Version](https://img.shields.io/nuget/v/Falko.Logging?style=for-the-badge&color=green)](https://www.nuget.org/packages?q=Falko.Logging&prerel=false)
+[![NuGet Version](https://img.shields.io/nuget/v/Falko.ZeroLogger?style=for-the-badge&color=green)](https://www.nuget.org/packages?q=Falko.ZeroLogger&prerel=false)
 [![NuGet Version](https://img.shields.io/nuget/vpre/Falko.Logging?style=for-the-badge&color=red)](https://www.nuget.org/packages?q=Falko.Logging&prerel=true)
 [![SDK Version](https://img.shields.io/badge/.NET-10–8-gray?style=for-the-badge)](https://dotnet.microsoft.com/en-us/download)
 [![CSharp Version](https://img.shields.io/badge/CSharp-14-gray?style=for-the-badge)](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-version-history)
