@@ -74,27 +74,29 @@ public sealed partial class LoggerRuntime : IDisposable
         {
             var loggerContext = LoggerContext;
 
-            if (loggerContext.CancellationToken.IsCancellationRequested) return;
+            var loggerCancellationToken = loggerContext.CancellationToken;
 
-            var cancellationTokenSource = _contextCancellation!;
+            if (loggerCancellationToken.IsCancellationRequested) return;
 
-            try
+            if (cancellationContext.IsCancellationRequested)
             {
-                cancellationTokenSource.Cancel();
-            }
-            catch (Exception exception)
-            {
-                DebugEventLogger.Handle("Error while cancelling logger context", exception);
+                DisposeAndCancelTokenSource();
             }
 
-            try
+            _ = Task.Run(() =>
             {
-                cancellationTokenSource.Dispose();
-            }
-            catch (Exception exception)
-            {
-                DebugEventLogger.Handle("Error while disposing logger context", exception);
-            }
+                var spinWait = new SpinWait();
+
+                while (cancellationContext.IsCancellationRequested is false && loggerCancellationToken.IsCancellationRequested is false)
+                {
+                    spinWait.SpinOnce();
+                }
+
+                if (cancellationContext.IsCancellationRequested && loggerCancellationToken.IsCancellationRequested is false)
+                {
+                    DisposeAndCancelTokenSource();
+                }
+            }, loggerCancellationToken);
 
             var targets = loggerContext.Targets;
 
@@ -117,8 +119,36 @@ public sealed partial class LoggerRuntime : IDisposable
                 DisposeTarget(targets[0], cancellationContext);
             }
 
+            if (cancellationContext.IsCancellationRequested)
+            {
+                DisposeAndCancelTokenSource();
+            }
+
             _contextCancellation = null;
             LoggerContext = LoggerContext.Empty;
+
+            void DisposeAndCancelTokenSource()
+            {
+                var cancellationTokenSource = _contextCancellation!;
+
+                try
+                {
+                    cancellationTokenSource.Cancel();
+                }
+                catch (Exception exception)
+                {
+                    DebugEventLogger.Handle("Error while cancelling logger context", exception);
+                }
+
+                try
+                {
+                    cancellationTokenSource.Dispose();
+                }
+                catch (Exception exception)
+                {
+                    DebugEventLogger.Handle("Error while disposing logger context", exception);
+                }
+            }
         }
     }
 
