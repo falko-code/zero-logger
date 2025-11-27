@@ -15,21 +15,21 @@
     <File Path="License.md" />
   </Folder>
   <Folder Name="/Benchmarks/">
-    <Project Path="Benchmarks\Falko.ZeroLogger.Benchmarks\Falko.ZeroLogger.Benchmarks.csproj" Type="Classic C#" />
+    <Project Path="Benchmarks\Falko.Logging.Benchmarks\Falko.Logging.Benchmarks.csproj" />
   </Folder>
   <Folder Name="/Examples/">
-    <Project Path="Examples\Falko.ZeroLogger.Examples\Falko.ZeroLogger.Examples.csproj" Type="Classic C#" />
+    <Project Path="Examples\Falko.Logging.Examples\Falko.Logging.Examples.csproj" />
   </Folder>
   <Folder Name="/Sources/">
-    <Project Path="Sources\Falko.ZeroLogger.Microsoft.Hosting\Falko.ZeroLogger.Microsoft.Hosting.csproj" Type="Classic C#" />
-    <Project Path="Sources\Falko.ZeroLogger.Microsoft.Logging\Falko.ZeroLogger.Microsoft.Logging.csproj" Type="Classic C#" />
-    <Project Path="Sources\Falko.ZeroLogger.Renderers.Simple\Falko.ZeroLogger.Renderers.Simple.csproj" Type="Classic C#" />
-    <Project Path="Sources\Falko.ZeroLogger.Targets.Concurrent\Falko.ZeroLogger.Targets.Concurrent.csproj" Type="Classic C#" />
-    <Project Path="Sources\Falko.ZeroLogger.Targets.Console\Falko.ZeroLogger.Targets.Console.csproj" Type="Classic C#" />
-    <Project Path="Sources\Falko.ZeroLogger.Targets.File\Falko.ZeroLogger.Targets.File.csproj" Type="Classic C#" />
-    <Project Path="Sources\Falko.ZeroLogger\Falko.ZeroLogger.csproj" Type="Classic C#" />
+    <Project Path="Sources\Falko.Logging.Microsoft.Hosting\Falko.Logging.Microsoft.Hosting.csproj" />
+    <Project Path="Sources\Falko.Logging.Microsoft.Logging\Falko.Logging.Microsoft.Logging.csproj" />
+    <Project Path="Sources\Falko.Logging.Renderers.Simple\Falko.Logging.Renderers.Simple.csproj" />
+    <Project Path="Sources\Falko.Logging.Targets.Concurrent\Falko.Logging.Targets.Concurrent.csproj" />
+    <Project Path="Sources\Falko.Logging.Targets.Console\Falko.Logging.Targets.Console.csproj" />
+    <Project Path="Sources\Falko.Logging.Targets.File\Falko.Logging.Targets.File.csproj" />
+    <Project Path="Sources\Falko.Logging\Falko.Logging.csproj" />
   </Folder>
   <Folder Name="/Tests/">
-    <Project Path="Tests\Falko.ZeroLogger.Targets.File.Tests\Falko.ZeroLogger.Targets.File.Tests.csproj" Type="Classic C#" />
+    <Project Path="Tests\Falko.Logging.Targets.File.Tests\Falko.Logging.Targets.File.Tests.csproj" />
   </Folder>
 </Solution>

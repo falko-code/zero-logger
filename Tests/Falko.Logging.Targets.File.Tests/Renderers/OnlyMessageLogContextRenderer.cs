@@ -1,7 +1,7 @@
 using Falko.Logging.Contexts;
 using Falko.Logging.Renderers;
 
-namespace Falko.ZeroLogger.Targets.File.Tests.Renderers;
+namespace Falko.Logging.Targets.File.Tests.Renderers;
 
 public sealed class OnlyMessageLogContextRenderer : ILogContextRenderer
 {

@@ -2,6 +2,6 @@
     <Import Project="../../Sources.Build.props" />
 
     <ItemGroup Label="Dependencies">
-        <ProjectReference Include="..\Falko.ZeroLogger\Falko.ZeroLogger.csproj" />
+        <ProjectReference Include="..\Falko.Logging\Falko.Logging.csproj" />
     </ItemGroup>
 </Project>

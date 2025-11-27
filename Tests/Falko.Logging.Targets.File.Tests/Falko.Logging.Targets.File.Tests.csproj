@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Sources\Falko.ZeroLogger.Targets.File\Falko.ZeroLogger.Targets.File.csproj" />
+      <ProjectReference Include="..\..\Sources\Falko.Logging.Targets.File\Falko.Logging.Targets.File.csproj" />
     </ItemGroup>
 
 </Project>

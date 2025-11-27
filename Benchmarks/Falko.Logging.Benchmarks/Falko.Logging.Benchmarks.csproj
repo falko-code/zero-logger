@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="../../Examples.Build.props" />
+
+    <ItemGroup Label="Dependencies">
+        <ProjectReference Include="..\..\Sources\Falko.Logging.Renderers.Simple\Falko.Logging.Renderers.Simple.csproj" />
+        <ProjectReference Include="..\..\Sources\Falko.Logging.Targets.Concurrent\Falko.Logging.Targets.Concurrent.csproj" />
+        <ProjectReference Include="..\..\Sources\Falko.Logging\Falko.Logging.csproj" />
+
+        <PackageReference Include="BenchmarkDotNet" />
+
+        <PackageReference Include="NLog" />
+    </ItemGroup>
+</Project>

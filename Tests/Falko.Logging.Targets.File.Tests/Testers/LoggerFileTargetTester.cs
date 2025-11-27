@@ -1,10 +1,9 @@
 using Falko.Logging.Factories;
 using Falko.Logging.Logs;
 using Falko.Logging.Runtimes;
-using Falko.Logging.Targets;
-using Falko.ZeroLogger.Targets.File.Tests.Renderers;
+using Falko.Logging.Targets.File.Tests.Renderers;
 
-namespace Falko.ZeroLogger.Targets.File.Tests.Testers;
+namespace Falko.Logging.Targets.File.Tests.Testers;
 
 public sealed class LoggerFileTargetTester
 {

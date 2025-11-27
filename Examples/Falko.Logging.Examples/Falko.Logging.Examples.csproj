@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="../../Examples.Build.props" />
+
+    <PropertyGroup Label="Assembly">
+        <AssemblyName>Bot</AssemblyName>
+        <TargetFramework>net10.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup Label="Dependencies">
+        <ProjectReference Include="..\..\Sources\Falko.Logging.Targets.Concurrent\Falko.Logging.Targets.Concurrent.csproj" />
+        <ProjectReference Include="..\..\Sources\Falko.Logging\Falko.Logging.csproj" />
+        <ProjectReference Include="..\..\Sources\Falko.Logging.Renderers.Simple\Falko.Logging.Renderers.Simple.csproj" />
+        <ProjectReference Include="..\..\Sources\Falko.Logging.Targets.File\Falko.Logging.Targets.File.csproj" />
+        <ProjectReference Include="..\..\Sources\Falko.Logging.Targets.Console\Falko.Logging.Targets.Console.csproj" />
+    </ItemGroup>
+</Project>
