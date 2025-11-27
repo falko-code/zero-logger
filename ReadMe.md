@@ -1,10 +1,10 @@
 > [!WARNING]
 > This project is under active development. The underlying C# libraries are subject to change.
 
-# Zero Logger
+# Falko Logging
 
-![NuGet Version](https://img.shields.io/nuget/v/Falko.ZeroLogger?style=for-the-badge&color=green)
-![NuGet Version](https://img.shields.io/nuget/vpre/Falko.ZeroLogger?style=for-the-badge&color=red)
+![NuGet Version](https://img.shields.io/nuget/v/Falko.Logging?style=for-the-badge&color=green)
+![NuGet Version](https://img.shields.io/nuget/vpre/Falko.Logging?style=for-the-badge&color=red)
 ![SDK Version](https://img.shields.io/badge/.NET-10%2C9%2C8-gray?style=for-the-badge)
 ![CSharp Version](https://img.shields.io/badge/CSharp-14-gray?style=for-the-badge)
 ![GitHub License](https://img.shields.io/github/license/falko-code/zero-logger?style=for-the-badge&color=gray)
@@ -24,7 +24,7 @@ logger.Info(static () => "PI is {PI}", static () => Math.PI.ToString("F"));
 
 ## Performance
 
-Compare the performance of the **Zero Logger** with the **NLog Logger**.
+Compare the performance of the **Falko Logging** with the **NLog Logger**.
 
 ```console
 BenchmarkDotNet v0.15.2, Linux Rocky Linux 10.0 (Red Quartz)
