@@ -1,4 +1,4 @@
-# Zero Logger
+# Falko Logging
 
 High-performance static structured logger with minimal allocations.
 
