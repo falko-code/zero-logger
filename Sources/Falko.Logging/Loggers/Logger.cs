@@ -1385,10 +1385,10 @@ public readonly partial struct Logger
     [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.AggressiveOptimization)]
     private static void PublishLog(LoggerContext loggerContext, in LogContext logContext)
     {
+        scoped ref readonly var logContextRef = ref logContext;
+
         var targets = loggerContext.Targets;
         var renderers = loggerContext.Renderers;
-
-        scoped ref readonly var logContextRef = ref logContext;
 
         var targetsLength = targets.Length;
 
@@ -1403,14 +1403,13 @@ public readonly partial struct Logger
 
             if (renderersLength > 1)
             {
-                scoped ref var renderersRef = ref MemoryMarshal.GetArrayDataReference(loggerContext.Renderers);
+                scoped ref var renderersSpanRef = ref MemoryMarshal.GetArrayDataReference(loggerContext.Renderers);
 
                 var targetIndex = 0;
 
                 for (var rendererIndex = 0; rendererIndex < renderersLength; rendererIndex++)
                 {
-                    var renderersSpan = Unsafe.Add(ref renderersRef, rendererIndex);
-                    var spanRenderers = renderersSpan.Count;
+                    var spanRenderers = renderersSpanRef.Count;
 
                     if (spanRenderers is 1)
                     {
@@ -1418,12 +1417,12 @@ public readonly partial struct Logger
 
                         ++targetIndex;
 
-                        PublishLog(renderersSpan.Renderer, target, in logContextRef, cancellationToken);
+                        PublishLog(renderersSpanRef.Renderer, target, in logContextRef, cancellationToken);
 
                         continue;
                     }
 
-                    var logRenderer = new PersistentLogContextRenderer(renderersSpan.Renderer);
+                    var logRenderer = new PersistentLogContextRenderer(renderersSpanRef.Renderer);
 
                     for (var logRendererIndex = 0; logRendererIndex < spanRenderers; logRendererIndex++)
                     {
@@ -1437,7 +1436,9 @@ public readonly partial struct Logger
             }
             else
             {
-                var renderer = new PersistentLogContextRenderer(renderers[0].Renderer);
+                scoped ref readonly var firstRendererRef = ref renderers[0];
+
+                var renderer = new PersistentLogContextRenderer(firstRendererRef.Renderer);
 
                 for (var targetIndex = 0; targetIndex < targetsLength; targetIndex++)
                 {
@@ -1449,7 +1450,9 @@ public readonly partial struct Logger
         }
         else if (targetsLength is 1)
         {
-            PublishLog(renderers[0].Renderer, targets[0], in logContextRef, loggerContext.CancellationToken);
+            scoped ref readonly var firstRendererRef = ref renderers[0];
+
+            PublishLog(firstRendererRef.Renderer, targets[0], in logContextRef, loggerContext.CancellationToken);
         }
     }
 
