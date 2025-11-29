@@ -38,15 +38,6 @@ public class LogConcurrentBenchmark
         });
     }
 
-    [Benchmark]
-    public void LogZeroLoggerStatic()
-    {
-        Parallel.For(0, Iterations, iteration =>
-        {
-            ZeroLogger.Info(static () => "Iteration {IterationNumber}", iteration);
-        });
-    }
-
     [Benchmark(Baseline = true)]
     public void LogNLogLogger()
     {

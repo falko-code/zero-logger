@@ -1,5 +1,4 @@
-﻿using Falko.Examples;
-using Falko.Logging.Factories;
+﻿using Falko.Logging.Factories;
 using Falko.Logging.Logs;
 using Falko.Logging.Renderers;
 using Falko.Logging.Runtimes;
@@ -14,11 +13,19 @@ using var loggerRuntime = LoggerRuntime.Global.Initialize(builder => builder
         new LoggerFileTarget("program", "./Logs")
             .AsConcurrent()));
 
-LoggableStaticClass.Init();
-new LoggableInstanceClass().Init();
-
 var logger = typeof(Program).CreateLogger();
 
-logger.Trace(static () => "App started");
-logger.Error(new Exception(), static () => "Error occurred");
-logger.Info(static () => "CurrentTime: {CurrentTime}", static () => DateTime.Now.TimeOfDay.ToString());
+logger.Info("App started");
+
+logger.Debug("LoggingTime is {LoggingTime} and RenderingTime is {RenderingTime}",
+    LogMessageArgument.Create(DateTime.Now, static dateTime => dateTime.TimeOfDay.ToString()),
+    LogMessageArgument.Create(static () => DateTime.Now.TimeOfDay.ToString()));
+
+try
+{
+    throw new InvalidOperationException("Sample exception");
+}
+catch (Exception exception)
+{
+    logger.Error(exception, "Error occurred");
+}

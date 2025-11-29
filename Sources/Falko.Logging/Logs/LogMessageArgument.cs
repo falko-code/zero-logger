@@ -5,7 +5,7 @@ namespace Falko.Logging.Logs;
 
 public static class LogMessageArgument
 {
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public static LogMessageArgument<T> Create<T>(T argument, LogMessageArgumentFactory<T> argumentFactory)
     {
         ArgumentNullException.ThrowIfNull(argumentFactory);
@@ -17,7 +17,7 @@ public static class LogMessageArgument
         );
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public static LogMessageArgument<T> Create<T>(T argument)
     {
         return new LogMessageArgument<T>
@@ -27,7 +27,7 @@ public static class LogMessageArgument
         );
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public static LogMessageArgument<LogMessageArgumentFactory> Create(LogMessageArgumentFactory argumentFactory)
     {
         ArgumentNullException.ThrowIfNull(argumentFactory);

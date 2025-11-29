@@ -54,55 +54,31 @@ public readonly partial struct Logger
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug,
-                messageFactory);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception,
-                messageFactory);
-        }
-    }
-
     #endregion
 
-    #region Log(State)
+    #region Log(Argument)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug<T>(T messageState, LogMessageFactory<T> messageFactory)
+    public void Debug<T>(T messageArgument, LogMessageFactory<T> messageFactory)
     {
         var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
 
         if (loggerContext.IsDebugLevelEnabled)
         {
             Log(loggerContext, LogLevel.Debug,
-                messageState, messageFactory);
+                messageArgument, messageFactory);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug<T>(Exception? exception, T messageState, LogMessageFactory<T> messageFactory)
+    public void Debug<T>(Exception? exception, T messageArgument, LogMessageFactory<T> messageFactory)
     {
         var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
 
         if (loggerContext.IsDebugLevelEnabled)
         {
             Log(loggerContext, LogLevel.Debug, exception,
-                messageState, messageFactory);
+                messageArgument, messageFactory);
         }
     }
 
@@ -132,32 +108,6 @@ public readonly partial struct Logger
         if (loggerContext.IsDebugLevelEnabled)
         {
             Log(loggerContext, LogLevel.Debug, exception, message,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        short argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        short argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
                 argument);
         }
     }
@@ -192,32 +142,6 @@ public readonly partial struct Logger
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        ushort argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        ushort argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
-                argument);
-        }
-    }
-
     #endregion
 
     #region Log(int)
@@ -236,7 +160,7 @@ public readonly partial struct Logger
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
+    public void Debug(Exception? exception, [Localizable(false)] [StructuredMessageTemplate] string? message,
         int argument)
     {
         var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
@@ -244,32 +168,6 @@ public readonly partial struct Logger
         if (loggerContext.IsDebugLevelEnabled)
         {
             Log(loggerContext, LogLevel.Debug, exception, message,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        int argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        int argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
                 argument);
         }
     }
@@ -304,32 +202,6 @@ public readonly partial struct Logger
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        nint argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        nint argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
-                argument);
-        }
-    }
-
     #endregion
 
     #region Log(uint)
@@ -356,32 +228,6 @@ public readonly partial struct Logger
         if (loggerContext.IsDebugLevelEnabled)
         {
             Log(loggerContext, LogLevel.Debug, exception, message,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        uint argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        uint argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
                 argument);
         }
     }
@@ -416,32 +262,6 @@ public readonly partial struct Logger
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        nuint argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        nuint argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
-                argument);
-        }
-    }
-
     #endregion
 
     #region Log(long)
@@ -468,32 +288,6 @@ public readonly partial struct Logger
         if (loggerContext.IsDebugLevelEnabled)
         {
             Log(loggerContext, LogLevel.Debug, exception, message,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        long argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        long argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
                 argument);
         }
     }
@@ -528,32 +322,6 @@ public readonly partial struct Logger
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        ulong argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        ulong argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
-                argument);
-        }
-    }
-
     #endregion
 
     #region Log(BigInteger)
@@ -580,32 +348,6 @@ public readonly partial struct Logger
         if (loggerContext.IsDebugLevelEnabled)
         {
             Log(loggerContext, LogLevel.Debug, exception, message,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        BigInteger argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        BigInteger argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
                 argument);
         }
     }
@@ -640,32 +382,6 @@ public readonly partial struct Logger
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        float argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        float argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
-                argument);
-        }
-    }
-
     #endregion
 
     #region Log(double)
@@ -692,32 +408,6 @@ public readonly partial struct Logger
         if (loggerContext.IsDebugLevelEnabled)
         {
             Log(loggerContext, LogLevel.Debug, exception, message,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        double argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        double argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
                 argument);
         }
     }
@@ -752,32 +442,6 @@ public readonly partial struct Logger
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        decimal argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        decimal argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
-                argument);
-        }
-    }
-
     #endregion
 
     #region Log(Guid)
@@ -804,32 +468,6 @@ public readonly partial struct Logger
         if (loggerContext.IsDebugLevelEnabled)
         {
             Log(loggerContext, LogLevel.Debug, exception, message,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        Guid argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        Guid argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
                 argument);
         }
     }
@@ -864,32 +502,6 @@ public readonly partial struct Logger
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        TimeSpan argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        TimeSpan argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
-                argument);
-        }
-    }
-
     #endregion
 
     #region Log(TimeOnly)
@@ -916,32 +528,6 @@ public readonly partial struct Logger
         if (loggerContext.IsDebugLevelEnabled)
         {
             Log(loggerContext, LogLevel.Debug, exception, message,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        TimeOnly argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        TimeOnly argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
                 argument);
         }
     }
@@ -976,32 +562,6 @@ public readonly partial struct Logger
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        DateTime argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        DateTime argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
-                argument);
-        }
-    }
-
     #endregion
 
     #region Log(DateTimeOffset)
@@ -1028,32 +588,6 @@ public readonly partial struct Logger
         if (loggerContext.IsDebugLevelEnabled)
         {
             Log(loggerContext, LogLevel.Debug, exception, message,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        DateTimeOffset argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        DateTimeOffset argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
                 argument);
         }
     }
@@ -1088,32 +622,6 @@ public readonly partial struct Logger
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        DateOnly argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        DateOnly argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
-                argument);
-        }
-    }
-
     #endregion
 
     #region Log(byte)
@@ -1140,32 +648,6 @@ public readonly partial struct Logger
         if (loggerContext.IsDebugLevelEnabled)
         {
             Log(loggerContext, LogLevel.Debug, exception, message,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        byte argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        byte argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
                 argument);
         }
     }
@@ -1200,32 +682,6 @@ public readonly partial struct Logger
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        sbyte argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        sbyte argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
-                argument);
-        }
-    }
-
     #endregion
 
     #region Log(char)
@@ -1256,32 +712,6 @@ public readonly partial struct Logger
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        char argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        char argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
-                argument);
-        }
-    }
-
     #endregion
 
     #region Log(string)
@@ -1308,32 +738,6 @@ public readonly partial struct Logger
         if (loggerContext.IsDebugLevelEnabled)
         {
             Log(loggerContext, LogLevel.Debug, exception, message,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        string? argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        string? argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
                 argument);
         }
     }
@@ -1372,36 +776,6 @@ public readonly partial struct Logger
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory message,
-        string? argument1,
-        string? argument2)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argument1,
-                argument2);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory message,
-        string? argument1,
-        string? argument2)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argument1,
-                argument2);
-        }
-    }
-
     #endregion
 
     #region Log(string, string, string)
@@ -1425,40 +799,6 @@ public readonly partial struct Logger
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
-        string? argument1,
-        string? argument2,
-        string? argument3)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argument1,
-                argument2,
-                argument3);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory message,
-        string? argument1,
-        string? argument2,
-        string? argument3)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argument1,
-                argument2,
-                argument3);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory message,
         string? argument1,
         string? argument2,
         string? argument3)
@@ -1516,44 +856,6 @@ public readonly partial struct Logger
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory message,
-        string? argument1,
-        string? argument2,
-        string? argument3,
-        string? argument4)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argument1,
-                argument2,
-                argument3,
-                argument4);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory message,
-        string? argument1,
-        string? argument2,
-        string? argument3,
-        string? argument4)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argument1,
-                argument2,
-                argument3,
-                argument4);
-        }
-    }
-
     #endregion
 
     #region Log(string...)
@@ -1584,36 +886,11 @@ public readonly partial struct Logger
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory message,
-        params string?[] arguments)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                arguments);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory message,
-        params string?[] arguments)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                arguments);
-        }
-    }
-
     #endregion
 
     #region Log(T)
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug<T>([Localizable(false)][StructuredMessageTemplate] string? message,
         T argument)
     {
@@ -1626,6 +903,7 @@ public readonly partial struct Logger
         }
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug<T>(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         T argument)
     {
@@ -1638,34 +916,11 @@ public readonly partial struct Logger
         }
     }
 
-    public void Debug<T>(LogMessageFactory messageFactory,
-        T argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    public void Debug<T>(Exception? exception, LogMessageFactory messageFactory,
-        T argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
-                argument);
-        }
-    }
-
     #endregion
 
     #region Log(T, T)
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug<T1, T2>([Localizable(false)][StructuredMessageTemplate] string? message,
         T1 argument1,
         T2 argument2)
@@ -1680,35 +935,8 @@ public readonly partial struct Logger
         }
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug<T1, T2>(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
-        T1 argument1,
-        T2 argument2)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argument1,
-                argument2);
-        }
-    }
-
-    public void Debug<T1, T2>(LogMessageFactory message,
-        T1 argument1,
-        T2 argument2)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argument1,
-                argument2);
-        }
-    }
-
-    public void Debug<T1, T2>(Exception? exception, LogMessageFactory message,
         T1 argument1,
         T2 argument2)
     {
@@ -1726,6 +954,7 @@ public readonly partial struct Logger
 
     #region Log(T, T, T)
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug<T1, T2, T3>([Localizable(false)][StructuredMessageTemplate] string? message,
         T1 argument1,
         T2 argument2,
@@ -1742,39 +971,8 @@ public readonly partial struct Logger
         }
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug<T1, T2, T3>(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
-        T1 argument1,
-        T2 argument2,
-        T3 argument3)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argument1,
-                argument2,
-                argument3);
-        }
-    }
-
-    public void Debug<T1, T2, T3>(LogMessageFactory message,
-        T1 argument1,
-        T2 argument2,
-        T3 argument3)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argument1,
-                argument2,
-                argument3);
-        }
-    }
-
-    public void Debug<T1, T2, T3>(Exception? exception, LogMessageFactory message,
         T1 argument1,
         T2 argument2,
         T3 argument3)
@@ -1794,6 +992,7 @@ public readonly partial struct Logger
 
     #region Log(T, T, T, T)
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug<T1, T2, T3, T4>([Localizable(false)][StructuredMessageTemplate] string? message,
         T1 argument1,
         T2 argument2,
@@ -1812,43 +1011,8 @@ public readonly partial struct Logger
         }
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug<T1, T2, T3, T4>(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
-        T1 argument1,
-        T2 argument2,
-        T3 argument3,
-        T4 argument4)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argument1,
-                argument2,
-                argument3,
-                argument4);
-        }
-    }
-
-    public void Debug<T1, T2, T3, T4>(LogMessageFactory message,
-        T1 argument1,
-        T2 argument2,
-        T3 argument3,
-        T4 argument4)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argument1,
-                argument2,
-                argument3,
-                argument4);
-        }
-    }
-
-    public void Debug<T1, T2, T3, T4>(Exception? exception, LogMessageFactory message,
         T1 argument1,
         T2 argument2,
         T3 argument3,
@@ -1896,36 +1060,11 @@ public readonly partial struct Logger
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory message,
-        params object?[] arguments)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                arguments);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory message,
-        params object?[] arguments)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                arguments);
-        }
-    }
-
     #endregion
 
     #region Log(LogMessageArgument)
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug<T>([Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgument<T> argument)
     {
@@ -1938,6 +1077,7 @@ public readonly partial struct Logger
         }
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug<T>(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgument<T> argument)
     {
@@ -1950,34 +1090,11 @@ public readonly partial struct Logger
         }
     }
 
-    public void Debug<T>(LogMessageFactory messageFactory,
-        LogMessageArgument<T> argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-                argument);
-        }
-    }
-
-    public void Debug<T>(Exception? exception, LogMessageFactory messageFactory,
-        LogMessageArgument<T> argument)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
-                argument);
-        }
-    }
-
     #endregion
 
     #region Log(LogMessageArgument, LogMessageArgument)
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug<T1, T2>([Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2)
@@ -1992,35 +1109,8 @@ public readonly partial struct Logger
         }
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug<T1, T2>(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
-        LogMessageArgument<T1> argument1,
-        LogMessageArgument<T2> argument2)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argument1,
-                argument2);
-        }
-    }
-
-    public void Debug<T1, T2>(LogMessageFactory message,
-        LogMessageArgument<T1> argument1,
-        LogMessageArgument<T2> argument2)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argument1,
-                argument2);
-        }
-    }
-
-    public void Debug<T1, T2>(Exception? exception, LogMessageFactory message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2)
     {
@@ -2038,6 +1128,7 @@ public readonly partial struct Logger
 
     #region Log(LogMessageArgument, LogMessageArgument, LogMessageArgument)
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug<T1, T2, T3>([Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2,
@@ -2054,39 +1145,8 @@ public readonly partial struct Logger
         }
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug<T1, T2, T3>(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
-        LogMessageArgument<T1> argument1,
-        LogMessageArgument<T2> argument2,
-        LogMessageArgument<T3> argument3)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argument1,
-                argument2,
-                argument3);
-        }
-    }
-
-    public void Debug<T1, T2, T3>(LogMessageFactory message,
-        LogMessageArgument<T1> argument1,
-        LogMessageArgument<T2> argument2,
-        LogMessageArgument<T3> argument3)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argument1,
-                argument2,
-                argument3);
-        }
-    }
-
-    public void Debug<T1, T2, T3>(Exception? exception, LogMessageFactory message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2,
         LogMessageArgument<T3> argument3)
@@ -2106,6 +1166,7 @@ public readonly partial struct Logger
 
     #region Log(LogMessageArgument, LogMessageArgument, LogMessageArgument, LogMessageArgument)
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug<T1, T2, T3, T4>([Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2,
@@ -2124,6 +1185,7 @@ public readonly partial struct Logger
         }
     }
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     public void Debug<T1, T2, T3, T4>(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
         LogMessageArgument<T1> argument1,
         LogMessageArgument<T2> argument2,
@@ -2139,370 +1201,6 @@ public readonly partial struct Logger
                 argument2,
                 argument3,
                 argument4);
-        }
-    }
-
-    public void Debug<T1, T2, T3, T4>(LogMessageFactory message,
-        LogMessageArgument<T1> argument1,
-        LogMessageArgument<T2> argument2,
-        LogMessageArgument<T3> argument3,
-        LogMessageArgument<T4> argument4)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argument1,
-                argument2,
-                argument3,
-                argument4);
-        }
-    }
-
-    public void Debug<T1, T2, T3, T4>(Exception? exception, LogMessageFactory message,
-        LogMessageArgument<T1> argument1,
-        LogMessageArgument<T2> argument2,
-        LogMessageArgument<T3> argument3,
-        LogMessageArgument<T4> argument4)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argument1,
-                argument2,
-                argument3,
-                argument4);
-        }
-    }
-
-    #endregion
-
-    #region Log(LogMessageArgumentFactory)
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug([Localizable(false)][StructuredMessageTemplate] string? message,
-        LogMessageArgumentFactory argumentFactory)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-            argumentFactory);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
-        LogMessageArgumentFactory argumentFactory)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-            argumentFactory);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory messageFactory,
-        LogMessageArgumentFactory argumentFactory)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, messageFactory,
-            argumentFactory);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory messageFactory,
-        LogMessageArgumentFactory argumentFactory)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, messageFactory,
-            argumentFactory);
-        }
-    }
-
-    #endregion
-
-    #region Log(LogMessageArgumentFactory, LogMessageArgumentFactory)
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug([Localizable(false)][StructuredMessageTemplate] string? message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argumentFactory1,
-                argumentFactory2);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argumentFactory1,
-                argumentFactory2);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argumentFactory1,
-                argumentFactory2);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argumentFactory1,
-                argumentFactory2);
-        }
-    }
-
-    #endregion
-
-    #region Log(LogMessageArgumentFactory, LogMessageArgumentFactory, LogMessageArgumentFactory)
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug([Localizable(false)][StructuredMessageTemplate] string? message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2,
-        LogMessageArgumentFactory argumentFactory3)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argumentFactory1,
-                argumentFactory2,
-                argumentFactory3);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2,
-        LogMessageArgumentFactory argumentFactory3)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argumentFactory1,
-                argumentFactory2,
-                argumentFactory3);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2,
-        LogMessageArgumentFactory argumentFactory3)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argumentFactory1,
-                argumentFactory2,
-                argumentFactory3);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2,
-        LogMessageArgumentFactory argumentFactory3)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argumentFactory1,
-                argumentFactory2,
-                argumentFactory3);
-        }
-    }
-
-    #endregion
-
-    #region Log(LogMessageArgumentFactory, LogMessageArgumentFactory, LogMessageArgumentFactory, LogMessageArgumentFactory)
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug([Localizable(false)][StructuredMessageTemplate] string? message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2,
-        LogMessageArgumentFactory argumentFactory3,
-        LogMessageArgumentFactory argumentFactory4)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argumentFactory1,
-                argumentFactory2,
-                argumentFactory3,
-                argumentFactory4);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2,
-        LogMessageArgumentFactory argumentFactory3,
-        LogMessageArgumentFactory argumentFactory4)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argumentFactory1,
-                argumentFactory2,
-                argumentFactory3,
-                argumentFactory4);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2,
-        LogMessageArgumentFactory argumentFactory3,
-        LogMessageArgumentFactory argumentFactory4)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argumentFactory1,
-                argumentFactory2,
-                argumentFactory3,
-                argumentFactory4);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2,
-        LogMessageArgumentFactory argumentFactory3,
-        LogMessageArgumentFactory argumentFactory4)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argumentFactory1,
-                argumentFactory2,
-                argumentFactory3,
-                argumentFactory4);
-        }
-    }
-
-    #endregion
-
-    #region Log(LogMessageArgumentFactory...)
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug([Localizable(false)][StructuredMessageTemplate] string? message,
-        params LogMessageArgumentFactory[] argumentFactories)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argumentFactories);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, [Localizable(false)][StructuredMessageTemplate] string? message,
-        params LogMessageArgumentFactory[] argumentFactories)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argumentFactories);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(LogMessageFactory message,
-        params LogMessageArgumentFactory[] argumentFactories)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, message,
-                argumentFactories);
-        }
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    public void Debug(Exception? exception, LogMessageFactory message,
-        params LogMessageArgumentFactory[] argumentFactories)
-    {
-        var loggerContext = Volatile.Read(ref _loggerRuntime.LoggerContext);
-
-        if (loggerContext.IsDebugLevelEnabled)
-        {
-            Log(loggerContext, LogLevel.Debug, exception, message,
-                argumentFactories);
         }
     }
 

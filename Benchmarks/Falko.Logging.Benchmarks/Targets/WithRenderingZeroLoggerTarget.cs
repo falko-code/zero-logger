@@ -15,12 +15,12 @@ public sealed class WithRenderingZeroLoggerTarget : LoggerTarget
 
     public override void Publish
     (
-        in LogContext context,
+        scoped ref readonly LogContext context,
         ILogContextRenderer renderer,
         CancellationToken cancellationToken
     )
     {
-        _ = renderer.Render(context);
+        _ = renderer.Render(in context);
     }
 
     public override void Dispose(CancellationContext cancellationContext) { }

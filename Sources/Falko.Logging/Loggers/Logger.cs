@@ -57,51 +57,28 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleMessageFactoryLogMessageRenderer(messageFactory);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleMessageFactoryLogMessageRenderer(messageFactory);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
-    #region Log(State)
+    #region Log(Argument)
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     private void Log<T>(LoggerContext loggerContext, LogLevel level,
-        T messageState, LogMessageFactory<T> messageFactory)
+        T messageArgument, LogMessageFactory<T> messageFactory)
     {
         var time = _timeProvider.Now;
 
-        var messageProvider = new StateMessageFactoryLogMessageRenderer<T>(messageFactory, messageState);
+        var messageProvider = new ArgumentMessageFactoryLogMessageRenderer<T>(messageFactory, messageArgument);
 
         PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
     private void Log<T>(LoggerContext loggerContext, LogLevel level, Exception? exception,
-        T messageState, LogMessageFactory<T> messageFactory)
+        T messageArgument, LogMessageFactory<T> messageFactory)
     {
         var time = _timeProvider.Now;
 
-        var messageProvider = new StateMessageFactoryLogMessageRenderer<T>(messageFactory, messageState);
+        var messageProvider = new ArgumentMessageFactoryLogMessageRenderer<T>(messageFactory, messageArgument);
 
         PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
         {
@@ -136,33 +113,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<short>(message,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        short argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<short>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        short argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<short>(messageFactory,
             argument);
 
         PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
@@ -206,33 +156,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        ushort argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<ushort>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        ushort argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<ushort>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     #region Log(int)
@@ -267,33 +190,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        int argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<int>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        int argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<int>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     #region Log(nint)
@@ -321,33 +217,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<nint>(message,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        nint argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<nint>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        nint argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<nint>(messageFactory,
             argument);
 
         PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
@@ -391,33 +260,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        uint argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<uint>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        uint argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<uint>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     #region Log(nuint)
@@ -445,33 +287,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<nuint>(message,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        nuint argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<nuint>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        nuint argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<nuint>(messageFactory,
             argument);
 
         PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
@@ -515,33 +330,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        long argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<long>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        long argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<long>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     #region Log(ulong)
@@ -569,33 +357,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<ulong>(message,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        ulong argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<ulong>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        ulong argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<ulong>(messageFactory,
             argument);
 
         PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
@@ -639,33 +400,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        BigInteger argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<BigInteger>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        BigInteger argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<BigInteger>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     #region Log(float)
@@ -693,33 +427,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<float>(message,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        float argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<float>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        float argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<float>(messageFactory,
             argument);
 
         PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
@@ -763,33 +470,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        double argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<double>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        double argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<double>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     #region Log(decimal)
@@ -817,33 +497,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<decimal>(message,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        decimal argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<decimal>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        decimal argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<decimal>(messageFactory,
             argument);
 
         PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
@@ -887,33 +540,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        Guid argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<Guid>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        Guid argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<Guid>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     #region Log(TimeSpan)
@@ -941,33 +567,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<TimeSpan>(message,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        TimeSpan argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<TimeSpan>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        TimeSpan argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<TimeSpan>(messageFactory,
             argument);
 
         PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
@@ -1011,33 +610,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        TimeOnly argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<TimeOnly>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        TimeOnly argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<TimeOnly>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     #region Log(DateTime)
@@ -1065,33 +637,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<DateTime>(message,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        DateTime argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<DateTime>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        DateTime argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<DateTime>(messageFactory,
             argument);
 
         PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
@@ -1135,33 +680,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        DateTimeOffset argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<DateTimeOffset>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        DateTimeOffset argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<DateTimeOffset>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     #region Log(DateOnly)
@@ -1189,33 +707,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<DateOnly>(message,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        DateOnly argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<DateOnly>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        DateOnly argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<DateOnly>(messageFactory,
             argument);
 
         PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
@@ -1259,33 +750,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        byte argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<byte>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        byte argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<byte>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     #region Log(sbyte)
@@ -1313,33 +777,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new SingleFormattableArgumentMessageLogMessageRenderer<sbyte>(message,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        sbyte argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<sbyte>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        sbyte argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<sbyte>(messageFactory,
             argument);
 
         PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
@@ -1383,33 +820,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        char argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<char>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        char argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFormattableArgumentMessageFactoryLogMessageRenderer<char>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     #region Log(string)
@@ -1437,33 +847,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new SingleStringArgumentMessageLogMessageRenderer(message,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        string? argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleStringArgumentMessageFactoryLogMessageRenderer(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        string? argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleStringArgumentMessageFactoryLogMessageRenderer(messageFactory,
             argument);
 
         PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
@@ -1511,37 +894,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        string? argument1,
-        string? argument2)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new TwoStringArgumentsMessageFactoryLogMessageRenderer(messageFactory,
-            argument1,
-            argument2);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        string? argument1,
-        string? argument2)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new TwoStringArgumentsMessageFactoryLogMessageRenderer(messageFactory,
-            argument1,
-            argument2);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     #region Log(string, string, string)
@@ -1575,41 +927,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new ThreeStringArgumentsMessageLogMessageRenderer(message,
-            argument1,
-            argument2,
-            argument3);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        string? argument1,
-        string? argument2,
-        string? argument3)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ThreeStringArgumentsMessageFactoryLogMessageRenderer(messageFactory,
-            argument1,
-            argument2,
-            argument3);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        string? argument1,
-        string? argument2,
-        string? argument3)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ThreeStringArgumentsMessageFactoryLogMessageRenderer(messageFactory,
             argument1,
             argument2,
             argument3);
@@ -1667,45 +984,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        string? argument1,
-        string? argument2,
-        string? argument3,
-        string? argument4)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new FourStringArgumentsMessageFactoryLogMessageRenderer(messageFactory,
-            argument1,
-            argument2,
-            argument3,
-            argument4);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        string? argument1,
-        string? argument2,
-        string? argument3,
-        string? argument4)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new FourStringArgumentsMessageFactoryLogMessageRenderer(messageFactory,
-            argument1,
-            argument2,
-            argument3,
-            argument4);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     #region Log(string...)
@@ -1733,33 +1011,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new ManyStringArgumentsMessageLogMessageRenderer(message,
-            arguments);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        params string?[] arguments)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ManyStringArgumentsMessageFactoryLogMessageRenderer(messageFactory,
-            arguments);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        params string?[] arguments)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ManyStringArgumentsMessageFactoryLogMessageRenderer(messageFactory,
             arguments);
 
         PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
@@ -1801,28 +1052,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log<T>(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        T argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleInstanceArgumentMessageFactoryLogMessageRenderer<T>(messageFactory, argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log<T>(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        T argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleInstanceArgumentMessageFactoryLogMessageRenderer<T>(messageFactory, argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider) { Exception = exception });
-    }
-
     #endregion
 
     #region Log(T, T)
@@ -1853,37 +1082,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new TwoInstanceArgumentsMessageLogMessageRenderer<T1, T2>(message,
-            argument1,
-            argument2);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log<T1, T2>(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        T1 argument1,
-        T2 argument2)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new TwoInstanceArgumentsMessageFactoryLogMessageRenderer<T1, T2>(messageFactory,
-            argument1,
-            argument2);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log<T1, T2>(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        T1 argument1,
-        T2 argument2)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new TwoInstanceArgumentsMessageFactoryLogMessageRenderer<T1, T2>(messageFactory,
             argument1,
             argument2);
 
@@ -1926,41 +1124,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new ThreeInstanceArgumentsMessageLogMessageRenderer<T1, T2, T3>(message,
-            argument1,
-            argument2,
-            argument3);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log<T1, T2, T3>(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        T1 argument1,
-        T2 argument2,
-        T3 argument3)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ThreeInstanceArgumentsMessageFactoryLogMessageRenderer<T1, T2, T3>(messageFactory,
-            argument1,
-            argument2,
-            argument3);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log<T1, T2, T3>(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        T1 argument1,
-        T2 argument2,
-        T3 argument3)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ThreeInstanceArgumentsMessageFactoryLogMessageRenderer<T1, T2, T3>(messageFactory,
             argument1,
             argument2,
             argument3);
@@ -2018,45 +1181,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log<T1, T2, T3, T4>(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        T1 argument1,
-        T2 argument2,
-        T3 argument3,
-        T4 argument4)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new FourInstanceArgumentsMessageFactoryLogMessageRenderer<T1, T2, T3, T4>(messageFactory,
-            argument1,
-            argument2,
-            argument3,
-            argument4);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log<T1, T2, T3, T4>(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        T1 argument1,
-        T2 argument2,
-        T3 argument3,
-        T4 argument4)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new FourInstanceArgumentsMessageFactoryLogMessageRenderer<T1, T2, T3, T4>(messageFactory,
-            argument1,
-            argument2,
-            argument3,
-            argument4);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     #region Log(object...)
@@ -2092,33 +1216,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        params object?[] arguments)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ManyInstanceArgumentsMessageFactoryLogMessageRenderer(messageFactory,
-            arguments);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        params object?[] arguments)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ManyInstanceArgumentsMessageFactoryLogMessageRenderer(messageFactory,
-            arguments);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     #region Log(LogMessageArgument)
@@ -2146,33 +1243,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new SingleArgumentMessageLogMessageRenderer<T>(message,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log<T>(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        LogMessageArgument<T> argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleArgumentMessageFactoryLogMessageRenderer<T>(messageFactory,
-            argument);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log<T>(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        LogMessageArgument<T> argument)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleArgumentMessageFactoryLogMessageRenderer<T>(messageFactory,
             argument);
 
         PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
@@ -2220,37 +1290,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log<T1, T2>(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        LogMessageArgument<T1> argument1,
-        LogMessageArgument<T2> argument2)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new TwoArgumentsMessageFactoryLogMessageRenderer<T1, T2>(messageFactory,
-            argument1,
-            argument2);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log<T1, T2>(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        LogMessageArgument<T1> argument1,
-        LogMessageArgument<T2> argument2)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new TwoArgumentsMessageFactoryLogMessageRenderer<T1, T2>(messageFactory,
-            argument1,
-            argument2);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     #region Log(LogMessageArgument, LogMessageArgument, LogMessageArgument)
@@ -2284,41 +1323,6 @@ public readonly partial struct Logger
         var time = _timeProvider.Now;
 
         var messageProvider = new ThreeArgumentsMessageLogMessageRenderer<T1, T2, T3>(message,
-            argument1,
-            argument2,
-            argument3);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log<T1, T2, T3>(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        LogMessageArgument<T1> argument1,
-        LogMessageArgument<T2> argument2,
-        LogMessageArgument<T3> argument3)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ThreeArgumentsMessageFactoryLogMessageRenderer<T1, T2, T3>(messageFactory,
-            argument1,
-            argument2,
-            argument3);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log<T1, T2, T3>(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        LogMessageArgument<T1> argument1,
-        LogMessageArgument<T2> argument2,
-        LogMessageArgument<T3> argument3)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ThreeArgumentsMessageFactoryLogMessageRenderer<T1, T2, T3>(messageFactory,
             argument1,
             argument2,
             argument3);
@@ -2376,403 +1380,6 @@ public readonly partial struct Logger
         });
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log<T1, T2, T3, T4>(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        LogMessageArgument<T1> argument1,
-        LogMessageArgument<T2> argument2,
-        LogMessageArgument<T3> argument3,
-        LogMessageArgument<T4> argument4)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new FourArgumentsMessageFactoryLogMessageRenderer<T1, T2, T3, T4>(messageFactory,
-            argument1,
-            argument2,
-            argument3,
-            argument4);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log<T1, T2, T3, T4>(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        LogMessageArgument<T1> argument1,
-        LogMessageArgument<T2> argument2,
-        LogMessageArgument<T3> argument3,
-        LogMessageArgument<T4> argument4)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new FourArgumentsMessageFactoryLogMessageRenderer<T1, T2, T3, T4>(messageFactory,
-            argument1,
-            argument2,
-            argument3,
-            argument4);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    #endregion
-
-    #region Log(LogMessageArgumentFactory)
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, string? message,
-        LogMessageArgumentFactory argumentFactory)
-    {
-        if (message is null) return;
-
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFactoryArgumentMessageLogMessageRenderer(message,
-            argumentFactory);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, string? message,
-        LogMessageArgumentFactory argumentFactory)
-    {
-        if (exception is null && message is null) return;
-
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFactoryArgumentMessageLogMessageRenderer(message,
-            argumentFactory);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        LogMessageArgumentFactory argumentFactory)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFactoryArgumentMessageFactoryLogMessageRenderer(messageFactory,
-            argumentFactory);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        LogMessageArgumentFactory argumentFactory)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new SingleFactoryArgumentMessageFactoryLogMessageRenderer(messageFactory,
-            argumentFactory);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    #endregion
-
-    #region Log(LogMessageArgumentFactory, LogMessageArgumentFactory)
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, string? message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2)
-    {
-        if (message is null) return;
-
-        var time = _timeProvider.Now;
-
-        var messageProvider = new TwoFactoryArgumentsMessageLogMessageRenderer(message,
-            argumentFactory1,
-            argumentFactory2);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, string? message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2)
-    {
-        if (exception is null && message is null) return;
-
-        var time = _timeProvider.Now;
-
-        var messageProvider = new TwoFactoryArgumentsMessageLogMessageRenderer(message,
-            argumentFactory1,
-            argumentFactory2);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new TwoFactoryArgumentsMessageFactoryLogMessageRenderer(messageFactory,
-            argumentFactory1,
-            argumentFactory2);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new TwoFactoryArgumentsMessageFactoryLogMessageRenderer(messageFactory,
-            argumentFactory1,
-            argumentFactory2);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    #endregion
-
-    #region Log(LogMessageArgumentFactory, LogMessageArgumentFactory, LogMessageArgumentFactory)
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, string? message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2,
-        LogMessageArgumentFactory argumentFactory3)
-    {
-        if (message is null) return;
-
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ThreeFactoryArgumentsMessageLogMessageRenderer(message,
-            argumentFactory1,
-            argumentFactory2,
-            argumentFactory3);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, string? message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2,
-        LogMessageArgumentFactory argumentFactory3)
-    {
-        if (exception is null && message is null) return;
-
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ThreeFactoryArgumentsMessageLogMessageRenderer(message,
-            argumentFactory1,
-            argumentFactory2,
-            argumentFactory3);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2,
-        LogMessageArgumentFactory argumentFactory3)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ThreeFactoryArgumentsMessageFactoryLogMessageRenderer(messageFactory,
-            argumentFactory1,
-            argumentFactory2,
-            argumentFactory3);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2,
-        LogMessageArgumentFactory argumentFactory3)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ThreeFactoryArgumentsMessageFactoryLogMessageRenderer(messageFactory,
-            argumentFactory1,
-            argumentFactory2,
-            argumentFactory3);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    #endregion
-
-    #region Log(LogMessageArgumentFactory, LogMessageArgumentFactory, LogMessageArgumentFactory, LogMessageArgumentFactory)
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, string? message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2,
-        LogMessageArgumentFactory argumentFactory3,
-        LogMessageArgumentFactory argumentFactory4)
-    {
-        if (message is null) return;
-
-        var time = _timeProvider.Now;
-
-        var messageProvider = new FourFactoryArgumentsMessageLogMessageRenderer(message,
-            argumentFactory1,
-            argumentFactory2,
-            argumentFactory3,
-            argumentFactory4);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, string? message,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2,
-        LogMessageArgumentFactory argumentFactory3,
-        LogMessageArgumentFactory argumentFactory4)
-    {
-        if (exception is null && message is null) return;
-
-        var time = _timeProvider.Now;
-
-        var messageProvider = new FourFactoryArgumentsMessageLogMessageRenderer(message,
-            argumentFactory1,
-            argumentFactory2,
-            argumentFactory3,
-            argumentFactory4);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2,
-        LogMessageArgumentFactory argumentFactory3,
-        LogMessageArgumentFactory argumentFactory4)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new FourFactoryArgumentsMessageFactoryLogMessageRenderer(messageFactory,
-            argumentFactory1,
-            argumentFactory2,
-            argumentFactory3,
-            argumentFactory4);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        LogMessageArgumentFactory argumentFactory1,
-        LogMessageArgumentFactory argumentFactory2,
-        LogMessageArgumentFactory argumentFactory3,
-        LogMessageArgumentFactory argumentFactory4)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new FourFactoryArgumentsMessageFactoryLogMessageRenderer(messageFactory,
-            argumentFactory1,
-            argumentFactory2,
-            argumentFactory3,
-            argumentFactory4);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    #endregion
-
-    #region Log(LogMessageArgumentFactory...)
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, string? message,
-        params LogMessageArgumentFactory[] argumentFactories)
-    {
-        if (message is null) return;
-
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ManyFactoryArgumentsMessageLogMessageRenderer(message,
-            argumentFactories);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, string? message,
-        params LogMessageArgumentFactory[] argumentFactories)
-    {
-        if (exception is null && message is null) return;
-
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ManyFactoryArgumentsMessageLogMessageRenderer(message,
-            argumentFactories);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, LogMessageFactory messageFactory,
-        params LogMessageArgumentFactory[] argumentFactories)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ManyFactoryArgumentsMessageFactoryLogMessageRenderer(messageFactory,
-            argumentFactories);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider));
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private void Log(LoggerContext loggerContext, LogLevel level, Exception? exception, LogMessageFactory messageFactory,
-        params LogMessageArgumentFactory[] argumentFactories)
-    {
-        var time = _timeProvider.Now;
-
-        var messageProvider = new ManyFactoryArgumentsMessageFactoryLogMessageRenderer(messageFactory,
-            argumentFactories);
-
-        PublishLog(loggerContext, new LogContext(_loggerSource, level, time, messageProvider)
-        {
-            Exception = exception
-        });
-    }
-
     #endregion
 
     [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.AggressiveOptimization)]
@@ -2780,6 +1387,8 @@ public readonly partial struct Logger
     {
         var targets = loggerContext.Targets;
         var renderers = loggerContext.Renderers;
+
+        scoped ref readonly var logContextRef = ref logContext;
 
         var targetsLength = targets.Length;
 
@@ -2809,7 +1418,7 @@ public readonly partial struct Logger
 
                         ++targetIndex;
 
-                        PublishLog(target, logContext, renderersSpan.Renderer, cancellationToken);
+                        PublishLog(renderersSpan.Renderer, target, in logContextRef, cancellationToken);
 
                         continue;
                     }
@@ -2822,35 +1431,35 @@ public readonly partial struct Logger
 
                         ++targetIndex;
 
-                        PublishLog(target, logContext, logRenderer, cancellationToken);
+                        PublishLog(logRenderer, target, in logContextRef, cancellationToken);
                     }
                 }
             }
             else
             {
-                var logRenderer = new PersistentLogContextRenderer(renderers[0].Renderer);
+                var renderer = new PersistentLogContextRenderer(renderers[0].Renderer);
 
                 for (var targetIndex = 0; targetIndex < targetsLength; targetIndex++)
                 {
                     var target = Unsafe.Add(ref targetsRef, targetIndex);
 
-                    PublishLog(target, logContext, logRenderer, cancellationToken);
+                    PublishLog(renderer, target, in logContextRef, cancellationToken);
                 }
             }
         }
         else if (targetsLength is 1)
         {
-            PublishLog(targets[0], logContext, renderers[0].Renderer, loggerContext.CancellationToken);
+            PublishLog(renderers[0].Renderer, targets[0], in logContextRef, loggerContext.CancellationToken);
         }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-    private static void PublishLog(in LoggerTarget target, in LogContext logContext, ILogContextRenderer logRenderer,
+    private static void PublishLog(ILogContextRenderer logRenderer, LoggerTarget target, scoped ref readonly LogContext logContext,
         CancellationToken cancellationToken)
     {
         try
         {
-            target.Publish(logContext, logRenderer, cancellationToken);
+            target.Publish(in logContext, logRenderer, cancellationToken);
         }
         catch (Exception exception)
         {

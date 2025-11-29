@@ -4,5 +4,5 @@ namespace Falko.Logging.Renderers;
 
 public interface ILogContextRenderer
 {
-    string Render(in LogContext logContext);
+    string Render(scoped ref readonly LogContext logContext);
 }

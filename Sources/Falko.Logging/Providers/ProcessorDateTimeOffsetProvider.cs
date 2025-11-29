@@ -39,7 +39,7 @@ internal sealed class ProcessorDateTimeOffsetProvider : IDateTimeOffsetProvider
 
     public DateTimeOffset Now
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.AggressiveOptimization)]
         get
         {
             RetryRead:

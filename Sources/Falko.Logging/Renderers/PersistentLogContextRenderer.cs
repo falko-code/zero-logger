@@ -5,14 +5,16 @@ namespace Falko.Logging.Renderers;
 [method: MethodImpl(MethodImplOptions.AggressiveInlining)]
 internal sealed class PersistentLogContextRenderer(ILogContextRenderer renderer) : ILogContextRenderer
 {
-    private volatile string? _message;
+    private string? _message;
 
-    public string Render(in LogContext logContext)
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public string Render(scoped ref readonly LogContext logContext)
     {
-        if (_message is not null) return _message;
+        var currentMessage = Volatile.Read(ref _message);
+        if (currentMessage is not null) return currentMessage;
 
-        var message = renderer.Render(logContext);
-        _message = message;
-        return message;
+        var newMessage = renderer.Render(in logContext);
+        Volatile.Write(ref _message, newMessage);
+        return newMessage;
     }
 }

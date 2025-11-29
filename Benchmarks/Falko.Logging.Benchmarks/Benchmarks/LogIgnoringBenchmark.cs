@@ -37,15 +37,6 @@ public class LogIgnoringBenchmark
         }
     }
 
-    [Benchmark]
-    public void LogZeroLoggerStatic()
-    {
-        for (var iteration = 0; iteration < Iterations; iteration++)
-        {
-            ZeroLogger.Debug(static () => "Iteration {IterationNumber}", iteration);
-        }
-    }
-
     [Benchmark(Baseline = true)]
     public void LogNLogLogger()
     {

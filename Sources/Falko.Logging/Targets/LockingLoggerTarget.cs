@@ -26,15 +26,15 @@ public sealed class LockingLoggerTarget(LoggerTarget singleThreadLoggerTarget) :
 
     public override void Publish
     (
-        in LogContext context,
+        scoped ref readonly LogContext context,
         ILogContextRenderer renderer,
         CancellationToken cancellationToken
     )
     {
 #if NET9_0_OR_GREATER
-        using (_locker.EnterScope()) singleThreadLoggerTarget.Publish(context, renderer, cancellationToken);
+        using (_locker.EnterScope()) singleThreadLoggerTarget.Publish(in context, renderer, cancellationToken);
 #else
-        lock (_locker) singleThreadLoggerTarget.Publish(context, renderer, cancellationToken);
+        lock (_locker) singleThreadLoggerTarget.Publish(in context, renderer, cancellationToken);
 #endif
     }
 

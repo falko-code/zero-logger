@@ -48,7 +48,7 @@ public sealed partial class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWo
     [MethodImpl(MethodImplOptions.NoInlining)]
     public override void Publish
     (
-        in LogContext context,
+        scoped ref readonly LogContext context,
         ILogContextRenderer renderer,
         CancellationToken cancellationToken
     )
@@ -57,7 +57,7 @@ public sealed partial class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWo
 
         var enqueued = _logsQueue.Enqueue
         (
-            item: new RenderableLogContext(context, renderer, cancellationToken),
+            item: new RenderableLogContext(in context, renderer, cancellationToken),
             cancellationToken: cancellationToken
         );
 
@@ -125,7 +125,8 @@ public sealed partial class ConcurrentLoggerTarget : LoggerTarget, IThreadPoolWo
     {
         try
         {
-            loggerTarget.Publish(context: logContext.Context, renderer: logContext.Renderer, cancellationToken: logContext.CancellationToken);
+            var logCoreContext = logContext.Context;
+            loggerTarget.Publish(context: ref logCoreContext, renderer: logContext.Renderer, cancellationToken: logContext.CancellationToken);
         }
         catch (Exception exception)
         {

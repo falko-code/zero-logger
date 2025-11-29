@@ -15,7 +15,7 @@ public sealed class WithoutRenderingZeroLoggerTarget : LoggerTarget
 
     public override void Publish
     (
-        in LogContext context,
+        scoped ref readonly LogContext context,
         ILogContextRenderer renderer,
         CancellationToken cancellationToken
     )

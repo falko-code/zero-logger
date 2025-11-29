@@ -15,7 +15,7 @@ public abstract class LoggerTarget : IDisposable
 
     public abstract void Publish
     (
-        in LogContext context,
+        scoped ref readonly LogContext context,
         ILogContextRenderer renderer,
         CancellationToken cancellationToken
     );

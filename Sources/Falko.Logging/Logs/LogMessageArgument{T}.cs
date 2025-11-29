@@ -2,21 +2,9 @@ using Falko.Logging.Factories;
 
 namespace Falko.Logging.Logs;
 
-[method: MethodImpl(MethodImplOptions.AggressiveInlining)]
+[method: MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
 public readonly struct LogMessageArgument<T>(T argument, LogMessageArgumentFactory<T> argumentFactory)
 {
-    public readonly T Argument = argument;
-
-    public readonly LogMessageArgumentFactory<T> ArgumentFactory = argumentFactory;
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public LogMessageArgumentFactory ToFactory()
-    {
-        var @this = this;
-
-        return () => @this.ToString();
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public override string? ToString() => ArgumentFactory(Argument);
+    [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+    public override string? ToString() => argumentFactory(argument);
 }

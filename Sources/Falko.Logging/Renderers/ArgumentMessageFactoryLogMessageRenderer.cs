@@ -3,7 +3,7 @@ using Falko.Logging.Factories;
 namespace Falko.Logging.Renderers;
 
 [method: MethodImpl(MethodImplOptions.AggressiveInlining)]
-internal sealed class StateMessageFactoryLogMessageRenderer<T>
+internal sealed class ArgumentMessageFactoryLogMessageRenderer<T>
 (
     LogMessageFactory<T> messageFactory,
     T messageState

@@ -14,12 +14,12 @@ public sealed class LoggerConsoleTarget : LoggerTarget
 
     public override void Publish
     (
-        in LogContext context,
+        scoped ref readonly LogContext context,
         ILogContextRenderer renderer,
         CancellationToken cancellationToken
     )
     {
-        Console.Write(renderer.Render(context));
+        Console.Write(renderer.Render(in context));
     }
 
     public override void Dispose(CancellationContext cancellationContext) { }

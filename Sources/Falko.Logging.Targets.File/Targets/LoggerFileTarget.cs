@@ -103,7 +103,7 @@ public sealed class LoggerFileTarget : LoggerTarget
 
     public override void Publish
     (
-        in LogContext logContext,
+        scoped ref readonly LogContext logContext,
         ILogContextRenderer renderer,
         CancellationToken cancellationToken
     )
