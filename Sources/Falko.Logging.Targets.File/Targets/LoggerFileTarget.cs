@@ -108,7 +108,7 @@ public sealed class LoggerFileTarget : LoggerTarget
         CancellationToken cancellationToken
     )
     {
-        if (IsLogsDateChangingRequired(logContext.Time.DateTime))
+        if (IsLogsDateChangingRequired(logContext.Time))
         {
             MoveNextDateWithLogsArchivingOfPrevious();
         }
@@ -119,7 +119,7 @@ public sealed class LoggerFileTarget : LoggerTarget
 
         TransferLogToWritingBuffer(logContext, renderer);
 
-        if (IsWritingBufferWritingThresholdReached(logContext.Time.UtcDateTime) is false)
+        if (IsWritingBufferWritingThresholdReached(logContext.Time) is false)
         {
             return;
         }

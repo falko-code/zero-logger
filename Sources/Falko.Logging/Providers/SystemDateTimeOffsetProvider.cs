@@ -2,9 +2,9 @@ namespace Falko.Logging.Providers;
 
 internal sealed class SystemDateTimeOffsetProvider : IDateTimeOffsetProvider
 {
-    public DateTimeOffset Now
+    public DateTime Now
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-        get => DateTimeOffset.Now;
+        get => DateTime.Now;
     }
 }

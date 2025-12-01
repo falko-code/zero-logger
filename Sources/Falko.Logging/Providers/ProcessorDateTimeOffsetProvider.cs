@@ -13,7 +13,7 @@ internal sealed class ProcessorDateTimeOffsetProvider : IDateTimeOffsetProvider
 
     private readonly double _stopwatchTicksRatio;
 
-    private DateTimeOffsetSnapshot _snapshot;
+    private DateTimeSnapshot _snapshot;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ProcessorDateTimeOffsetProvider()
@@ -25,39 +25,38 @@ internal sealed class ProcessorDateTimeOffsetProvider : IDateTimeOffsetProvider
 
         _stopwatchTicksRatio = (double)TimeSpan.TicksPerSecond / Stopwatch.Frequency;
 
-        var rootUtcTime = DateTime.UtcNow;
-        var rootOffsetTime = TimeZoneInfo.Local.GetUtcOffset(rootUtcTime);
+        var rootUtcTime = DateTime.Now;
 
-        _snapshot = new DateTimeOffsetSnapshot
+        _snapshot = new DateTimeSnapshot
         {
             SnapshotVersion = 0,
-            LocalTicks = rootUtcTime.Ticks + rootOffsetTime.Ticks,
-            LocalOffset = rootOffsetTime,
+            LocalTicks = rootUtcTime.Ticks,
             StopwatchTicks = _stopwatch.ElapsedTicks
         };
     }
 
-    public DateTimeOffset Now
+    public DateTime Now
     {
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.AggressiveOptimization)]
         get
         {
+            scoped ref var snapshotRef = ref _snapshot;
+
             RetryRead:
 
-            var snapshotVersionToRead = Volatile.Read(ref _snapshot.SnapshotVersion);
+            var snapshotVersionToRead = Volatile.Read(ref snapshotRef.SnapshotVersion);
 
             if ((snapshotVersionToRead & 1) != 0)
             {
                 goto RetryRead;
             }
 
-            var currentSnapshot = _snapshot;
+            var currentSnapshot = snapshotRef;
 
             var currentLocalTicks = currentSnapshot.LocalTicks;
-            var currentLocalOffset = currentSnapshot.LocalOffset;
             var currentStopwatchTicks = currentSnapshot.StopwatchTicks;
 
-            var snapshotVersionToWrite = Volatile.Read(ref _snapshot.SnapshotVersion);
+            var snapshotVersionToWrite = Volatile.Read(ref snapshotRef.SnapshotVersion);
 
             if (snapshotVersionToRead != snapshotVersionToWrite
                 || (snapshotVersionToWrite & 1) != 0)
@@ -70,10 +69,10 @@ internal sealed class ProcessorDateTimeOffsetProvider : IDateTimeOffsetProvider
             if (deltaStopwatchTicks < _stopwatchTicksThreshold)
             {
                 var addDeltaTicks = (long)(deltaStopwatchTicks * _stopwatchTicksRatio);
-                return new DateTimeOffset(currentLocalTicks + addDeltaTicks, currentLocalOffset);
+                return new DateTime(currentLocalTicks + addDeltaTicks);
             }
 
-            if (Interlocked.CompareExchange(ref _snapshot.SnapshotVersion,
+            if (Interlocked.CompareExchange(ref snapshotRef.SnapshotVersion,
                     snapshotVersionToWrite + 1,
                     snapshotVersionToWrite)
                 != snapshotVersionToWrite)
@@ -81,30 +80,26 @@ internal sealed class ProcessorDateTimeOffsetProvider : IDateTimeOffsetProvider
                 goto RetryRead;
             }
 
-            var nextUtcTime = DateTime.UtcNow;
-            var nextOffsetTime = TimeZoneInfo.Local.GetUtcOffset(nextUtcTime);
+            var nextTime = DateTime.Now;
 
-            var nextLocalTicks = nextUtcTime.Ticks + nextOffsetTime.Ticks;
+            var nextLocalTicks = nextTime.Ticks;
             var nextStopwatchTicks = _stopwatch.ElapsedTicks;
 
-            _snapshot.LocalTicks = nextLocalTicks;
-            _snapshot.LocalOffset = nextOffsetTime;
-            _snapshot.StopwatchTicks = nextStopwatchTicks;
+            snapshotRef.LocalTicks = nextLocalTicks;
+            snapshotRef.StopwatchTicks = nextStopwatchTicks;
 
-            Volatile.Write(ref _snapshot.SnapshotVersion, snapshotVersionToWrite + 2);
+            Volatile.Write(ref snapshotRef.SnapshotVersion, snapshotVersionToWrite + 2);
 
-            return new DateTimeOffset(nextLocalTicks, nextOffsetTime);
+            return nextTime;
         }
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    private struct DateTimeOffsetSnapshot
+    private struct DateTimeSnapshot
     {
         public int SnapshotVersion;
 
         public long LocalTicks;
-
-        public TimeSpan LocalOffset;
 
         public long StopwatchTicks;
     }
