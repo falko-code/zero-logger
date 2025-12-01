@@ -19,7 +19,7 @@ using var loggerRuntime = new LoggerRuntime().Initialize(builder => builder
 
 var logger = typeof(Program).CreateLogger(loggerRuntime);
 
-logger.Info("PI is {PI}", static () => Math.PI.ToString("F"));
+logger.Info("PI is {PI}", Math.PI);
 ```
 
 ## Performance
