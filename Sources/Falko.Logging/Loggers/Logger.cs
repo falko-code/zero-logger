@@ -18,7 +18,7 @@ public readonly partial struct Logger
 
     private readonly string _loggerSource;
 
-    private readonly IDateTimeOffsetProvider _timeProvider;
+    private readonly IDateTimeProvider _timeProvider;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public Logger(LoggerRuntime loggerRuntime, string loggerSource)

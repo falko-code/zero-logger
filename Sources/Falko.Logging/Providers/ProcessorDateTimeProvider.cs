@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Falko.Logging.Providers;
 
-internal sealed class ProcessorDateTimeOffsetProvider : IDateTimeOffsetProvider
+internal sealed class ProcessorDateTimeProvider : IDateTimeProvider
 {
     private const long CachedTimeUpdateThresholdMilliseconds = 8;
 
@@ -16,7 +16,7 @@ internal sealed class ProcessorDateTimeOffsetProvider : IDateTimeOffsetProvider
     private DateTimeSnapshot _snapshot;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public ProcessorDateTimeOffsetProvider()
+    public ProcessorDateTimeProvider()
     {
         _stopwatch = Stopwatch.StartNew();
 

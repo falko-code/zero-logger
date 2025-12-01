@@ -1,6 +1,6 @@
 namespace Falko.Logging.Providers;
 
-internal sealed class SystemDateTimeOffsetProvider : IDateTimeOffsetProvider
+internal sealed class SystemDateTimeProvider : IDateTimeProvider
 {
     public DateTime Now
     {

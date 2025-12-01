@@ -1,6 +1,6 @@
 namespace Falko.Logging.Providers;
 
-internal interface IDateTimeOffsetProvider
+internal interface IDateTimeProvider
 {
     DateTime Now { get; }
 }
