@@ -37,6 +37,10 @@ var logger = typeof(Program).CreateLogger(loggerRuntime);
 logger.Info("PI is {PI}", Math.PI);
 ```
 
+```bash
+dotnet run Example.cs
+```
+
 ## Performance
 
 Compare the performance of the **Falko Logging** with the **NLog Logger**.
