@@ -49,7 +49,7 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
     private SimpleLogContextRenderer() { }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public string Render(in LogContext logContext)
+    public string Render(scoped ref readonly LogContext logContext)
     {
         var levelText = FormatLevel(logContext.Level);
 
@@ -105,7 +105,7 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static void RenderHeader(scoped ref SpanStringStream messageStream,
-        DateTimeOffset time,
+        DateTime time,
         string levelText,
         string sourceText,
         string messageText)
@@ -137,7 +137,7 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static void RenderTimeHeaderBlock(scoped ref SpanStringStream messageStream,
-        DateTimeOffset time)
+        DateTime time)
     {
         messageStream.Write('[');
         AppendTime(ref messageStream, time);
@@ -171,7 +171,7 @@ public sealed class SimpleLogContextRenderer : ILogContextRenderer
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static void AppendTime(scoped ref SpanStringStream messageStream, DateTimeOffset time)
+    private static void AppendTime(scoped ref SpanStringStream messageStream, DateTime time)
     {
         messageStream.Write(TimeHeaderLength, time.TimeOfDay, static (scoped ref stream, in time) =>
         {
