@@ -12,10 +12,25 @@
 High-performance static structured logger with minimal allocations.
 
 ```C#
+#:package Falko.ZeroLogger.Targets.Console@0.10.0.*-*
+#:package Falko.ZeroLogger.Targets.File@0.10.0.*-*
+#:package Falko.ZeroLogger.Targets.Concurrent@0.10.0.*-*
+#:package Falko.ZeroLogger.Renderers.Simple@0.10.0.*-*
+
+using Falko.Logging.Factories;
+using Falko.Logging.Logs;
+using Falko.Logging.Renderers;
+using Falko.Logging.Runtimes;
+using Falko.Logging.Targets;
+
 using var loggerRuntime = new LoggerRuntime().Initialize(builder => builder
     .SetLevel(LogLevels.InfoAndAbove)
-    .AddTarget(SimpleLogContextRenderer.Instance, LoggerConsoleTarget.Instance)
-    .AddTarget(SimpleLogContextRenderer.Instance, new LoggerFileTarget("app_name", "./Logs")));
+    .AddTarget(SimpleLogContextRenderer.Instance,
+        LoggerConsoleTarget.Instance
+            .AsConcurrent())
+    .AddTarget(SimpleLogContextRenderer.Instance,
+        new LoggerFileTarget("app_name", "./Logs")
+            .AsConcurrent()));
 
 var logger = typeof(Program).CreateLogger(loggerRuntime);
 
